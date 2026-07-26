@@ -420,13 +420,15 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     const ServiceIcon = service.icon;
 
                     return (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
-                        <ServiceIcon
-                          className="h-7 w-7"
-                          strokeWidth={2}
-                          aria-hidden="true"
-                        />
-                      </div>
+                      <div className="mb-6 flex justify-center">
+  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+    <ServiceIcon
+      className="h-8 w-8"
+      strokeWidth={2}
+      aria-hidden="true"
+    />
+  </div>
+</div>
                     );
                   })()}
                   <h3 className="mt-6 text-2xl font-bold">
