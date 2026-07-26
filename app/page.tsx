@@ -185,6 +185,50 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   const form = event.currentTarget;
   const formData = new FormData(form);
 
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        message: formData.get("message"),
+        services:
+          selectedServices.length > 0
+            ? selectedServices
+                .map((service) =>
+                  isSpanish ? service.nameEs : service.nameEn,
+                )
+                .join(", ")
+            : isSpanish
+              ? "Ningún servicio seleccionado"
+              : "No service selected",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to send request");
+    }
+
+    setSubmitted(true);
+    form.reset();
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      isSpanish
+        ? "No pudimos enviar tu solicitud. Inténtalo nuevamente."
+        : "We could not send your request. Please try again.",
+    );
+  }
+};
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
   const response = await fetch("/api/contact", {
     method: "POST",
     body: JSON.stringify({
@@ -551,11 +595,17 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                       {isSpanish
                         ? "Solicitud preparada."
                         : "Request prepared."}
-                    </h3>
-                    <p className="mt-4 leading-7 text-slate-300">
-                      {isSpanish
-                        ? "El formulario ya funciona dentro de la página. En el siguiente paso lo conectaremos para que la solicitud llegue realmente a tu correo."
-                        : "The form now works within the page. In the next step, we will connect it so the request is actually delivered to your email."}
+                    <h3 className="mt-4 text-2xl font-bold">
+  {isSpanish
+    ? "¡Hemos recibido tu solicitud!"
+    : "We've received your request!"}
+</h3>
+
+<p className="mt-4 leading-7 text-slate-300">
+  {isSpanish
+    ? "Gracias por contactar con Basevi Solutions. Revisaremos tu información y nos pondremos en contacto contigo dentro de un día hábil. No se requiere ningún pago en esta etapa."
+    : "Thank you for contacting Basevi Solutions. We will review your information and contact you within one business day. No payment is required at this stage."}
+</p>
                     </p>
                   </div>
                 </div>
