@@ -370,16 +370,16 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               />
             </div>
 
-            <div className="absolute -bottom-7 left-4 right-4 rounded-2xl border border-emerald-300/30 bg-slate-950/95 p-5 shadow-2xl backdrop-blur sm:left-8 sm:right-8">
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
+            <div className="absolute -bottom-6 left-4 right-4 rounded-2xl border border-emerald-300/30 bg-slate-950/95 px-5 py-4 shadow-2xl backdrop-blur sm:left-8 sm:right-8 sm:px-6 sm:py-5">
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-300 sm:text-sm">
                 María Basevi
               </p>
-              <p className="mt-2 text-lg font-semibold text-white">
+              <p className="mt-2 text-base font-semibold leading-6 text-white sm:text-lg sm:leading-7">
                 {isSpanish
-                  ? "Fundadora · Preparación documental y servicios fiscales"
-                  : "Founder · Document preparation and tax services"}
+                  ? "Fundadora • Especialista en preparación de documentos migratorios y servicios fiscales"
+                  : "Founder • Specialist in immigration document preparation and tax services"}
               </p>
-              <p className="mt-2 text-sm text-slate-300">
+              <p className="mt-2 text-sm leading-6 text-slate-300">
                 {isSpanish
                   ? "Atención virtual y presencial desde Miami, Florida."
                   : "Virtual and in-person assistance from Miami, Florida."}
@@ -510,17 +510,17 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             ].map((step) => (
               <div
                 key={step.esTitle}
-                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="mb-6 flex justify-center">
-  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
-    {step.icon}
-  </div>
-</div>
-                <h3 className="mt-6 text-xl font-bold">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
+                    {step.icon}
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold">
                   {isSpanish ? step.esTitle : step.enTitle}
                 </h3>
-                <p className="mt-3 leading-7 text-slate-600">
+                <p className="mt-4 leading-7 text-slate-600">
                   {isSpanish ? step.esText : step.enText}
                 </p>
               </div>
