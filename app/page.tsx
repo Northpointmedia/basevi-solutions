@@ -754,7 +754,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       )}
 
       <a
-        href="https://wa.me/"
+        href={
+  isSpanish
+    ? "https://wa.me/17868300438?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita."
+    : "https://wa.me/17868300438?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation."
+}
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-2xl text-white shadow-xl transition hover:scale-105 hover:bg-emerald-500"
