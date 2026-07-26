@@ -226,31 +226,6 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   }
 };
 
-  const form = event.currentTarget;
-  const formData = new FormData(form);
-
-  const response = await fetch("/api/contact", {
-    method: "POST",
-    body: JSON.stringify({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      message: formData.get("message"),
-      services: selectedServices.map((s) => s.nameEs).join(", "),
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (response.ok) {
-    setSubmitted(true);
-    form.reset();
-  } else {
-    alert("Hubo un error al enviar la solicitud.");
-  }
-};
-
   return (
     <main className="min-h-screen bg-white text-slate-950">
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -593,19 +568,13 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     <p className="text-3xl">✓</p>
                     <h3 className="mt-4 text-2xl font-bold">
                       {isSpanish
-                        ? "Solicitud preparada."
-                        : "Request prepared."}
-                    <h3 className="mt-4 text-2xl font-bold">
-  {isSpanish
-    ? "¡Hemos recibido tu solicitud!"
-    : "We've received your request!"}
-</h3>
-
-<p className="mt-4 leading-7 text-slate-300">
-  {isSpanish
-    ? "Gracias por contactar con Basevi Solutions. Revisaremos tu información y nos pondremos en contacto contigo dentro de un día hábil. No se requiere ningún pago en esta etapa."
-    : "Thank you for contacting Basevi Solutions. We will review your information and contact you within one business day. No payment is required at this stage."}
-</p>
+                        ? "¡Hemos recibido tu solicitud!"
+                        : "We've received your request!"}
+                    </h3>
+                    <p className="mt-4 leading-7 text-slate-300">
+                      {isSpanish
+                        ? "Gracias por contactar con Basevi Solutions. Revisaremos tu información y nos pondremos en contacto contigo dentro de un día hábil. No se requiere ningún pago en esta etapa."
+                        : "Thank you for contacting Basevi Solutions. We will review your information and contact you within one business day. No payment is required at this stage."}
                     </p>
                   </div>
                 </div>
