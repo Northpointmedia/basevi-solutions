@@ -75,7 +75,7 @@ const services: Service[] = [
       "Document preparation for the naturalization process.",
     priceLabelEs: "Desde $200",
     priceLabelEn: "Starting at $200",
-    icon: "🇺🇸",
+    icon: "/usa-flag.png",
   },
   {
     id: 6,
@@ -196,6 +196,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         email: formData.get("email"),
         phone: formData.get("phone"),
         message: formData.get("message"),
+        language: isSpanish ? "es" : "en",
         services:
           selectedServices.length > 0
             ? selectedServices
@@ -399,7 +400,17 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   key={service.id}
                   className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <div className="text-4xl">{service.icon}</div>
+                  <Image
+  src={service.icon}
+  alt={
+    isSpanish
+      ? `Icono de ${service.nameEs}`
+      : `${service.nameEn} icon`
+  }
+  width={52}
+  height={34}
+  className="h-9 w-auto rounded-sm object-cover"
+/>
                   <h3 className="mt-6 text-2xl font-bold">
                     {isSpanish ? service.nameEs : service.nameEn}
                   </h3>
