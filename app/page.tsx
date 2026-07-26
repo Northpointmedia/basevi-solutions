@@ -1,7 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useMemo, useState } from "react";
+import {
+  BadgeDollarSign,
+  BriefcaseBusiness,
+  ChartNoAxesCombined,
+  CreditCard,
+  FileText,
+  Flag,
+  Languages,
+  Landmark,
+  Users,
+} from "lucide-react";
+import {
+  FormEvent,
+  type ElementType,
+  useMemo,
+  useState,
+} from "react";
 
 type Language = "es" | "en";
 
@@ -13,7 +29,7 @@ type Service = {
   descriptionEn: string;
   priceLabelEs: string;
   priceLabelEn: string;
-  icon: string;
+  icon: ElementType;
 };
 
 const services: Service[] = [
@@ -27,7 +43,7 @@ const services: Service[] = [
       "Document preparation for a family petition and adjustment of status.",
     priceLabelEs: "Desde $600",
     priceLabelEn: "Starting at $600",
-    icon: "👨‍👩‍👧",
+    icon: Users,
   },
   {
     id: 2,
@@ -39,7 +55,7 @@ const services: Service[] = [
       "Document package for a family petition, adjustment of status, and work permit.",
     priceLabelEs: "Desde $800",
     priceLabelEn: "Starting at $800",
-    icon: "🗽",
+    icon: Landmark,
   },
   {
     id: 3,
@@ -51,7 +67,7 @@ const services: Service[] = [
       "Document preparation to renew or replace a permanent resident card.",
     priceLabelEs: "Desde $125",
     priceLabelEn: "Starting at $125",
-    icon: "💳",
+    icon: CreditCard,
   },
   {
     id: 4,
@@ -63,7 +79,7 @@ const services: Service[] = [
       "Preparation of an initial or renewal employment authorization application.",
     priceLabelEs: "Desde $100",
     priceLabelEn: "Starting at $100",
-    icon: "💼",
+    icon: BriefcaseBusiness,
   },
   {
     id: 5,
@@ -75,7 +91,7 @@ const services: Service[] = [
       "Document preparation for the naturalization process.",
     priceLabelEs: "Desde $200",
     priceLabelEn: "Starting at $200",
-    icon: "/usa-flag.png",
+    icon: Flag,
   },
   {
     id: 6,
@@ -87,7 +103,7 @@ const services: Service[] = [
       "Document review for the affidavit of support and financial evidence.",
     priceLabelEs: "Desde $150",
     priceLabelEn: "Starting at $150",
-    icon: "📊",
+    icon: BadgeDollarSign,
   },
   {
     id: 7,
@@ -99,7 +115,7 @@ const services: Service[] = [
       "Certified translations of personal and immigration documents.",
     priceLabelEs: "Desde $30 por página",
     priceLabelEn: "Starting at $30 per page",
-    icon: "🌎",
+    icon: Languages,
   },
   {
     id: 8,
@@ -111,7 +127,7 @@ const services: Service[] = [
       "Personal tax preparation based on the complexity of the return.",
     priceLabelEs: "Desde $150",
     priceLabelEn: "Starting at $150",
-    icon: "🧾",
+    icon: FileText,
   },
   {
     id: 9,
@@ -123,7 +139,7 @@ const services: Service[] = [
       "Document preparation to apply for an ITIN.",
     priceLabelEs: "Desde $150",
     priceLabelEn: "Starting at $150",
-    icon: "🔢",
+    icon: ChartNoAxesCombined,
   },
 ];
 
@@ -400,31 +416,19 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   key={service.id}
                   className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
-                  {service.icon.startsWith("/") ? (
-                    <Image
-                      src={service.icon}
-                      alt={
-                        isSpanish
-                          ? `Icono de ${service.nameEs}`
-                          : `${service.nameEn} icon`
-                      }
-                      width={52}
-                      height={34}
-                      className="h-9 w-auto rounded-sm object-cover"
-                    />
-                  ) : (
-                    <div
-                      className="text-4xl"
-                      role="img"
-                      aria-label={
-                        isSpanish
-                          ? `Icono de ${service.nameEs}`
-                          : `${service.nameEn} icon`
-                      }
-                    >
-                      {service.icon}
-                    </div>
-                  )}
+                  {(() => {
+                    const ServiceIcon = service.icon;
+
+                    return (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                        <ServiceIcon
+                          className="h-7 w-7"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                      </div>
+                    );
+                  })()}
                   <h3 className="mt-6 text-2xl font-bold">
                     {isSpanish ? service.nameEs : service.nameEn}
                   </h3>
