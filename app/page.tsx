@@ -400,17 +400,31 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   key={service.id}
                   className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <Image
-  src={service.icon}
-  alt={
-    isSpanish
-      ? `Icono de ${service.nameEs}`
-      : `${service.nameEn} icon`
-  }
-  width={52}
-  height={34}
-  className="h-9 w-auto rounded-sm object-cover"
-/>
+                  {service.icon.startsWith("/") ? (
+                    <Image
+                      src={service.icon}
+                      alt={
+                        isSpanish
+                          ? `Icono de ${service.nameEs}`
+                          : `${service.nameEn} icon`
+                      }
+                      width={52}
+                      height={34}
+                      className="h-9 w-auto rounded-sm object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="text-4xl"
+                      role="img"
+                      aria-label={
+                        isSpanish
+                          ? `Icono de ${service.nameEs}`
+                          : `${service.nameEn} icon`
+                      }
+                    >
+                      {service.icon}
+                    </div>
+                  )}
                   <h3 className="mt-6 text-2xl font-bold">
                     {isSpanish ? service.nameEs : service.nameEn}
                   </h3>
