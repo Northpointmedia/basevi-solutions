@@ -512,9 +512,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 key={step.esTitle}
                 className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
-                  {step.icon}
-                </div>
+                <div className="mb-6 flex justify-center">
+  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
+    {step.icon}
+  </div>
+</div>
                 <h3 className="mt-6 text-xl font-bold">
                   {isSpanish ? step.esTitle : step.enTitle}
                 </h3>
