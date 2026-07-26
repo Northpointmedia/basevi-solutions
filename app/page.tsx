@@ -179,10 +179,33 @@ export default function Home() {
     document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  const response = await fetch("/api/contact", {
+    method: "POST",
+    body: JSON.stringify({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
+      services: selectedServices.map((s) => s.nameEs).join(", "),
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (response.ok) {
     setSubmitted(true);
-  };
+    form.reset();
+  } else {
+    alert("Hubo un error al enviar la solicitud.");
+  }
+};
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
