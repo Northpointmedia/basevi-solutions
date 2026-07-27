@@ -4,12 +4,17 @@ import Image from "next/image";
 import {
   BadgeDollarSign,
   BriefcaseBusiness,
+  CalendarDays,
+  ChevronDown,
   ChartNoAxesCombined,
   CreditCard,
   FileText,
   Flag,
   Languages,
   Landmark,
+  MessageCircle,
+  ShieldCheck,
+  Star,
   Users,
 } from "lucide-react";
 import {
@@ -20,6 +25,15 @@ import {
 } from "react";
 
 type Language = "es" | "en";
+
+const CALENDLY_URL = "https://calendly.com/mbasevim/30min";
+
+const WHATSAPP_URL_ES =
+  "https://wa.me/17868300438?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita.";
+
+const WHATSAPP_URL_EN =
+  "https://wa.me/17868300438?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation.";
+
 
 type Service = {
   id: number;
@@ -149,6 +163,7 @@ export default function Home() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const isSpanish = language === "es";
 
@@ -279,18 +294,14 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               {isSpanish ? "EN" : "ES"}
             </button>
 
-            <button
-              type="button"
-              onClick={() => setDrawerOpen(true)}
-              className="relative rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600 sm:inline-flex"
             >
-              📋 {isSpanish ? "Servicios de interés" : "Selected services"}
-              {selectedServices.length > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs text-white">
-                  {selectedServices.length}
-                </span>
-              )}
-            </button>
+              {isSpanish ? "Agendar consulta" : "Book consultation"}
+            </a>
 
             <button
               type="button"
@@ -315,6 +326,16 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   {label}
                 </a>
               ))}
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl bg-emerald-700 px-5 py-3 text-center font-semibold text-white"
+              >
+                {isSpanish
+                  ? "Agendar consulta gratuita"
+                  : "Book free consultation"}
+              </a>
             </div>
           </nav>
         )}
@@ -344,16 +365,21 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <a
-                href="#servicios"
-                className="rounded-full bg-emerald-600 px-7 py-4 text-center font-semibold text-white transition hover:bg-emerald-500"
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-4 text-center font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
               >
-                {isSpanish ? "Explorar servicios" : "Explore services"}
+                <CalendarDays className="h-5 w-5" />
+                {isSpanish
+                  ? "Agendar evaluación gratuita"
+                  : "Book a free evaluation"}
               </a>
               <a
-                href="#contacto"
+                href="#servicios"
                 className="rounded-full border border-white/30 px-7 py-4 text-center font-semibold transition hover:border-white hover:bg-white hover:text-slate-950"
               >
-                {isSpanish ? "Solicitar evaluación gratuita" : "Request free evaluation"}
+                {isSpanish ? "Explorar servicios" : "Explore services"}
               </a>
             </div>
           </div>
@@ -370,22 +396,66 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               />
             </div>
 
-            <div className="absolute -bottom-6 left-4 right-4 rounded-2xl border border-emerald-300/30 bg-slate-950/95 px-5 py-4 shadow-2xl backdrop-blur sm:left-8 sm:right-8 sm:px-6 sm:py-5">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-300 sm:text-sm">
+            <div className="absolute -bottom-7 left-4 right-4 rounded-2xl border border-emerald-300/30 bg-slate-950/95 p-5 shadow-2xl backdrop-blur sm:left-8 sm:right-8">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
                 María Basevi
               </p>
-              <p className="mt-2 text-base font-semibold leading-6 text-white sm:text-lg sm:leading-7">
+              <p className="mt-2 text-lg font-semibold text-white">
                 {isSpanish
-                  ? "Fundadora • Especialista en preparación de documentos migratorios y servicios fiscales"
-                  : "Founder • Specialist in immigration document preparation and tax services"}
+                  ? "Fundadora · Preparación documental y servicios fiscales"
+                  : "Founder · Document preparation and tax services"}
               </p>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-sm text-slate-300">
                 {isSpanish
                   ? "Atención virtual y presencial desde Miami, Florida."
                   : "Virtual and in-person assistance from Miami, Florida."}
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+
+      <section className="border-b border-slate-200 bg-white py-8">
+        <div className="mx-auto grid max-w-7xl gap-4 px-5 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+          {[
+            {
+              icon: ShieldCheck,
+              es: "Información tratada con confidencialidad",
+              en: "Information handled confidentially",
+            },
+            {
+              icon: Languages,
+              es: "Atención en español e inglés",
+              en: "English and Spanish assistance",
+            },
+            {
+              icon: CalendarDays,
+              es: "Evaluación virtual gratuita",
+              en: "Free virtual evaluation",
+            },
+            {
+              icon: MessageCircle,
+              es: "Respuesta en un día hábil",
+              en: "Response within one business day",
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <div
+                key={item.en}
+                className="flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-4"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <p className="font-semibold text-slate-700">
+                  {isSpanish ? item.es : item.en}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -414,7 +484,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               return (
                 <article
                   key={service.id}
-                  className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                  className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
                   {(() => {
                     const ServiceIcon = service.icon;
@@ -510,17 +580,17 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             ].map((step) => (
               <div
                 key={step.esTitle}
-                className="rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="mb-6 flex justify-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
-                    {step.icon}
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold">
+  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
+    {step.icon}
+  </div>
+</div>
+                <h3 className="mt-6 text-xl font-bold">
                   {isSpanish ? step.esTitle : step.enTitle}
                 </h3>
-                <p className="mt-4 leading-7 text-slate-600">
+                <p className="mt-3 leading-7 text-slate-600">
                   {isSpanish ? step.esText : step.enText}
                 </p>
               </div>
@@ -564,6 +634,183 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
+
+      <section id="testimonios" className="bg-slate-50 py-24">
+        <div className="mx-auto max-w-6xl px-5 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
+              {isSpanish ? "Experiencias reales" : "Real client experiences"}
+            </p>
+            <h2 className="mt-4 text-4xl font-bold md:text-5xl">
+              {isSpanish
+                ? "Confianza construida con atención y detalle."
+                : "Trust built through care and attention to detail."}
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {[
+              {
+                name: "Betty R.",
+                esService: "Preparación de ajuste de estatus",
+                enService: "Adjustment of status preparation",
+                esQuote:
+                  "Desde el primer momento recibí una atención muy cercana y profesional. María explicó cada paso, revisó nuestra documentación con muchísimo detalle y respondió nuestras dudas con rapidez.",
+                enQuote:
+                  "From the beginning, I received close and professional attention. Maria explained each step, reviewed our documents in great detail, and responded quickly to our questions.",
+              },
+              {
+                name: "Roberto R.",
+                esService: "Preparación de ajuste de estatus",
+                enService: "Adjustment of status preparation",
+                esQuote:
+                  "El proceso fue mucho más sencillo gracias a la organización y dedicación de María. Nos dio tranquilidad saber que todo estaba revisado antes de enviarlo.",
+                enQuote:
+                  "The process felt much easier thanks to Maria's organization and dedication. It gave us peace of mind knowing everything had been reviewed before submission.",
+              },
+            ].map((review) => (
+              <figure
+                key={review.name}
+                className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm"
+              >
+                <div className="flex gap-1 text-amber-500" aria-label="5 stars">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="h-5 w-5 fill-current" />
+                  ))}
+                </div>
+
+                <blockquote className="mt-6 text-lg leading-8 text-slate-700">
+                  “{isSpanish ? review.esQuote : review.enQuote}”
+                </blockquote>
+
+                <figcaption className="mt-7 border-t border-slate-200 pt-5">
+                  <p className="font-bold">{review.name}</p>
+                  <p className="mt-1 text-sm text-slate-500">
+                    {isSpanish ? review.esService : review.enService}
+                  </p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <p className="mt-6 text-center text-sm text-slate-500">
+            {isSpanish
+              ? "Testimonios reales sobre la experiencia de servicio. Los resultados dependen de cada caso."
+              : "Real testimonials about the service experience. Results depend on each individual case."}
+          </p>
+        </div>
+      </section>
+
+      <section id="preguntas" className="bg-white py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+          <div>
+            <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
+              {isSpanish ? "Preguntas frecuentes" : "Frequently asked questions"}
+            </p>
+            <h2 className="mt-4 text-4xl font-bold leading-tight md:text-5xl">
+              {isSpanish
+                ? "Información clara antes de comenzar."
+                : "Clear information before you begin."}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              {isSpanish
+                ? "Durante la evaluación confirmaremos el alcance específico de tu servicio."
+                : "During the evaluation, we will confirm the specific scope of your service."}
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                esQ: "¿La evaluación inicial tiene costo?",
+                enQ: "Is the initial evaluation free?",
+                esA: "Sí. La evaluación virtual de 30 minutos es gratuita y sirve para conocer tu necesidad y confirmar los próximos pasos.",
+                enA: "Yes. The 30-minute virtual evaluation is free and allows us to understand your needs and confirm the next steps.",
+              },
+              {
+                esQ: "¿Pueden atenderme si vivo fuera de Florida?",
+                enQ: "Can you assist me if I live outside Florida?",
+                esA: "Sí. Atendemos virtualmente a clientes en todo Estados Unidos. Las citas presenciales se coordinan en Miami.",
+                enA: "Yes. We assist clients throughout the United States virtually. In-person appointments are coordinated in Miami.",
+              },
+              {
+                esQ: "¿Basevi Solutions es un bufete de abogados?",
+                enQ: "Is Basevi Solutions a law firm?",
+                esA: "No. Ofrecemos preparación documental, asistencia administrativa, traducciones e impuestos. No brindamos asesoramiento legal ni representación jurídica.",
+                enA: "No. We provide document preparation, administrative assistance, translations, and tax services. We do not provide legal advice or legal representation.",
+              },
+              {
+                esQ: "¿Cuándo se confirma el precio final?",
+                enQ: "When is the final price confirmed?",
+                esA: "Después de revisar el alcance, la documentación y la complejidad del servicio. Las tarifas gubernamentales no están incluidas.",
+                enA: "After reviewing the scope, documents, and complexity of the service. Government filing fees are not included.",
+              },
+              {
+                esQ: "¿Cómo reservo una cita?",
+                enQ: "How do I book an appointment?",
+                esA: "Utiliza el botón de agenda para reservar la evaluación virtual gratuita. Los clientes activos reciben directamente el enlace para citas presenciales de revisión documental.",
+                enA: "Use the scheduling button to book the free virtual evaluation. Existing clients receive the private link for in-person document review appointments.",
+              },
+            ].map((item, index) => {
+              const isOpen = openFaq === index;
+
+              return (
+                <div
+                  key={item.enQ}
+                  className="overflow-hidden rounded-2xl border border-slate-200"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-4 p-6 text-left"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-lg font-bold">
+                      {isSpanish ? item.esQ : item.enQ}
+                    </span>
+                    <ChevronDown
+                      className={`h-5 w-5 shrink-0 transition ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {isOpen && (
+                    <p className="border-t border-slate-200 px-6 py-5 leading-7 text-slate-600">
+                      {isSpanish ? item.esA : item.enA}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-950 py-20 text-white">
+        <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
+          <h2 className="text-4xl font-bold md:text-5xl">
+            {isSpanish
+              ? "¿Lista para dar el siguiente paso?"
+              : "Ready to take the next step?"}
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+            {isSpanish
+              ? "Agenda tu evaluación virtual gratuita y recibe una orientación clara sobre el servicio adecuado."
+              : "Book your free virtual evaluation and receive clear guidance on the right service for your needs."}
+          </p>
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-4 font-bold transition hover:bg-emerald-500"
+          >
+            <CalendarDays className="h-5 w-5" />
+            {isSpanish ? "Agendar ahora" : "Book now"}
+          </a>
+        </div>
+      </section>
+
       <section id="contacto" className="py-24">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <div className="rounded-[2rem] bg-slate-950 p-8 text-white md:p-14">
@@ -582,6 +829,18 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     ? "Revisaremos tu solicitud antes de confirmar cualquier servicio o solicitar un pago."
                     : "We will review your request before confirming any service or requesting payment."}
                 </p>
+
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-7 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500"
+                >
+                  <CalendarDays className="h-5 w-5" />
+                  {isSpanish
+                    ? "Agendar evaluación virtual"
+                    : "Book virtual evaluation"}
+                </a>
 
                 {selectedServices.length > 0 && (
                   <div className="mt-7 rounded-2xl border border-white/15 bg-white/5 p-5">
@@ -754,23 +1013,21 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       )}
 
       <a
-        href={
-  isSpanish
-    ? "https://wa.me/17868300438?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita."
-    : "https://wa.me/17868300438?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation."
-}
+        href={isSpanish ? WHATSAPP_URL_ES : WHATSAPP_URL_EN}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-2xl text-white shadow-xl transition hover:scale-105 hover:bg-emerald-500"
-        aria-label="WhatsApp"
+        className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-xl transition hover:scale-105 hover:bg-emerald-500"
+        aria-label={
+          isSpanish ? "Contactar por WhatsApp" : "Contact through WhatsApp"
+        }
       >
         <svg
-  viewBox="0 0 32 32"
-  aria-hidden="true"
-  className="h-7 w-7 fill-current"
->
-  <path d="M16.04 3C8.86 3 3.02 8.74 3.02 15.8c0 2.26.6 4.47 1.74 6.4L3 29l7.02-1.81a13.17 13.17 0 0 0 6.01 1.46h.01c7.18 0 13.02-5.74 13.02-12.8S23.22 3 16.04 3Zm0 23.49h-.01a10.94 10.94 0 0 1-5.58-1.51l-.4-.24-4.17 1.08 1.11-4.01-.26-.41a10.47 10.47 0 0 1-1.69-5.6c0-5.87 4.94-10.64 11-10.64 2.94 0 5.7 1.12 7.77 3.14a10.45 10.45 0 0 1 3.23 7.51c0 5.87-4.94 10.65-11 10.65Zm6.03-7.97c-.33-.16-1.95-.95-2.25-1.05-.3-.11-.52-.16-.74.16-.22.32-.85 1.05-1.04 1.27-.19.21-.38.24-.71.08-.33-.16-1.4-.5-2.66-1.61-.98-.86-1.65-1.92-1.84-2.24-.19-.32-.02-.49.14-.65.15-.14.33-.38.49-.57.16-.19.22-.32.33-.54.11-.22.05-.41-.03-.57-.08-.16-.74-1.75-1.01-2.4-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.32-1.14 1.1-1.14 2.67s1.17 3.09 1.33 3.3c.16.22 2.3 3.45 5.58 4.84.78.33 1.39.52 1.87.67.78.24 1.49.21 2.05.13.63-.09 1.95-.78 2.22-1.54.27-.76.27-1.4.19-1.54-.08-.13-.3-.21-.63-.37Z" />
-</svg>
+          viewBox="0 0 32 32"
+          aria-hidden="true"
+          className="h-7 w-7 fill-current"
+        >
+          <path d="M16.04 3C8.86 3 3.02 8.74 3.02 15.8c0 2.26.6 4.47 1.74 6.4L3 29l7.02-1.81a13.17 13.17 0 0 0 6.01 1.46h.01c7.18 0 13.02-5.74 13.02-12.8S23.22 3 16.04 3Zm0 23.49h-.01a10.94 10.94 0 0 1-5.58-1.51l-.4-.24-4.17 1.08 1.11-4.01-.26-.41a10.47 10.47 0 0 1-1.69-5.6c0-5.87 4.94-10.64 11-10.64 2.94 0 5.7 1.12 7.77 3.14a10.45 10.45 0 0 1 3.23 7.51c0 5.87-4.94 10.65-11 10.65Zm6.03-7.97c-.33-.16-1.95-.95-2.25-1.05-.3-.11-.52-.16-.74.16-.22.32-.85 1.05-1.04 1.27-.19.21-.38.24-.71.08-.33-.16-1.4-.5-2.66-1.61-.98-.86-1.65-1.92-1.84-2.24-.19-.32-.02-.49.14-.65.15-.14.33-.38.49-.57.16-.19.22-.32.33-.54.11-.22.05-.41-.03-.57-.08-.16-.74-1.75-1.01-2.4-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.32-1.14 1.1-1.14 2.67s1.17 3.09 1.33 3.3c.16.22 2.3 3.45 5.58 4.84.78.33 1.39.52 1.87.67.78.24 1.49.21 2.05.13.63-.09 1.95-.78 2.22-1.54.27-.76.27-1.4.19-1.54-.08-.13-.3-.21-.63-.37Z" />
+        </svg>
       </a>
     </main>
   );
