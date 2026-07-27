@@ -26,7 +26,8 @@ import {
 
 type Language = "es" | "en";
 
-const CALENDLY_URL = "https://calendly.com/mbasevim/30min";
+const CALENDLY_URL_ES = "https://calendly.com/mbasevim/30min";
+const CALENDLY_URL_EN = "https://calendly.com/mbasevim/30min";
 
 const WHATSAPP_URL_ES =
   "https://wa.me/17868300438?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita.";
@@ -166,6 +167,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const isSpanish = language === "es";
+  const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
 
   const navigation = isSpanish
     ? [
@@ -295,7 +297,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </button>
 
             <a
-              href={CALENDLY_URL}
+              href={calendlyUrl}
               target="_blank"
               rel="noreferrer"
               className="hidden rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600 sm:inline-flex"
@@ -327,7 +329,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 </a>
               ))}
               <a
-                href={CALENDLY_URL}
+                href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-xl bg-emerald-700 px-5 py-3 text-center font-semibold text-white"
@@ -365,7 +367,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <a
-                href={CALENDLY_URL}
+                href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-4 text-center font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
@@ -651,7 +653,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {[
               {
-                name: "Betty R.",
+                name: "Betty C.",
                 esService: "Preparación de ajuste de estatus",
                 enService: "Adjustment of status preparation",
                 esQuote:
@@ -660,7 +662,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   "From the beginning, I received close and professional attention. Maria explained each step, reviewed our documents in great detail, and responded quickly to our questions.",
               },
               {
-                name: "Roberto R.",
+                name: "Roberto M.",
                 esService: "Preparación de ajuste de estatus",
                 enService: "Adjustment of status preparation",
                 esQuote:
@@ -724,8 +726,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               {
                 esQ: "¿La evaluación inicial tiene costo?",
                 enQ: "Is the initial evaluation free?",
-                esA: "Sí. La evaluación virtual de 30 minutos es gratuita y sirve para conocer tu necesidad y confirmar los próximos pasos.",
-                enA: "Yes. The 30-minute virtual evaluation is free and allows us to understand your needs and confirm the next steps.",
+                esA: "Sí. La evaluación virtual inicial de 30 minutos es completamente gratuita y sin compromiso. Durante la reunión conoceremos tu situación, responderemos tus preguntas y te explicaremos claramente los próximos pasos, el alcance del servicio y el precio si decides continuar.",
+                enA: "Yes. The initial 30-minute virtual evaluation is completely free and comes with no obligation. During the meeting, we will learn about your situation, answer your questions, and clearly explain the next steps, service scope, and pricing if you decide to move forward.",
               },
               {
                 esQ: "¿Pueden atenderme si vivo fuera de Florida?",
@@ -791,16 +793,16 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
           <h2 className="text-4xl font-bold md:text-5xl">
             {isSpanish
-              ? "¿Lista para dar el siguiente paso?"
+              ? "¿Todo listo para dar el siguiente paso?"
               : "Ready to take the next step?"}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
             {isSpanish
-              ? "Agenda tu evaluación virtual gratuita y recibe una orientación clara sobre el servicio adecuado."
+              ? "Agenda tu evaluación virtual inicial gratuita y recibe una orientación clara sobre tu caso, los próximos pasos y el servicio más adecuado para ti."
               : "Book your free virtual evaluation and receive clear guidance on the right service for your needs."}
           </p>
           <a
-            href={CALENDLY_URL}
+            href={calendlyUrl}
             target="_blank"
             rel="noreferrer"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-4 font-bold transition hover:bg-emerald-500"
@@ -831,7 +833,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 </p>
 
                 <a
-                  href={CALENDLY_URL}
+                  href={calendlyUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-7 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500"
