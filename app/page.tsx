@@ -28,6 +28,19 @@ import {
 
 type Language = "es" | "en";
 
+declare global {
+  interface Window {
+    dataLayer?: Array<Record<string, unknown>>;
+  }
+}
+
+type TrackingEventName =
+  | "book_consultation_click"
+  | "whatsapp_click"
+  | "contact_form_submit"
+  | "service_evaluation_request"
+  | "language_switch";
+
 const CALENDLY_URL_ES = "https://calendly.com/mbasevim/30min";
 const CALENDLY_URL_EN = "https://calendly.com/mbasevim/30min";
 
@@ -160,6 +173,19 @@ const services: Service[] = [
   },
 ];
 
+const trackEvent = (
+  eventName: TrackingEventName,
+  parameters: Record<string, string | number | boolean> = {},
+) => {
+  if (typeof window === "undefined") return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: eventName,
+    ...parameters,
+  });
+};
+
 export default function Home() {
   const [language, setLanguage] = useState<Language>("es");
   const [selectedServices, setSelectedServices] = useState<Service[]>([]);
@@ -171,6 +197,33 @@ export default function Home() {
 
   const isSpanish = language === "es";
   const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
+
+  const handleLanguageSwitch = () => {
+    const nextLanguage = isSpanish ? "en" : "es";
+
+    trackEvent("language_switch", {
+      current_language: language,
+      selected_language: nextLanguage,
+    });
+
+    setLanguage(nextLanguage);
+  };
+
+  const trackBookingClick = (placement: string) => {
+    trackEvent("book_consultation_click", {
+      placement,
+      language,
+      destination_url: calendlyUrl,
+    });
+  };
+
+  const trackWhatsAppClick = (placement: string) => {
+    trackEvent("whatsapp_click", {
+      placement,
+      language,
+      destination: "whatsapp",
+    });
+  };
 
   useEffect(() => {
     const sectionIds = [
@@ -246,6 +299,21 @@ export default function Home() {
   );
 
   const addService = (service: Service) => {
+    const alreadySelected = selectedServices.some(
+      (item) => item.id === service.id,
+    );
+
+    if (!alreadySelected) {
+      trackEvent("service_evaluation_request", {
+        service_id: service.id,
+        service_name: isSpanish ? service.nameEs : service.nameEn,
+        language,
+        estimated_price: isSpanish
+          ? service.priceLabelEs
+          : service.priceLabelEn,
+      });
+    }
+
     setSelectedServices((current) => {
       if (current.some((item) => item.id === service.id)) return current;
       return [...current, service];
@@ -299,6 +367,12 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       throw new Error("Unable to send request");
     }
 
+    trackEvent("contact_form_submit", {
+      language,
+      selected_services_count: selectedServices.length,
+      form_name: "free_evaluation_form",
+    });
+
     setSubmitted(true);
     form.reset();
   } catch (error) {
@@ -344,6 +418,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 href={isSpanish ? WHATSAPP_URL_ES : WHATSAPP_URL_EN}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackWhatsAppClick("top_bar")}
                 className="inline-flex items-center gap-2 font-semibold text-emerald-300 transition hover:text-emerald-200"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
@@ -391,7 +466,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           <div className="flex shrink-0 items-center gap-2.5">
             <button
               type="button"
-              onClick={() => setLanguage(isSpanish ? "en" : "es")}
+              onClick={handleLanguageSwitch}
               className="hidden rounded-full border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-800 transition hover:border-emerald-700 hover:text-emerald-800 sm:inline-flex"
               aria-label={
                 isSpanish ? "Switch website to English" : "Cambiar sitio a español"
@@ -404,6 +479,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               href={calendlyUrl}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackBookingClick("desktop_header")}
               className="hidden items-center gap-2 rounded-full bg-emerald-700 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/10 transition hover:-translate-y-0.5 hover:bg-emerald-600 lg:inline-flex"
             >
               <CalendarDays className="h-4.5 w-4.5" />
@@ -461,7 +537,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
               <button
                 type="button"
-                onClick={() => setLanguage(isSpanish ? "en" : "es")}
+                onClick={handleLanguageSwitch}
                 className="rounded-xl border border-slate-300 px-5 py-3 text-center font-semibold text-slate-800"
               >
                 {isSpanish ? "View in English" : "Ver en español"}
@@ -471,6 +547,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackBookingClick("mobile_menu")}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3.5 text-center font-bold text-white"
               >
                 <CalendarDays className="h-5 w-5" />
@@ -510,6 +587,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackBookingClick("hero")}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-4 text-center font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
               >
                 <CalendarDays className="h-5 w-5" />
@@ -975,6 +1053,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             href={calendlyUrl}
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackBookingClick("final_cta")}
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-4 font-bold transition hover:bg-emerald-500"
           >
             <CalendarDays className="h-5 w-5" />
@@ -1006,6 +1085,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   href={calendlyUrl}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackBookingClick("contact_section")}
                   className="mt-7 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500"
                 >
                   <CalendarDays className="h-5 w-5" />
@@ -1188,6 +1268,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         href={isSpanish ? WHATSAPP_URL_ES : WHATSAPP_URL_EN}
         target="_blank"
         rel="noreferrer"
+        onClick={() => trackWhatsAppClick("floating_button")}
         className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-xl transition hover:scale-105 hover:bg-emerald-500"
         aria-label={
           isSpanish ? "Contactar por WhatsApp" : "Contact through WhatsApp"
