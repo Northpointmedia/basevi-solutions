@@ -315,14 +315,147 @@ const needOptions: Array<{
   labelEs: string;
   labelEn: string;
   category?: ServiceCategory;
+  serviceIds?: number[];
+  titleEs?: string;
+  titleEn?: string;
+  descriptionEs?: string;
+  descriptionEn?: string;
 }> = [
-  { id: "family", labelEs: "Traer o pedir a un familiar", labelEn: "Bring or petition for a family member", category: "immigration" },
-  { id: "green-card", labelEs: "Solicitar o renovar una Green Card", labelEn: "Apply for or renew a Green Card", category: "immigration" },
-  { id: "work-travel", labelEs: "Solicitar permiso de trabajo o documento de viaje", labelEn: "Request a work permit or travel document", category: "immigration" },
-  { id: "citizenship", labelEs: "Solicitar la ciudadanía estadounidense", labelEn: "Apply for U.S. citizenship", category: "immigration" },
-  { id: "taxes", labelEs: "Preparar impuestos o solicitar un ITIN", labelEn: "Prepare taxes or request an ITIN", category: "tax" },
-  { id: "translation", labelEs: "Traducir un documento", labelEn: "Translate a document", category: "translation" },
-  { id: "unsure", labelEs: "No estoy seguro/a", labelEn: "I am not sure" },
+  {
+    id: "family",
+    labelEs: "Quiero pedir a un familiar",
+    labelEn: "Petition for a family member",
+    category: "immigration",
+    serviceIds: [1, 2, 3],
+    titleEs: "Peticiones familiares y ajuste de estatus",
+    titleEn: "Family petitions and adjustment of status",
+    descriptionEs:
+      "Te mostramos únicamente las opciones relacionadas con peticiones familiares, residencia y permiso de trabajo.",
+    descriptionEn:
+      "We will show only the options related to family petitions, permanent residence, and work authorization.",
+  },
+  {
+    id: "residence",
+    labelEs: "Quiero solicitar la residencia",
+    labelEn: "Apply for permanent residence",
+    category: "immigration",
+    serviceIds: [2, 3],
+    titleEs: "Ajuste de estatus",
+    titleEn: "Adjustment of status",
+    descriptionEs:
+      "Opciones para solicitar la residencia mediante una petición familiar, con o sin permiso de trabajo.",
+    descriptionEn:
+      "Options to apply for permanent residence through a family petition, with or without work authorization.",
+  },
+  {
+    id: "green-card",
+    labelEs: "Quiero renovar o reemplazar mi Green Card",
+    labelEn: "Renew or replace my Green Card",
+    category: "immigration",
+    serviceIds: [5],
+    titleEs: "Renovación o reemplazo de Green Card",
+    titleEn: "Green Card renewal or replacement",
+    descriptionEs:
+      "Este servicio corresponde a la renovación o reemplazo de una tarjeta de residencia permanente.",
+    descriptionEn:
+      "This service is for renewing or replacing a Permanent Resident Card.",
+  },
+  {
+    id: "work-permit",
+    labelEs: "Quiero solicitar o renovar un permiso de trabajo",
+    labelEn: "Apply for or renew a work permit",
+    category: "immigration",
+    serviceIds: [4],
+    titleEs: "Permiso de trabajo",
+    titleEn: "Employment authorization",
+    descriptionEs:
+      "Este servicio corresponde a la preparación del Formulario I-765.",
+    descriptionEn:
+      "This service covers preparation of Form I-765.",
+  },
+  {
+    id: "travel-document",
+    labelEs: "Necesito un documento de viaje",
+    labelEn: "Request a travel document",
+    category: "immigration",
+    serviceIds: [8],
+    titleEs: "Documento de viaje",
+    titleEn: "Travel document",
+    descriptionEs:
+      "Este servicio corresponde a solicitudes elegibles mediante el Formulario I-131.",
+    descriptionEn:
+      "This service covers eligible travel document requests using Form I-131.",
+  },
+  {
+    id: "citizenship",
+    labelEs: "Quiero solicitar la ciudadanía estadounidense",
+    labelEn: "Apply for U.S. citizenship",
+    category: "immigration",
+    serviceIds: [6],
+    titleEs: "Ciudadanía por naturalización",
+    titleEn: "U.S. citizenship through naturalization",
+    descriptionEs:
+      "Este servicio corresponde a la preparación del Formulario N-400.",
+    descriptionEn:
+      "This service covers preparation of Form N-400.",
+  },
+  {
+    id: "sponsor",
+    labelEs: "Necesito una evaluación financiera para un patrocinador",
+    labelEn: "Need a financial evaluation for a sponsor",
+    category: "immigration",
+    serviceIds: [7],
+    titleEs: "Evaluación financiera para patrocinadores",
+    titleEn: "Financial evaluation for sponsors",
+    descriptionEs:
+      "Revisión financiera y preparación del Formulario I-864.",
+    descriptionEn:
+      "Financial review and preparation of Form I-864.",
+  },
+  {
+    id: "itin",
+    labelEs: "Necesito solicitar un ITIN",
+    labelEn: "Apply for an ITIN",
+    category: "tax",
+    serviceIds: [12],
+    titleEs: "Solicitud de ITIN",
+    titleEn: "ITIN application",
+    descriptionEs:
+      "Este servicio corresponde a la preparación del Formulario W-7.",
+    descriptionEn:
+      "This service covers preparation of Form W-7.",
+  },
+  {
+    id: "taxes",
+    labelEs: "Necesito preparar mis impuestos",
+    labelEn: "Prepare my taxes",
+    category: "tax",
+    serviceIds: [9, 10, 11],
+    titleEs: "Preparación de impuestos",
+    titleEn: "Tax preparation",
+    descriptionEs:
+      "Te mostramos las opciones para declaraciones personales, con dependientes o de negocio.",
+    descriptionEn:
+      "We will show the options for individual, dependent-related, or business tax preparation.",
+  },
+  {
+    id: "translation",
+    labelEs: "Necesito una traducción certificada",
+    labelEn: "Request a certified translation",
+    category: "translation",
+    serviceIds: [13, 14],
+    titleEs: "Traducciones certificadas",
+    titleEn: "Certified translations",
+    descriptionEs:
+      "Elige entre documentos civiles estándar o documentos legales más complejos.",
+    descriptionEn:
+      "Choose between standard civil documents and more complex legal documents.",
+  },
+  {
+    id: "unsure",
+    labelEs: "No estoy seguro/a",
+    labelEn: "I am not sure",
+  },
 ];
 
 const trackEvent = (
@@ -348,6 +481,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("inicio");
   const [selectedCategory, setSelectedCategory] =
     useState<ServiceCategory | null>(null);
+  const [selectedNeed, setSelectedNeed] = useState<string | null>(null);
   const [openServiceId, setOpenServiceId] = useState<number | null>(null);
 
   const isSpanish = language === "es";
@@ -491,7 +625,9 @@ export default function Home() {
 
   const selectServiceCategory = (category: ServiceCategory) => {
     setSelectedCategory(category);
+    setSelectedNeed(null);
     setOpenServiceId(null);
+
     setTimeout(() => {
       document
         .getElementById("service-options")
@@ -501,14 +637,25 @@ export default function Home() {
 
   const handleNeedSelection = (value: string) => {
     const option = needOptions.find((item) => item.id === value);
+
     if (!option) return;
 
-    if (!option.category) {
-      window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+    if (!option.category || !option.serviceIds) {
+      trackBookingClick("service_selector_unsure");
       return;
     }
 
-    selectServiceCategory(option.category);
+    setSelectedNeed(option.id);
+    setSelectedCategory(option.category);
+    setOpenServiceId(
+      option.serviceIds.length === 1 ? option.serviceIds[0] : null,
+    );
+
+    setTimeout(() => {
+      document
+        .getElementById("service-options")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   };
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -878,13 +1025,13 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </p>
             <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
               {isSpanish
-                ? "Cuéntanos qué necesitas y te mostramos las opciones."
-                : "Tell us what you need and we will show you the right options."}
+                ? "Comienza por tu objetivo, no por los formularios."
+                : "Start with your goal, not with the forms."}
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               {isSpanish
-                ? "No necesitas conocer el nombre de cada formulario. Selecciona tu necesidad o explora una categoría."
-                : "You do not need to know the name of every form. Select your need or explore a category."}
+                ? "Nosotros nos encargamos de identificar el proceso adecuado para ti."
+                : "We will help identify the right process for your situation."}
             </p>
           </div>
 
@@ -893,12 +1040,12 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               htmlFor="service-need"
               className="block text-center text-lg font-bold text-slate-900"
             >
-              {isSpanish ? "¿Con qué necesitas ayuda?" : "What do you need help with?"}
+              {isSpanish ? "¿Cuál es tu objetivo?" : "What would you like to do?"}
             </label>
 
             <select
               id="service-need"
-              defaultValue=""
+              value={selectedNeed ?? ""}
               onChange={(event) => handleNeedSelection(event.target.value)}
               className="mt-5 w-full rounded-2xl border border-slate-300 bg-white px-5 py-4 text-base font-medium text-slate-800 outline-none transition focus:border-emerald-700 focus:ring-4 focus:ring-emerald-100"
             >
@@ -991,27 +1138,60 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     {isSpanish ? "Opciones disponibles" : "Available options"}
                   </p>
                   <h3 className="mt-2 text-3xl font-bold">
-                    {isSpanish
-                      ? serviceCategories.find((category) => category.id === selectedCategory)?.titleEs
-                      : serviceCategories.find((category) => category.id === selectedCategory)?.titleEn}
+                    {selectedNeed
+                      ? isSpanish
+                        ? needOptions.find((option) => option.id === selectedNeed)?.titleEs
+                        : needOptions.find((option) => option.id === selectedNeed)?.titleEn
+                      : isSpanish
+                        ? serviceCategories.find(
+                            (category) => category.id === selectedCategory,
+                          )?.titleEs
+                        : serviceCategories.find(
+                            (category) => category.id === selectedCategory,
+                          )?.titleEn}
                   </h3>
+
+                  <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+                    {selectedNeed
+                      ? isSpanish
+                        ? needOptions.find((option) => option.id === selectedNeed)?.descriptionEs
+                        : needOptions.find((option) => option.id === selectedNeed)?.descriptionEn
+                      : isSpanish
+                        ? serviceCategories.find(
+                            (category) => category.id === selectedCategory,
+                          )?.descriptionEs
+                        : serviceCategories.find(
+                            (category) => category.id === selectedCategory,
+                          )?.descriptionEn}
+                  </p>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => {
                     setSelectedCategory(null);
+                    setSelectedNeed(null);
                     setOpenServiceId(null);
                   }}
                   className="self-start rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-emerald-700 hover:text-emerald-800"
                 >
-                  {isSpanish ? "Cerrar opciones" : "Close options"}
+                  {isSpanish ? "Cambiar objetivo" : "Change goal"}
                 </button>
               </div>
 
               <div className="space-y-4">
                 {services
-                  .filter((service) => service.category === selectedCategory)
+                  .filter((service) => {
+                    if (service.category !== selectedCategory) return false;
+
+                    const selectedOption = needOptions.find(
+                      (option) => option.id === selectedNeed,
+                    );
+
+                    return selectedOption?.serviceIds
+                      ? selectedOption.serviceIds.includes(service.id)
+                      : true;
+                  })
                   .map((service) => {
                     const isOpen = openServiceId === service.id;
                     const selected = selectedServices.some(
