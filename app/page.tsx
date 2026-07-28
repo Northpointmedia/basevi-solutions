@@ -21,6 +21,7 @@ import {
 import {
   FormEvent,
   type ElementType,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -166,9 +167,59 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [activeSection, setActiveSection] = useState("inicio");
 
   const isSpanish = language === "es";
   const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
+
+  useEffect(() => {
+    const sectionIds = [
+      "inicio",
+      "servicios",
+      "proceso",
+      "nosotros",
+      "testimonios",
+      "preguntas",
+      "contacto",
+    ];
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const updateFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && sectionIds.includes(hash)) {
+        setActiveSection(hash);
+      }
+    };
+
+    updateFromHash();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry?.target.id) {
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        rootMargin: "-150px 0px -55% 0px",
+        threshold: [0.01, 0.1, 0.25, 0.5],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    window.addEventListener("hashchange", updateFromHash);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("hashchange", updateFromHash);
+    };
+  }, []);
 
   const navigation = isSpanish
     ? [
@@ -315,19 +366,26 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           </a>
 
           <nav className="hidden items-center gap-9 xl:flex">
-            {navigation.map(([label, href], index) => (
-              <a
-                key={href}
-                href={href}
-                className={`relative py-3 text-sm font-semibold transition ${
-                  index === 0
-                    ? "text-emerald-800 after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded-full after:bg-emerald-700"
-                    : "text-slate-600 hover:text-emerald-800"
-                }`}
-              >
-                {label}
-              </a>
-            ))}
+            {navigation.map(([label, href]) => {
+              const sectionId = href.replace("#", "");
+              const isActive = activeSection === sectionId;
+
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setActiveSection(sectionId)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative py-3 text-sm font-semibold transition ${
+                    isActive
+                      ? "text-emerald-800 after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded-full after:bg-emerald-700"
+                      : "text-slate-600 hover:text-emerald-800"
+                  }`}
+                >
+                  {label}
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex shrink-0 items-center gap-2.5">
@@ -369,16 +427,29 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         {mobileMenuOpen && (
           <nav className="border-t border-slate-200 bg-white px-5 py-5 shadow-xl xl:hidden">
             <div className="mx-auto flex max-w-7xl flex-col gap-4">
-              {navigation.map(([label, href]) => (
-                <a
-                  key={href}
-                  href={href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-lg px-2 py-2 font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-emerald-800"
-                >
-                  {label}
-                </a>
-              ))}
+              {navigation.map(([label, href]) => {
+                const sectionId = href.replace("#", "");
+                const isActive = activeSection === sectionId;
+
+                return (
+                  <a
+                    key={href}
+                    href={href}
+                    onClick={() => {
+                      setActiveSection(sectionId);
+                      setMobileMenuOpen(false);
+                    }}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`rounded-lg px-2 py-2 font-semibold transition ${
+                      isActive
+                        ? "bg-emerald-50 text-emerald-800"
+                        : "text-slate-700 hover:bg-slate-50 hover:text-emerald-800"
+                    }`}
+                  >
+                    {label}
+                  </a>
+                );
+              })}
 
               <a
                 href="tel:+17868300438"
@@ -412,7 +483,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         )}
       </header>
 
-      <section id="inicio" className="relative overflow-hidden bg-slate-950 text-white">
+      <section id="inicio" className="scroll-mt-[150px] relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.28),transparent_40%)]" />
         <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-5 py-20 lg:grid-cols-2 lg:px-8">
           <div>
@@ -530,7 +601,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="servicios" className="bg-slate-50 py-24">
+      <section id="servicios" className="scroll-mt-[150px] bg-slate-50 py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="max-w-3xl">
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
@@ -605,7 +676,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="proceso" className="py-24">
+      <section id="proceso" className="scroll-mt-[150px] py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="text-center">
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
@@ -670,7 +741,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="nosotros" className="bg-emerald-950 py-24 text-white">
+      <section id="nosotros" className="scroll-mt-[150px] bg-emerald-950 py-24 text-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-2 lg:px-8">
           <div>
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-300">
@@ -706,7 +777,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       </section>
 
 
-      <section id="testimonios" className="bg-slate-50 py-24">
+      <section id="testimonios" className="scroll-mt-[150px] bg-slate-50 py-24">
         <div className="mx-auto max-w-6xl px-5 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
@@ -772,7 +843,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="preguntas" className="bg-white py-24">
+      <section id="preguntas" className="scroll-mt-[150px] bg-white py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
           <div>
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
@@ -912,7 +983,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="contacto" className="py-24">
+      <section id="contacto" className="scroll-mt-[150px] py-24">
         <div className="mx-auto max-w-5xl px-5 lg:px-8">
           <div className="rounded-[2rem] bg-slate-950 p-8 text-white md:p-14">
             <div className="grid gap-12 md:grid-cols-2">
