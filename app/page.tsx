@@ -209,6 +209,10 @@ export default function Home() {
       language,
       destination_url: calendlyUrl,
     });
+
+    setTimeout(() => {
+      window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+    }, 150);
   };
 
   const trackWhatsAppClick = (placement: string) => {
