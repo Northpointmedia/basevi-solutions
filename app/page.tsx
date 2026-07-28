@@ -13,6 +13,7 @@ import {
   Languages,
   Landmark,
   MessageCircle,
+  Phone,
   ShieldCheck,
   Star,
   Users,
@@ -262,53 +263,103 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
   return (
     <main className="min-h-screen bg-white text-slate-950">
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="#inicio" className="flex items-center">
+      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-[0_8px_30px_rgba(15,23,42,0.05)] backdrop-blur-xl">
+        <div className="hidden border-b border-slate-200/70 bg-slate-950 text-white lg:block">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2.5 text-xs">
+            <div className="flex items-center gap-6 text-slate-300">
+              <span className="font-medium">
+                {isSpanish
+                  ? "Atención virtual en todo Estados Unidos"
+                  : "Nationwide virtual assistance"}
+              </span>
+              <span className="h-4 w-px bg-white/20" />
+              <span className="font-medium">
+                {isSpanish
+                  ? "Citas presenciales en Miami"
+                  : "In-person appointments in Miami"}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-5">
+              <a
+                href="tel:+17868300438"
+                className="inline-flex items-center gap-2 font-semibold text-white transition hover:text-emerald-300"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                +1 (786) 830-0438
+              </a>
+
+              <a
+                href={isSpanish ? WHATSAPP_URL_ES : WHATSAPP_URL_EN}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 font-semibold text-emerald-300 transition hover:text-emerald-200"
+              >
+                <MessageCircle className="h-3.5 w-3.5" />
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto flex min-h-[96px] max-w-7xl items-center justify-between gap-6 px-5 py-4 lg:px-8">
+          <a href="#inicio" className="flex shrink-0 items-center">
             <Image
               src="/basevi-logo.webp"
               alt="Basevi Solutions LLC"
-              width={270}
-              height={110}
+              width={320}
+              height={130}
               priority
-              className="h-14 w-auto object-contain sm:h-16"
+              className="h-16 w-auto object-contain sm:h-[72px] lg:h-20"
             />
           </a>
 
-          <nav className="hidden items-center gap-7 lg:flex">
-            {navigation.map(([label, href]) => (
+          <nav className="hidden items-center gap-9 xl:flex">
+            {navigation.map(([label, href], index) => (
               <a
                 key={href}
                 href={href}
-                className="text-sm font-medium text-slate-700 transition hover:text-emerald-800"
+                className={`relative py-3 text-sm font-semibold transition ${
+                  index === 0
+                    ? "text-emerald-800 after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded-full after:bg-emerald-700"
+                    : "text-slate-600 hover:text-emerald-800"
+                }`}
               >
                 {label}
               </a>
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2.5">
             <button
               type="button"
               onClick={() => setLanguage(isSpanish ? "en" : "es")}
-              className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold transition hover:border-emerald-800 hover:text-emerald-800"
+              className="hidden rounded-full border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-800 transition hover:border-emerald-700 hover:text-emerald-800 sm:inline-flex"
+              aria-label={
+                isSpanish ? "Switch website to English" : "Cambiar sitio a español"
+              }
             >
-              {isSpanish ? "EN" : "ES"}
+              {isSpanish ? "ES | EN" : "EN | ES"}
             </button>
 
             <a
               href={calendlyUrl}
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600 sm:inline-flex"
+              className="hidden items-center gap-2 rounded-full bg-emerald-700 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/10 transition hover:-translate-y-0.5 hover:bg-emerald-600 lg:inline-flex"
             >
-              {isSpanish ? "Agendar consulta" : "Book consultation"}
+              <CalendarDays className="h-4.5 w-4.5" />
+              {isSpanish
+                ? "Agendar evaluación gratuita"
+                : "Book a free evaluation"}
             </a>
 
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-lg border border-slate-300 px-3 py-2 lg:hidden"
+              className="rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-lg font-bold text-slate-800 transition hover:border-emerald-700 hover:text-emerald-800 xl:hidden"
+              aria-label={isSpanish ? "Abrir menú" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
             >
               ☰
             </button>
@@ -316,27 +367,45 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
 
         {mobileMenuOpen && (
-          <nav className="border-t border-slate-200 bg-white px-5 py-5 lg:hidden">
-            <div className="flex flex-col gap-4">
+          <nav className="border-t border-slate-200 bg-white px-5 py-5 shadow-xl xl:hidden">
+            <div className="mx-auto flex max-w-7xl flex-col gap-4">
               {navigation.map(([label, href]) => (
                 <a
                   key={href}
                   href={href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-medium text-slate-700"
+                  className="rounded-lg px-2 py-2 font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-emerald-800"
                 >
                   {label}
                 </a>
               ))}
+
+              <a
+                href="tel:+17868300438"
+                className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-3 font-semibold text-slate-700"
+              >
+                <Phone className="h-4 w-4 text-emerald-700" />
+                +1 (786) 830-0438
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setLanguage(isSpanish ? "en" : "es")}
+                className="rounded-xl border border-slate-300 px-5 py-3 text-center font-semibold text-slate-800"
+              >
+                {isSpanish ? "View in English" : "Ver en español"}
+              </button>
+
               <a
                 href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-xl bg-emerald-700 px-5 py-3 text-center font-semibold text-white"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3.5 text-center font-bold text-white"
               >
+                <CalendarDays className="h-5 w-5" />
                 {isSpanish
-                  ? "Agendar consulta gratuita"
-                  : "Book free consultation"}
+                  ? "Agendar evaluación gratuita"
+                  : "Book a free evaluation"}
               </a>
             </div>
           </nav>
