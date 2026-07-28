@@ -726,32 +726,62 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               {
                 esQ: "¿La evaluación inicial tiene costo?",
                 enQ: "Is the initial evaluation free?",
-                esA: "Sí. La evaluación virtual inicial de 30 minutos es completamente gratuita y sin compromiso. Durante la reunión conoceremos tu situación, responderemos tus preguntas y te explicaremos claramente los próximos pasos, el alcance del servicio y el precio si decides continuar.",
-                enA: "Yes. The initial 30-minute virtual evaluation is completely free and comes with no obligation. During the meeting, we will learn about your situation, answer your questions, and clearly explain the next steps, service scope, and pricing if you decide to move forward.",
+                esA: "La evaluación virtual inicial de 30 minutos es completamente gratuita y sin compromiso. Durante la reunión conoceremos tu situación, responderemos tus preguntas y te explicaremos con claridad las opciones disponibles, el proceso recomendado y el costo del servicio si decides continuar.",
+                enA: "The initial 30-minute virtual evaluation is completely free and comes with no obligation. During the meeting, we will learn about your situation, answer your questions, explain the available options, and provide clear information about the recommended process and service fees if you decide to move forward.",
               },
               {
                 esQ: "¿Pueden atenderme si vivo fuera de Florida?",
                 enQ: "Can you assist me if I live outside Florida?",
-                esA: "Sí. Atendemos virtualmente a clientes en todo Estados Unidos. Las citas presenciales se coordinan en Miami.",
-                enA: "Yes. We assist clients throughout the United States virtually. In-person appointments are coordinated in Miami.",
+                esA: "Atendemos clientes en distintos estados de Estados Unidos para servicios de preparación documental, traducciones certificadas e impuestos. Si tu caso requiere la intervención de un abogado o tiene requisitos específicos según el estado, te informaremos desde el principio.",
+                enA: "We assist clients throughout the United States with document preparation, certified translations, and tax preparation services. If your matter requires an attorney or involves state-specific requirements, we will let you know from the beginning.",
               },
               {
                 esQ: "¿Basevi Solutions es un bufete de abogados?",
                 enQ: "Is Basevi Solutions a law firm?",
-                esA: "No. Ofrecemos preparación documental, asistencia administrativa, traducciones e impuestos. No brindamos asesoramiento legal ni representación jurídica.",
-                enA: "No. We provide document preparation, administrative assistance, translations, and tax services. We do not provide legal advice or legal representation.",
+                esA: "Basevi Solutions es una empresa de preparación documental y servicios administrativos. No ofrecemos representación legal ni asesoría jurídica. Cuando un caso requiere la intervención de un abogado de inmigración, orientamos al cliente para que obtenga la asistencia legal adecuada.",
+                enA: "Basevi Solutions provides professional document preparation and administrative support services. We do not provide legal advice or legal representation. When a matter requires an immigration attorney, we guide the client toward the appropriate legal assistance.",
+              },
+              {
+                esQ: "¿Qué documentos debo llevar a la consulta?",
+                enQ: "What documents should I bring to my consultation?",
+                esA: "La documentación necesaria depende del servicio solicitado. Después de reservar tu cita recibirás indicaciones sobre los documentos recomendados. Si todavía no los tienes todos, igualmente podemos evaluar tu situación y explicarte los próximos pasos.",
+                enA: "The required documents depend on the service you need. After scheduling your appointment, you will receive guidance on the documents that may be helpful. If you do not have everything yet, we can still evaluate your situation and explain the next steps.",
+              },
+              {
+                esQ: "¿Cuánto tarda el proceso?",
+                enQ: "How long does the process take?",
+                esA: "Cada trámite tiene tiempos diferentes. La duración depende del tipo de servicio solicitado y, en los casos migratorios, de los tiempos oficiales de USCIS u otras agencias gubernamentales. Durante la evaluación te ofreceremos una orientación general basada en tu situación.",
+                enA: "Processing times vary depending on the type of service. For immigration matters, timelines are determined by USCIS or the appropriate government agency. During the evaluation, we will provide general guidance based on your situation.",
+              },
+              {
+                esQ: "¿Las traducciones son certificadas?",
+                enQ: "Are your translations certified?",
+                esA: "Realizamos traducciones certificadas para trámites migratorios, legales, educativos y administrativos en Estados Unidos. Antes de iniciar, confirmaremos el tipo de documento, el idioma y los requisitos de la institución receptora.",
+                enA: "We provide certified translations for immigration, legal, educational, and administrative purposes in the United States. Before beginning, we confirm the document type, language, and the receiving institution's requirements.",
+              },
+              {
+                esQ: "¿Puedo realizar todo el proceso de forma virtual?",
+                enQ: "Can everything be completed remotely?",
+                esA: "La mayoría de nuestros servicios pueden gestionarse de forma virtual mediante videollamada, correo electrónico y envío electrónico de documentos. Si se requiere una cita presencial, la coordinaremos previamente en Miami.",
+                enA: "Most of our services can be completed remotely through video meetings, email, and electronic document exchange. If an in-person appointment is needed, we will coordinate it in advance in Miami.",
+              },
+              {
+                esQ: "¿Qué formas de pago aceptan?",
+                enQ: "What payment methods do you accept?",
+                esA: "Aceptamos las principales tarjetas de crédito y débito, además de otros métodos de pago electrónicos disponibles al momento de contratar el servicio. El precio y las condiciones de pago se confirman por escrito antes de comenzar.",
+                enA: "We accept major credit and debit cards, along with other electronic payment methods available when the service is retained. Pricing and payment terms are confirmed in writing before work begins.",
               },
               {
                 esQ: "¿Cuándo se confirma el precio final?",
                 enQ: "When is the final price confirmed?",
-                esA: "Después de revisar el alcance, la documentación y la complejidad del servicio. Las tarifas gubernamentales no están incluidas.",
-                enA: "After reviewing the scope, documents, and complexity of the service. Government filing fees are not included.",
+                esA: "El precio final se confirma después de revisar el alcance, la documentación y la complejidad del servicio. Las tarifas gubernamentales, costos de terceros y gastos adicionales no están incluidos, salvo que se indique expresamente por escrito.",
+                enA: "The final price is confirmed after reviewing the scope, documents, and complexity of the service. Government filing fees, third-party costs, and additional expenses are not included unless expressly stated in writing.",
               },
               {
                 esQ: "¿Cómo reservo una cita?",
                 enQ: "How do I book an appointment?",
-                esA: "Utiliza el botón de agenda para reservar la evaluación virtual gratuita. Los clientes activos reciben directamente el enlace para citas presenciales de revisión documental.",
-                enA: "Use the scheduling button to book the free virtual evaluation. Existing clients receive the private link for in-person document review appointments.",
+                esA: "Utiliza el botón de agenda para reservar la evaluación virtual gratuita. Los clientes activos reciben directamente el enlace privado para citas presenciales de revisión documental e inicio del proceso.",
+                enA: "Use the scheduling button to book the free virtual evaluation. Existing clients receive a private link for in-person document review and case-intake appointments.",
               },
             ].map((item, index) => {
               const isOpen = openFaq === index;
@@ -799,7 +829,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
             {isSpanish
               ? "Agenda tu evaluación virtual inicial gratuita y recibe una orientación clara sobre tu caso, los próximos pasos y el servicio más adecuado para ti."
-              : "Book your free virtual evaluation and receive clear guidance on the right service for your needs."}
+              : "Book your free initial virtual evaluation and receive clear guidance about your situation, the next steps, and the service that best fits your needs."}
           </p>
           <a
             href={calendlyUrl}
