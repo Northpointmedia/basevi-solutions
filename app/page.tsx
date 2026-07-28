@@ -641,9 +641,15 @@ export default function Home() {
     if (!option) return;
 
     if (!option.category || !option.serviceIds) {
-      trackBookingClick("service_selector_unsure");
-      return;
-    }
+  trackEvent("book_consultation_click", {
+    placement: "service_selector_unsure",
+    language,
+    destination_url: calendlyUrl,
+  });
+
+  window.location.href = calendlyUrl;
+  return;
+}
 
     setSelectedNeed(option.id);
     setSelectedCategory(option.category);
