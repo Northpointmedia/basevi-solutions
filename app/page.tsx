@@ -45,125 +45,268 @@ const WHATSAPP_URL_EN =
   "https://wa.me/17868300438?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation.";
 
 
+type ServiceCategory = "immigration" | "tax" | "translation";
+
 type Service = {
   id: number;
+  category: ServiceCategory;
   nameEs: string;
   nameEn: string;
   descriptionEs: string;
   descriptionEn: string;
   priceLabelEs: string;
   priceLabelEn: string;
+  stripeProductId: string;
+  stripePriceId: string;
   icon: ElementType;
 };
 
 const services: Service[] = [
   {
     id: 1,
-    nameEs: "Paquete I-130 + I-485",
-    nameEn: "I-130 + I-485 Package",
+    category: "immigration",
+    nameEs: "Petición familiar (Formulario I-130)",
+    nameEn: "Family-Based Petition (Form I-130)",
     descriptionEs:
-      "Preparación documental para petición familiar y ajuste de estatus.",
+      "Preparación profesional del Formulario I-130 para establecer una relación familiar elegible con un ciudadano estadounidense o residente permanente legal.",
     descriptionEn:
-      "Document preparation for a family petition and adjustment of status.",
-    priceLabelEs: "Desde $600",
-    priceLabelEn: "Starting at $600",
+      "Professional preparation of Form I-130 to establish a qualifying family relationship with a U.S. citizen or lawful permanent resident.",
+    priceLabelEs: "$500",
+    priceLabelEn: "$500",
+    stripeProductId: "prod_UyC4aI17b9rSh8",
+    stripePriceId: "price_1TyFgARoRO493tQv3revGwzN",
     icon: Users,
   },
   {
     id: 2,
-    nameEs: "Paquete I-130 + I-485 + I-765",
-    nameEn: "I-130 + I-485 + I-765 Package",
+    category: "immigration",
+    nameEs: "Petición familiar y ajuste de estatus",
+    nameEn: "Family Petition & Adjustment of Status",
     descriptionEs:
-      "Paquete documental para petición familiar, ajuste de estatus y permiso de trabajo.",
+      "Preparación profesional de los Formularios I-130 e I-485 para solicitantes elegibles de ajuste de estatus por petición familiar.",
     descriptionEn:
-      "Document package for a family petition, adjustment of status, and work permit.",
-    priceLabelEs: "Desde $800",
-    priceLabelEn: "Starting at $800",
+      "Professional preparation of Forms I-130 and I-485 for eligible family-based adjustment of status applicants.",
+    priceLabelEs: "$600 · Formularios I-130 e I-485",
+    priceLabelEn: "$600 · Forms I-130 & I-485",
+    stripeProductId: "prod_UyBJOoVDYRK6wP",
+    stripePriceId: "price_1TyEwuRoRO493tQv2kxFx7hM",
     icon: Landmark,
   },
   {
     id: 3,
-    nameEs: "Renovación de Green Card I-90",
-    nameEn: "Green Card Renewal I-90",
+    category: "immigration",
+    nameEs: "Paquete de ajuste de estatus + permiso de trabajo",
+    nameEn: "Adjustment of Status Package + Work Permit",
     descriptionEs:
-      "Preparación documental para renovar o reemplazar una tarjeta de residencia.",
+      "Preparación completa de los Formularios I-130, I-485 e I-765 para solicitantes elegibles que presentan los trámites conjuntamente.",
     descriptionEn:
-      "Document preparation to renew or replace a permanent resident card.",
-    priceLabelEs: "Desde $125",
-    priceLabelEn: "Starting at $125",
-    icon: CreditCard,
+      "Complete preparation of Forms I-130, I-485, and I-765 for eligible applicants filing together.",
+    priceLabelEs: "$700 · Formularios I-130, I-485 e I-765",
+    priceLabelEn: "$700 · Forms I-130, I-485 & I-765",
+    stripeProductId: "prod_UyBi4ezodS865D",
+    stripePriceId: "price_1TyFKtRoRO493tQvrXA2k9NR",
+    icon: BriefcaseBusiness,
   },
   {
     id: 4,
-    nameEs: "Permiso de trabajo I-765",
-    nameEn: "Work Permit I-765",
+    category: "immigration",
+    nameEs: "Permiso de trabajo (Formulario I-765)",
+    nameEn: "Employment Authorization (Form I-765)",
     descriptionEs:
-      "Preparación de solicitud inicial o renovación del permiso de trabajo.",
+      "Preparación profesional del Formulario I-765 para solicitar o renovar la autorización de empleo.",
     descriptionEn:
-      "Preparation of an initial or renewal employment authorization application.",
-    priceLabelEs: "Desde $100",
-    priceLabelEn: "Starting at $100",
+      "Professional preparation of Form I-765 to request or renew employment authorization.",
+    priceLabelEs: "$100",
+    priceLabelEn: "$100",
+    stripeProductId: "prod_UyBOEolndOqWU7",
+    stripePriceId: "price_1TyF1qRoRO493tQvHmdpmmhs",
     icon: BriefcaseBusiness,
   },
   {
     id: 5,
-    nameEs: "Ciudadanía N-400",
-    nameEn: "Citizenship N-400",
+    category: "immigration",
+    nameEs: "Renovación o reemplazo de Green Card (Formulario I-90)",
+    nameEn: "Green Card Renewal (Form I-90)",
     descriptionEs:
-      "Preparación documental para el proceso de naturalización.",
+      "Preparación profesional del Formulario I-90 para renovar o reemplazar una tarjeta de residencia permanente.",
     descriptionEn:
-      "Document preparation for the naturalization process.",
-    priceLabelEs: "Desde $200",
-    priceLabelEn: "Starting at $200",
-    icon: Flag,
+      "Professional preparation of Form I-90 to renew or replace a Permanent Resident Card.",
+    priceLabelEs: "$125",
+    priceLabelEn: "$125",
+    stripeProductId: "prod_UyBVZqePHc7nKc",
+    stripePriceId: "price_1TyF8ZRoRO493tQv7nPpNdiq",
+    icon: CreditCard,
   },
   {
     id: 6,
-    nameEs: "Evaluación financiera I-864",
-    nameEn: "Financial Evaluation I-864",
+    category: "immigration",
+    nameEs: "Ciudadanía por naturalización (Formulario N-400)",
+    nameEn: "Naturalization (Form N-400)",
     descriptionEs:
-      "Revisión documental para el affidavit of support y evidencia financiera.",
+      "Preparación profesional del Formulario N-400 para solicitantes elegibles de ciudadanía estadounidense por naturalización.",
     descriptionEn:
-      "Document review for the affidavit of support and financial evidence.",
-    priceLabelEs: "Desde $150",
-    priceLabelEn: "Starting at $150",
-    icon: BadgeDollarSign,
+      "Professional preparation of Form N-400 for eligible applicants seeking U.S. citizenship through naturalization.",
+    priceLabelEs: "$200",
+    priceLabelEn: "$200",
+    stripeProductId: "prod_UyBSFkArCpaNyA",
+    stripePriceId: "price_1TyF5GRoRO493tQvgnh1upqp",
+    icon: Flag,
   },
   {
     id: 7,
-    nameEs: "Traducción certificada",
-    nameEn: "Certified Translation",
+    category: "immigration",
+    nameEs: "Evaluación financiera para patrocinadores (Formulario I-864)",
+    nameEn: "Financial Evaluation for Sponsors (Form I-864)",
     descriptionEs:
-      "Traducciones certificadas de documentos personales y migratorios.",
+      "Preparación del Formulario I-864 y revisión de la documentación financiera del patrocinador.",
     descriptionEn:
-      "Certified translations of personal and immigration documents.",
-    priceLabelEs: "Desde $30 por página",
-    priceLabelEn: "Starting at $30 per page",
-    icon: Languages,
+      "Preparation of Form I-864 and review of the sponsor's supporting financial documentation.",
+    priceLabelEs: "$150",
+    priceLabelEn: "$150",
+    stripeProductId: "prod_UyBsEq0K5DW1IN",
+    stripePriceId: "price_1TyFUaRoRO493tQvGfnXOhSG",
+    icon: BadgeDollarSign,
   },
   {
     id: 8,
-    nameEs: "Preparación de impuestos personales",
-    nameEn: "Personal Tax Preparation",
+    category: "immigration",
+    nameEs: "Documento de viaje (Formulario I-131)",
+    nameEn: "Travel Document (Form I-131)",
     descriptionEs:
-      "Preparación de impuestos personales según la complejidad del caso.",
+      "Preparación del Formulario I-131 para solicitudes elegibles de documento de viaje, incluido Advance Parole cuando corresponda.",
     descriptionEn:
-      "Personal tax preparation based on the complexity of the return.",
-    priceLabelEs: "Desde $150",
-    priceLabelEn: "Starting at $150",
+      "Preparation of Form I-131 for eligible travel document requests, including Advance Parole when applicable.",
+    priceLabelEs: "$100",
+    priceLabelEn: "$100",
+    stripeProductId: "prod_UyBXfv9aLmD43C",
+    stripePriceId: "price_1TyFABRoRO493tQvahy3H3SV",
     icon: FileText,
   },
   {
     id: 9,
-    nameEs: "Solicitud de ITIN W-7",
-    nameEn: "ITIN Application W-7",
+    category: "tax",
+    nameEs: "Preparación de impuestos personales (Formulario 1040)",
+    nameEn: "Individual Tax Return (Form 1040)",
     descriptionEs:
-      "Preparación documental para solicitar un número ITIN.",
+      "Preparación profesional de la declaración federal de impuestos personales basada en la documentación del contribuyente.",
     descriptionEn:
-      "Document preparation to apply for an ITIN.",
+      "Professional preparation of an individual federal income tax return based on the taxpayer's documentation.",
     priceLabelEs: "Desde $150",
     priceLabelEn: "Starting at $150",
+    stripeProductId: "prod_UyBnzrIU4k7WVf",
+    stripePriceId: "price_1TyFQ3RoRO493tQve3dBX29w",
+    icon: FileText,
+  },
+  {
+    id: 10,
+    category: "tax",
+    nameEs: "Impuestos personales con dependientes y créditos",
+    nameEn: "Individual Tax Return – Dependents & Credits",
+    descriptionEs:
+      "Preparación de declaración federal con dependientes y créditos fiscales elegibles según la documentación aportada.",
+    descriptionEn:
+      "Preparation of an individual federal return involving dependents and eligible tax credits.",
+    priceLabelEs: "Desde $220",
+    priceLabelEn: "Starting at $220",
+    stripeProductId: "prod_UyBo7ngBW18pHb",
+    stripePriceId: "price_1TyFQwRoRO493tQvV2v4mpIB",
     icon: ChartNoAxesCombined,
+  },
+  {
+    id: 11,
+    category: "tax",
+    nameEs: "Preparación de impuestos de negocio y 1099",
+    nameEn: "Business Tax Return (Business & 1099)",
+    descriptionEs:
+      "Preparación de declaraciones de negocio según el tipo de entidad, ingresos, gastos y documentos de respaldo.",
+    descriptionEn:
+      "Preparation of business tax filings based on entity type, income, expenses, and supporting documentation.",
+    priceLabelEs: "Desde $350",
+    priceLabelEn: "Starting at $350",
+    stripeProductId: "prod_UyBpuvh1WujtFv",
+    stripePriceId: "price_1TyFRiRoRO493tQv2HlxFKA7",
+    icon: Landmark,
+  },
+  {
+    id: 12,
+    category: "tax",
+    nameEs: "Solicitud de ITIN (Formulario W-7)",
+    nameEn: "ITIN Application (Form W-7)",
+    descriptionEs:
+      "Preparación profesional del Formulario W-7 del IRS para solicitar un Número de Identificación Personal del Contribuyente.",
+    descriptionEn:
+      "Professional preparation of IRS Form W-7 to request an Individual Taxpayer Identification Number.",
+    priceLabelEs: "$150",
+    priceLabelEn: "$150",
+    stripeProductId: "prod_UyBq1IH4yzJdQ5",
+    stripePriceId: "price_1TyFSKRoRO493tQvhNkmuCh4",
+    icon: ChartNoAxesCombined,
+  },
+  {
+    id: 13,
+    category: "translation",
+    nameEs: "Traducción certificada de documentos civiles",
+    nameEn: "Certified Translation – Civil Documents",
+    descriptionEs:
+      "Traducción certificada para actas de nacimiento, matrimonio, divorcio y otros documentos civiles estándar.",
+    descriptionEn:
+      "Certified translation for birth, marriage, divorce, and other standard civil documents.",
+    priceLabelEs: "$30 por página",
+    priceLabelEn: "$30 per page",
+    stripeProductId: "prod_UyBkTntAEbO0dH",
+    stripePriceId: "price_1TyFNSRoRO493tQvJHyzzaof",
+    icon: Languages,
+  },
+  {
+    id: 14,
+    category: "translation",
+    nameEs: "Traducción certificada de documentos legales complejos",
+    nameEn: "Certified Translation – Complex Legal Documents",
+    descriptionEs:
+      "Traducción certificada de expedientes judiciales, contratos, historiales académicos y otros documentos complejos.",
+    descriptionEn:
+      "Certified translation of court records, contracts, academic transcripts, and other complex documents.",
+    priceLabelEs: "Desde $45 por página",
+    priceLabelEn: "Starting at $45 per page",
+    stripeProductId: "prod_UyBmwkc38jCa9J",
+    stripePriceId: "price_1TyFP8RoRO493tQvkqOeaMHq",
+    icon: Languages,
+  },
+];
+
+const serviceCategories: Array<{
+  id: ServiceCategory;
+  titleEs: string;
+  titleEn: string;
+  descriptionEs: string;
+  descriptionEn: string;
+}> = [
+  {
+    id: "immigration",
+    titleEs: "Servicios de inmigración",
+    titleEn: "Immigration Services",
+    descriptionEs:
+      "Preparación documental para peticiones familiares, ajuste de estatus, permisos y ciudadanía.",
+    descriptionEn:
+      "Document preparation for family petitions, adjustment of status, permits, and citizenship.",
+  },
+  {
+    id: "tax",
+    titleEs: "Impuestos e ITIN",
+    titleEn: "Tax & ITIN Services",
+    descriptionEs:
+      "Preparación de declaraciones personales, de negocio y solicitudes de ITIN.",
+    descriptionEn:
+      "Preparation of individual returns, business filings, and ITIN applications.",
+  },
+  {
+    id: "translation",
+    titleEs: "Traducciones certificadas",
+    titleEn: "Certified Translations",
+    descriptionEs:
+      "Traducciones certificadas para documentos civiles, legales y administrativos.",
+    descriptionEn:
+      "Certified translations for civil, legal, and administrative documents.",
   },
 ];
 
@@ -692,8 +835,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </p>
             <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
               {isSpanish
-                ? "Selecciona los servicios que deseas evaluar."
-                : "Select the services you would like us to evaluate."}
+                ? "Explora nuestros servicios y selecciona los que deseas evaluar."
+                : "Explore our services and select those you would like us to evaluate."}
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               {isSpanish
@@ -702,57 +845,83 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => {
-              const selected = selectedServices.some((item) => item.id === service.id);
+          <div className="mt-14 space-y-16">
+            {serviceCategories.map((category) => {
+              const categoryServices = services.filter(
+                (service) => service.category === category.id,
+              );
 
               return (
-                <article
-                  key={service.id}
-                  className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-                >
-                  {(() => {
-                    const ServiceIcon = service.icon;
-
-                    return (
-                      <div className="mb-6 flex justify-center">
-  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
-    <ServiceIcon
-      className="h-8 w-8"
-      strokeWidth={2}
-      aria-hidden="true"
-    />
-  </div>
-</div>
-                    );
-                  })()}
-                  <h3 className="mt-6 text-2xl font-bold">
-                    {isSpanish ? service.nameEs : service.nameEn}
-                  </h3>
-                  <p className="mt-4 flex-1 leading-7 text-slate-600">
-                    {isSpanish ? service.descriptionEs : service.descriptionEn}
-                  </p>
-
-                  <div className="mt-7 border-t border-slate-200 pt-6">
-                    <p className="text-xl font-bold">
-                      {isSpanish ? service.priceLabelEs : service.priceLabelEn}
+                <div key={category.id}>
+                  <div className="mb-8 border-l-4 border-emerald-700 pl-5">
+                    <h3 className="text-3xl font-bold tracking-tight">
+                      {isSpanish ? category.titleEs : category.titleEn}
+                    </h3>
+                    <p className="mt-2 max-w-3xl leading-7 text-slate-600">
+                      {isSpanish
+                        ? category.descriptionEs
+                        : category.descriptionEn}
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => addService(service)}
-                      disabled={selected}
-                      className="mt-5 w-full rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-default disabled:bg-slate-300"
-                    >
-                      {selected
-                        ? isSpanish
-                          ? "Seleccionado"
-                          : "Selected"
-                        : isSpanish
-                          ? "Solicitar evaluación"
-                          : "Request evaluation"}
-                    </button>
                   </div>
-                </article>
+
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {categoryServices.map((service) => {
+                      const selected = selectedServices.some(
+                        (item) => item.id === service.id,
+                      );
+                      const ServiceIcon = service.icon;
+
+                      return (
+                        <article
+                          key={service.id}
+                          className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                        >
+                          <div className="mb-6 flex justify-center">
+                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                              <ServiceIcon
+                                className="h-8 w-8"
+                                strokeWidth={2}
+                                aria-hidden="true"
+                              />
+                            </div>
+                          </div>
+
+                          <h4 className="text-xl font-bold leading-snug">
+                            {isSpanish ? service.nameEs : service.nameEn}
+                          </h4>
+
+                          <p className="mt-4 flex-1 leading-7 text-slate-600">
+                            {isSpanish
+                              ? service.descriptionEs
+                              : service.descriptionEn}
+                          </p>
+
+                          <div className="mt-7 border-t border-slate-200 pt-6">
+                            <p className="text-lg font-bold text-slate-950">
+                              {isSpanish
+                                ? service.priceLabelEs
+                                : service.priceLabelEn}
+                            </p>
+                            <button
+                              type="button"
+                              onClick={() => addService(service)}
+                              disabled={selected}
+                              className="mt-5 w-full rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-default disabled:bg-slate-300"
+                            >
+                              {selected
+                                ? isSpanish
+                                  ? "Seleccionado"
+                                  : "Selected"
+                                : isSpanish
+                                  ? "Solicitar evaluación"
+                                  : "Request evaluation"}
+                            </button>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </div>
               );
             })}
           </div>
