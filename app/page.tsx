@@ -28,12 +28,6 @@ import {
 
 type Language = "es" | "en";
 
-declare global {
-  interface Window {
-    dataLayer?: Array<Record<string, unknown>>;
-  }
-}
-
 type TrackingEventName =
   | "book_consultation_click"
   | "whatsapp_click"
