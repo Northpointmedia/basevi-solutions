@@ -210,9 +210,7 @@ export default function Home() {
       destination_url: calendlyUrl,
     });
 
-    setTimeout(() => {
-      window.open(calendlyUrl, "_blank", "noopener,noreferrer");
-    }, 150);
+    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
   };
 
   const trackWhatsAppClick = (placement: string) => {
@@ -477,7 +475,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               href={calendlyUrl}
               target="_blank"
               rel="noreferrer"
-              onClick={() => trackBookingClick("desktop_header")}
+              onClick={(event) => {
+                event.preventDefault();
+                trackBookingClick("desktop_header");
+              }}
               className="hidden items-center gap-2 rounded-full bg-emerald-700 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/10 transition hover:-translate-y-0.5 hover:bg-emerald-600 lg:inline-flex"
             >
               <CalendarDays className="h-4.5 w-4.5" />
@@ -545,7 +546,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => trackBookingClick("mobile_menu")}
+                onClick={(event) => {
+                event.preventDefault();
+                trackBookingClick("mobile_menu");
+              }}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3.5 text-center font-bold text-white"
               >
                 <CalendarDays className="h-5 w-5" />
@@ -585,7 +589,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 href={calendlyUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => trackBookingClick("hero")}
+                onClick={(event) => {
+                event.preventDefault();
+                trackBookingClick("hero");
+              }}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-4 text-center font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
               >
                 <CalendarDays className="h-5 w-5" />
@@ -1051,7 +1058,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             href={calendlyUrl}
             target="_blank"
             rel="noreferrer"
-            onClick={() => trackBookingClick("final_cta")}
+            onClick={(event) => {
+                event.preventDefault();
+                trackBookingClick("final_cta");
+              }}
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-7 py-4 font-bold transition hover:bg-emerald-500"
           >
             <CalendarDays className="h-5 w-5" />
@@ -1083,7 +1093,10 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   href={calendlyUrl}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => trackBookingClick("contact_section")}
+                  onClick={(event) => {
+                event.preventDefault();
+                trackBookingClick("contact_section");
+              }}
                   className="mt-7 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 font-semibold text-white transition hover:bg-emerald-500"
                 >
                   <CalendarDays className="h-5 w-5" />
