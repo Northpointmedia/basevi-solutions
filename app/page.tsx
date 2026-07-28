@@ -310,6 +310,21 @@ const serviceCategories: Array<{
   },
 ];
 
+const needOptions: Array<{
+  id: string;
+  labelEs: string;
+  labelEn: string;
+  category?: ServiceCategory;
+}> = [
+  { id: "family", labelEs: "Traer o pedir a un familiar", labelEn: "Bring or petition for a family member", category: "immigration" },
+  { id: "green-card", labelEs: "Solicitar o renovar una Green Card", labelEn: "Apply for or renew a Green Card", category: "immigration" },
+  { id: "work-travel", labelEs: "Solicitar permiso de trabajo o documento de viaje", labelEn: "Request a work permit or travel document", category: "immigration" },
+  { id: "citizenship", labelEs: "Solicitar la ciudadanía estadounidense", labelEn: "Apply for U.S. citizenship", category: "immigration" },
+  { id: "taxes", labelEs: "Preparar impuestos o solicitar un ITIN", labelEn: "Prepare taxes or request an ITIN", category: "tax" },
+  { id: "translation", labelEs: "Traducir un documento", labelEn: "Translate a document", category: "translation" },
+  { id: "unsure", labelEs: "No estoy seguro/a", labelEn: "I am not sure" },
+];
+
 const trackEvent = (
   eventName: TrackingEventName,
   parameters: Record<string, string | number | boolean> = {},
@@ -331,6 +346,9 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [activeSection, setActiveSection] = useState("inicio");
+  const [selectedCategory, setSelectedCategory] =
+    useState<ServiceCategory | null>(null);
+  const [openServiceId, setOpenServiceId] = useState<number | null>(null);
 
   const isSpanish = language === "es";
   const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
@@ -469,6 +487,28 @@ export default function Home() {
   const goToEvaluation = () => {
     setDrawerOpen(false);
     document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const selectServiceCategory = (category: ServiceCategory) => {
+    setSelectedCategory(category);
+    setOpenServiceId(null);
+    setTimeout(() => {
+      document
+        .getElementById("service-options")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
+
+  const handleNeedSelection = (value: string) => {
+    const option = needOptions.find((item) => item.id === value);
+    if (!option) return;
+
+    if (!option.category) {
+      window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    selectServiceCategory(option.category);
   };
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -827,104 +867,248 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="servicios" className="scroll-mt-[150px] bg-slate-50 py-24">
+      <section
+        id="servicios"
+        className="scroll-mt-[150px] bg-slate-50 py-24"
+      >
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
               {isSpanish ? "Nuestros servicios" : "Our services"}
             </p>
             <h2 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
               {isSpanish
-                ? "Explora nuestros servicios y selecciona los que deseas evaluar."
-                : "Explore our services and select those you would like us to evaluate."}
+                ? "Cuéntanos qué necesitas y te mostramos las opciones."
+                : "Tell us what you need and we will show you the right options."}
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               {isSpanish
-                ? "Los precios mostrados son orientativos. El precio final se confirma después de revisar el alcance, la documentación y la complejidad del servicio. Las tarifas gubernamentales no están incluidas."
-                : "Displayed prices are estimates. Final pricing is confirmed after reviewing scope, documents, and service complexity. Government filing fees are not included."}
+                ? "No necesitas conocer el nombre de cada formulario. Selecciona tu necesidad o explora una categoría."
+                : "You do not need to know the name of every form. Select your need or explore a category."}
             </p>
           </div>
 
-          <div className="mt-14 space-y-16">
+          <div className="mx-auto mt-10 max-w-3xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <label
+              htmlFor="service-need"
+              className="block text-center text-lg font-bold text-slate-900"
+            >
+              {isSpanish ? "¿Con qué necesitas ayuda?" : "What do you need help with?"}
+            </label>
+
+            <select
+              id="service-need"
+              defaultValue=""
+              onChange={(event) => handleNeedSelection(event.target.value)}
+              className="mt-5 w-full rounded-2xl border border-slate-300 bg-white px-5 py-4 text-base font-medium text-slate-800 outline-none transition focus:border-emerald-700 focus:ring-4 focus:ring-emerald-100"
+            >
+              <option value="" disabled>
+                {isSpanish ? "Selecciona una opción" : "Select an option"}
+              </option>
+              {needOptions.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {isSpanish ? option.labelEs : option.labelEn}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {serviceCategories.map((category) => {
+              const isSelected = selectedCategory === category.id;
               const categoryServices = services.filter(
                 (service) => service.category === category.id,
               );
+              const CategoryIcon =
+                category.id === "immigration"
+                  ? Landmark
+                  : category.id === "tax"
+                    ? ChartNoAxesCombined
+                    : Languages;
 
               return (
-                <div key={category.id}>
-                  <div className="mb-8 border-l-4 border-emerald-700 pl-5">
-                    <h3 className="text-3xl font-bold tracking-tight">
-                      {isSpanish ? category.titleEs : category.titleEn}
-                    </h3>
-                    <p className="mt-2 max-w-3xl leading-7 text-slate-600">
-                      {isSpanish
-                        ? category.descriptionEs
-                        : category.descriptionEn}
-                    </p>
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => selectServiceCategory(category.id)}
+                  className={`rounded-3xl border p-7 text-left transition ${
+                    isSelected
+                      ? "border-emerald-700 bg-emerald-950 text-white shadow-xl"
+                      : "border-slate-200 bg-white text-slate-950 shadow-sm hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl"
+                  }`}
+                >
+                  <div
+                    className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
+                      isSelected
+                        ? "bg-white/10 text-emerald-300"
+                        : "bg-emerald-50 text-emerald-700"
+                    }`}
+                  >
+                    <CategoryIcon className="h-7 w-7" />
                   </div>
 
-                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {categoryServices.map((service) => {
-                      const selected = selectedServices.some(
-                        (item) => item.id === service.id,
-                      );
-                      const ServiceIcon = service.icon;
+                  <h3 className="mt-6 text-2xl font-bold">
+                    {isSpanish ? category.titleEs : category.titleEn}
+                  </h3>
 
-                      return (
-                        <article
-                          key={service.id}
-                          className="flex flex-col rounded-3xl border border-slate-200 bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-                        >
-                          <div className="mb-6 flex justify-center">
-                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
-                              <ServiceIcon
-                                className="h-8 w-8"
-                                strokeWidth={2}
-                                aria-hidden="true"
-                              />
-                            </div>
-                          </div>
+                  <p
+                    className={`mt-3 leading-7 ${
+                      isSelected ? "text-emerald-50/80" : "text-slate-600"
+                    }`}
+                  >
+                    {isSpanish ? category.descriptionEs : category.descriptionEn}
+                  </p>
 
-                          <h4 className="text-xl font-bold leading-snug">
-                            {isSpanish ? service.nameEs : service.nameEn}
-                          </h4>
-
-                          <p className="mt-4 flex-1 leading-7 text-slate-600">
-                            {isSpanish
-                              ? service.descriptionEs
-                              : service.descriptionEn}
-                          </p>
-
-                          <div className="mt-7 border-t border-slate-200 pt-6">
-                            <p className="text-lg font-bold text-slate-950">
-                              {isSpanish
-                                ? service.priceLabelEs
-                                : service.priceLabelEn}
-                            </p>
-                            <button
-                              type="button"
-                              onClick={() => addService(service)}
-                              disabled={selected}
-                              className="mt-5 w-full rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-default disabled:bg-slate-300"
-                            >
-                              {selected
-                                ? isSpanish
-                                  ? "Seleccionado"
-                                  : "Selected"
-                                : isSpanish
-                                  ? "Solicitar evaluación"
-                                  : "Request evaluation"}
-                            </button>
-                          </div>
-                        </article>
-                      );
-                    })}
+                  <div className="mt-6 flex items-center justify-between">
+                    <span
+                      className={`text-sm font-bold ${
+                        isSelected ? "text-emerald-300" : "text-emerald-800"
+                      }`}
+                    >
+                      {categoryServices.length} {isSpanish ? "opciones" : "options"}
+                    </span>
+                    <span
+                      className={`text-sm font-bold ${
+                        isSelected ? "text-white" : "text-slate-900"
+                      }`}
+                    >
+                      {isSpanish ? "Explorar →" : "Explore →"}
+                    </span>
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
+
+          {selectedCategory && (
+            <div
+              id="service-options"
+              className="scroll-mt-[170px] mx-auto mt-12 max-w-5xl"
+            >
+              <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="font-bold uppercase tracking-[0.16em] text-emerald-800">
+                    {isSpanish ? "Opciones disponibles" : "Available options"}
+                  </p>
+                  <h3 className="mt-2 text-3xl font-bold">
+                    {isSpanish
+                      ? serviceCategories.find((category) => category.id === selectedCategory)?.titleEs
+                      : serviceCategories.find((category) => category.id === selectedCategory)?.titleEn}
+                  </h3>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    setOpenServiceId(null);
+                  }}
+                  className="self-start rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-emerald-700 hover:text-emerald-800"
+                >
+                  {isSpanish ? "Cerrar opciones" : "Close options"}
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {services
+                  .filter((service) => service.category === selectedCategory)
+                  .map((service) => {
+                    const isOpen = openServiceId === service.id;
+                    const selected = selectedServices.some(
+                      (item) => item.id === service.id,
+                    );
+
+                    return (
+                      <article
+                        key={service.id}
+                        className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setOpenServiceId(isOpen ? null : service.id)}
+                          className="flex w-full items-center justify-between gap-5 p-6 text-left"
+                          aria-expanded={isOpen}
+                        >
+                          <div>
+                            <h4 className="text-lg font-bold text-slate-950">
+                              {isSpanish ? service.nameEs : service.nameEn}
+                            </h4>
+                            <p className="mt-2 font-bold text-emerald-800">
+                              {isSpanish ? service.priceLabelEs : service.priceLabelEn}
+                            </p>
+                          </div>
+                          <ChevronDown
+                            className={`h-5 w-5 shrink-0 text-slate-500 transition ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+
+                        {isOpen && (
+                          <div className="border-t border-slate-200 px-6 py-6">
+                            <p className="leading-7 text-slate-600">
+                              {isSpanish ? service.descriptionEs : service.descriptionEn}
+                            </p>
+
+                            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                              <button
+                                type="button"
+                                onClick={() => addService(service)}
+                                disabled={selected}
+                                className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-bold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-default disabled:bg-slate-300"
+                              >
+                                {selected
+                                  ? isSpanish ? "Seleccionado" : "Selected"
+                                  : isSpanish ? "Solicitar evaluación" : "Request evaluation"}
+                              </button>
+
+                              <a
+                                href={calendlyUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  trackBookingClick("service_accordion");
+                                }}
+                                className="rounded-full border border-slate-300 px-6 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-emerald-700 hover:text-emerald-800"
+                              >
+                                {isSpanish ? "Agendar consulta gratuita" : "Book free consultation"}
+                              </a>
+                            </div>
+                          </div>
+                        )}
+                      </article>
+                    );
+                  })}
+              </div>
+
+              <div className="mt-8 rounded-3xl bg-emerald-950 p-7 text-center text-white">
+                <h4 className="text-2xl font-bold">
+                  {isSpanish
+                    ? "¿No sabes cuál opción corresponde a tu caso?"
+                    : "Not sure which option fits your situation?"}
+                </h4>
+                <p className="mx-auto mt-3 max-w-2xl leading-7 text-emerald-50/80">
+                  {isSpanish
+                    ? "No tienes que decidirlo solo. Agenda una evaluación virtual gratuita y revisaremos contigo el servicio adecuado."
+                    : "You do not have to decide alone. Book a free virtual evaluation and we will review the appropriate service with you."}
+                </p>
+                <a
+                  href={calendlyUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    trackBookingClick("service_help_cta");
+                  }}
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 font-bold transition hover:bg-emerald-500"
+                >
+                  <CalendarDays className="h-5 w-5" />
+                  {isSpanish ? "Agendar evaluación gratuita" : "Book a free evaluation"}
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
