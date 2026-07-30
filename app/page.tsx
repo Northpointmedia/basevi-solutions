@@ -33,6 +33,8 @@ type TrackingEventName =
   | "whatsapp_click"
   | "contact_form_submit"
   | "service_evaluation_request"
+  | "stripe_checkout_started"
+  | "stripe_checkout_error"
   | "language_switch";
 
 const CALENDLY_URL_ES = "https://calendly.com/mbasevim/30min";
@@ -58,6 +60,7 @@ type Service = {
   priceLabelEn: string;
   stripeProductId: string;
   stripePriceId: string;
+  checkoutMode: "fixed" | "quantity" | "quote";
   icon: ElementType;
 };
 
@@ -75,6 +78,7 @@ const services: Service[] = [
     priceLabelEn: "$500",
     stripeProductId: "prod_UyC4aI17b9rSh8",
     stripePriceId: "price_1TyFgARoRO493tQv3revGwzN",
+    checkoutMode: "fixed",
     icon: Users,
   },
   {
@@ -90,6 +94,7 @@ const services: Service[] = [
     priceLabelEn: "$600 · Forms I-130 & I-485",
     stripeProductId: "prod_UyBJOoVDYRK6wP",
     stripePriceId: "price_1TyEwuRoRO493tQv2kxFx7hM",
+    checkoutMode: "fixed",
     icon: Landmark,
   },
   {
@@ -105,6 +110,7 @@ const services: Service[] = [
     priceLabelEn: "$700 · Forms I-130, I-485 & I-765",
     stripeProductId: "prod_UyBi4ezodS865D",
     stripePriceId: "price_1TyFKtRoRO493tQvrXA2k9NR",
+    checkoutMode: "fixed",
     icon: BriefcaseBusiness,
   },
   {
@@ -120,6 +126,7 @@ const services: Service[] = [
     priceLabelEn: "$100",
     stripeProductId: "prod_UyBOEolndOqWU7",
     stripePriceId: "price_1TyF1qRoRO493tQvHmdpmmhs",
+    checkoutMode: "fixed",
     icon: BriefcaseBusiness,
   },
   {
@@ -135,6 +142,7 @@ const services: Service[] = [
     priceLabelEn: "$125",
     stripeProductId: "prod_UyBVZqePHc7nKc",
     stripePriceId: "price_1TyF8ZRoRO493tQv7nPpNdiq",
+    checkoutMode: "fixed",
     icon: CreditCard,
   },
   {
@@ -150,6 +158,7 @@ const services: Service[] = [
     priceLabelEn: "$200",
     stripeProductId: "prod_UyBSFkArCpaNyA",
     stripePriceId: "price_1TyF5GRoRO493tQvgnh1upqp",
+    checkoutMode: "fixed",
     icon: Flag,
   },
   {
@@ -165,6 +174,7 @@ const services: Service[] = [
     priceLabelEn: "$150",
     stripeProductId: "prod_UyBsEq0K5DW1IN",
     stripePriceId: "price_1TyFUaRoRO493tQvGfnXOhSG",
+    checkoutMode: "fixed",
     icon: BadgeDollarSign,
   },
   {
@@ -180,6 +190,7 @@ const services: Service[] = [
     priceLabelEn: "$100",
     stripeProductId: "prod_UyBXfv9aLmD43C",
     stripePriceId: "price_1TyFABRoRO493tQvahy3H3SV",
+    checkoutMode: "fixed",
     icon: FileText,
   },
   {
@@ -195,6 +206,7 @@ const services: Service[] = [
     priceLabelEn: "Starting at $150",
     stripeProductId: "prod_UyBnzrIU4k7WVf",
     stripePriceId: "price_1TyFQ3RoRO493tQve3dBX29w",
+    checkoutMode: "quote",
     icon: FileText,
   },
   {
@@ -210,6 +222,7 @@ const services: Service[] = [
     priceLabelEn: "Starting at $220",
     stripeProductId: "prod_UyBo7ngBW18pHb",
     stripePriceId: "price_1TyFQwRoRO493tQvV2v4mpIB",
+    checkoutMode: "quote",
     icon: ChartNoAxesCombined,
   },
   {
@@ -225,6 +238,7 @@ const services: Service[] = [
     priceLabelEn: "Starting at $350",
     stripeProductId: "prod_UyBpuvh1WujtFv",
     stripePriceId: "price_1TyFRiRoRO493tQv2HlxFKA7",
+    checkoutMode: "quote",
     icon: Landmark,
   },
   {
@@ -240,6 +254,7 @@ const services: Service[] = [
     priceLabelEn: "$150",
     stripeProductId: "prod_UyBq1IH4yzJdQ5",
     stripePriceId: "price_1TyFSKRoRO493tQvhNkmuCh4",
+    checkoutMode: "fixed",
     icon: ChartNoAxesCombined,
   },
   {
@@ -255,6 +270,7 @@ const services: Service[] = [
     priceLabelEn: "$30 per page",
     stripeProductId: "prod_UyBkTntAEbO0dH",
     stripePriceId: "price_1TyFNSRoRO493tQvJHyzzaof",
+    checkoutMode: "quantity",
     icon: Languages,
   },
   {
@@ -270,6 +286,7 @@ const services: Service[] = [
     priceLabelEn: "Starting at $45 per page",
     stripeProductId: "prod_UyBmwkc38jCa9J",
     stripePriceId: "price_1TyFP8RoRO493tQvkqOeaMHq",
+    checkoutMode: "quote",
     icon: Languages,
   },
 ];
@@ -483,6 +500,8 @@ export default function Home() {
     useState<ServiceCategory | null>(null);
   const [selectedNeed, setSelectedNeed] = useState<string | null>(null);
   const [openServiceId, setOpenServiceId] = useState<number | null>(null);
+  const [checkoutServiceId, setCheckoutServiceId] = useState<number | null>(null);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const isSpanish = language === "es";
   const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
@@ -589,6 +608,59 @@ export default function Home() {
     [selectedServices, isSpanish],
   );
 
+  const startCheckout = async (service: Service) => {
+    setCheckoutError(null);
+    setCheckoutServiceId(service.id);
+
+    trackEvent("stripe_checkout_started", {
+      service_id: service.id,
+      service_name: isSpanish ? service.nameEs : service.nameEn,
+      stripe_price_id: service.stripePriceId,
+      language,
+    });
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          priceId: service.stripePriceId,
+          serviceId: service.id,
+          language,
+          adjustableQuantity: service.checkoutMode === "quantity",
+        }),
+      });
+
+      const payload = (await response.json()) as {
+        url?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !payload.url) {
+        throw new Error(payload.error || "Unable to create checkout session.");
+      }
+
+      window.location.assign(payload.url);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : isSpanish
+            ? "No pudimos iniciar el pago."
+            : "We could not start checkout.";
+
+      setCheckoutError(message);
+      trackEvent("stripe_checkout_error", {
+        service_id: service.id,
+        language,
+      });
+    } finally {
+      setCheckoutServiceId(null);
+    }
+  };
+
   const addService = (service: Service) => {
     const alreadySelected = selectedServices.some(
       (item) => item.id === service.id,
@@ -641,15 +713,9 @@ export default function Home() {
     if (!option) return;
 
     if (!option.category || !option.serviceIds) {
-  trackEvent("book_consultation_click", {
-    placement: "service_selector_unsure",
-    language,
-    destination_url: calendlyUrl,
-  });
-
-  window.location.href = calendlyUrl;
-  return;
-}
+      trackBookingClick("service_selector_unsure");
+      return;
+    }
 
     setSelectedNeed(option.id);
     setSelectedCategory(option.category);
@@ -1237,16 +1303,41 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                             </p>
 
                             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                              <button
-                                type="button"
-                                onClick={() => addService(service)}
-                                disabled={selected}
-                                className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-bold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-default disabled:bg-slate-300"
-                              >
-                                {selected
-                                  ? isSpanish ? "Seleccionado" : "Selected"
-                                  : isSpanish ? "Solicitar evaluación" : "Request evaluation"}
-                              </button>
+                              {service.checkoutMode !== "quote" ? (
+                                <button
+                                  type="button"
+                                  onClick={() => startCheckout(service)}
+                                  disabled={checkoutServiceId === service.id}
+                                  className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-bold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-wait disabled:bg-emerald-400"
+                                >
+                                  {checkoutServiceId === service.id
+                                    ? isSpanish
+                                      ? "Abriendo pago seguro..."
+                                      : "Opening secure checkout..."
+                                    : service.checkoutMode === "quantity"
+                                      ? isSpanish
+                                        ? "Contratar y elegir páginas"
+                                        : "Purchase and choose pages"
+                                      : isSpanish
+                                        ? "Contratar ahora"
+                                        : "Purchase now"}
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => addService(service)}
+                                  disabled={selected}
+                                  className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-bold text-white transition enabled:hover:bg-emerald-600 disabled:cursor-default disabled:bg-slate-300"
+                                >
+                                  {selected
+                                    ? isSpanish
+                                      ? "Añadido a la solicitud"
+                                      : "Added to request"
+                                    : isSpanish
+                                      ? "Solicitar cotización"
+                                      : "Request a quote"}
+                                </button>
+                              )}
 
                               <a
                                 href={calendlyUrl}
@@ -1261,6 +1352,21 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                                 {isSpanish ? "Agendar consulta gratuita" : "Book free consultation"}
                               </a>
                             </div>
+
+                            {checkoutError && checkoutServiceId === null && (
+                              <p
+                                role="alert"
+                                className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+                              >
+                                {checkoutError}
+                              </p>
+                            )}
+
+                            <p className="mt-4 text-xs leading-5 text-slate-500">
+                              {isSpanish
+                                ? "Los honorarios de Basevi Solutions no incluyen las tarifas gubernamentales ni otros costos de terceros. No ofrecemos asesoría legal ni representación."
+                                : "Basevi Solutions fees do not include government filing fees or other third-party costs. We do not provide legal advice or representation."}
+                            </p>
                           </div>
                         )}
                       </article>
