@@ -5,12 +5,6 @@ import { CheckCircle2, CalendarDays, Home } from "lucide-react";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
-declare global {
-  interface Window {
-    dataLayer?: Array<Record<string, unknown>>;
-  }
-}
-
 export default function PaymentSuccessPage() {
   const searchParams = useSearchParams();
   const language = searchParams.get("lang") === "en" ? "en" : "es";
