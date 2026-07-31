@@ -1,0 +1,17 @@
+BASEVI SOLUTIONS — ENLACES PERMANENTES DE SERVICIOS
+
+1. Descomprime este ZIP.
+2. Copia las carpetas "app" y "lib".
+3. Pégalas dentro de la carpeta principal "basevi-solutions" en tu computadora.
+4. Cuando Windows pregunte si deseas combinar las carpetas, selecciona "Sí".
+5. Abre Visual Studio Code y confirma que aparezcan estos archivos:
+   - app/pagar/[slug]/page.tsx
+   - app/pagar/[slug]/PaymentButton.tsx
+   - lib/payment-services.ts
+6. En Source Control usa este commit:
+   feat(payments): automate permanent links for all services
+7. Pulsa Commit y después Sync Changes.
+8. Espera a que Vercel muestre Ready.
+
+El enlace I-130 existente no se reemplaza ni se elimina.
+No añadas claves de Stripe dentro de estos archivos.
