@@ -502,6 +502,7 @@ export default function Home() {
   const [openServiceId, setOpenServiceId] = useState<number | null>(null);
   const [checkoutServiceId, setCheckoutServiceId] = useState<number | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isSpanish = language === "es";
   const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
@@ -732,6 +733,7 @@ export default function Home() {
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   event.preventDefault();
+  setIsSubmitting(true);
 
   const form = event.currentTarget;
   const formData = new FormData(form);
@@ -746,7 +748,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         name: formData.get("name"),
         email: formData.get("email"),
         phone: formData.get("phone"),
-        message: formData.get("message"),
+        message: `${formData.get("message")}\n\n${
+          isSpanish ? "Área de interés" : "Area of interest"
+        }: ${formData.get("interest")}\n${
+          isSpanish ? "Contacto preferido" : "Preferred contact"
+        }: ${formData.get("contactPreference")}`,
         language: isSpanish ? "es" : "en",
         services:
           selectedServices.length > 0
@@ -781,6 +787,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         ? "No pudimos enviar tu solicitud. Inténtalo nuevamente."
         : "We could not send your request. Please try again.",
     );
+  } finally {
+    setIsSubmitting(false);
   }
 };
 
@@ -970,44 +978,44 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           <div>
             <span className="inline-flex rounded-full border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300">
               {isSpanish
-                ? "Evaluación inicial gratuita"
-                : "Free initial evaluation"}
+                ? "Inmigración · Impuestos · ITIN · Traducciones"
+                : "Immigration · Taxes · ITIN · Translations"}
             </span>
 
             <h1 className="mt-7 max-w-3xl text-5xl font-bold leading-tight tracking-tight md:text-6xl">
               {isSpanish
-                ? "Soluciones migratorias claras y confiables para ti y tu familia."
-                : "Clear and reliable immigration solutions for you and your family."}
+                ? "Tus trámites, más claros. Tu próximo paso, más fácil."
+                : "Clearer paperwork. An easier next step."}
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
               {isSpanish
-                ? "Primero evaluamos tu necesidad sin costo. Después confirmamos el servicio adecuado, el alcance y el precio final antes de solicitar cualquier pago."
-                : "We first evaluate your needs at no cost. We then confirm the appropriate service, scope, and final price before requesting any payment."}
+                ? "Preparación documental bilingüe para inmigración, impuestos e ITIN y traducciones certificadas. Elige lo que necesitas y conoce las opciones, precios y próximos pasos."
+                : "Bilingual document preparation for immigration, tax and ITIN services, and certified translations. Choose what you need and see your options, pricing, and next steps."}
             </p>
 
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <a
-                href={calendlyUrl}
-                target="_blank"
-                rel="noreferrer"
-                onClick={(event) => {
-                event.preventDefault();
-                trackBookingClick("hero");
-              }}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 px-7 py-4 text-center font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-500"
-              >
-                <CalendarDays className="h-5 w-5" />
-                {isSpanish
-                  ? "Agendar evaluación gratuita"
-                  : "Book a free evaluation"}
-              </a>
-              <a
-                href="#servicios"
-                className="rounded-full border border-white/30 px-7 py-4 text-center font-semibold transition hover:border-white hover:bg-white hover:text-slate-950"
-              >
-                {isSpanish ? "Explorar servicios" : "Explore services"}
-              </a>
+            <p className="mt-8 text-sm font-bold uppercase tracking-[0.16em] text-emerald-300">
+              {isSpanish ? "¿Qué necesitas resolver?" : "What do you need help with?"}
+            </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {serviceCategories.map((category) => {
+                const Icon = category.id === "immigration" ? Landmark : category.id === "tax" ? ChartNoAxesCombined : Languages;
+                return (
+                  <button
+                    key={category.id}
+                    type="button"
+                    onClick={() => selectServiceCategory(category.id)}
+                    className="group flex items-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-left font-semibold transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-400/10"
+                  >
+                    <Icon className="h-5 w-5 shrink-0 text-emerald-300" />
+                    <span className="text-sm">{isSpanish ? category.titleEs : category.titleEn}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-slate-300">
+              <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-300" />{isSpanish ? "Precios claros" : "Clear pricing"}</span>
+              <span className="inline-flex items-center gap-2"><MessageCircle className="h-4 w-4 text-emerald-300" />{isSpanish ? "Respuesta en 1 día hábil" : "Reply in 1 business day"}</span>
             </div>
           </div>
 
@@ -1108,6 +1116,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           </div>
 
           <div className="mx-auto mt-10 max-w-3xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <p className="mb-2 text-center text-sm font-bold uppercase tracking-[0.16em] text-emerald-700">
+              {isSpanish ? "Encuentra tu servicio en menos de 1 minuto" : "Find your service in under 1 minute"}
+            </p>
             <label
               htmlFor="service-need"
               className="block text-center text-lg font-bold text-slate-900"
@@ -1780,6 +1791,19 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 </div>
               ) : (
                 <form className="space-y-4" onSubmit={handleSubmit}>
+                  <select
+                    key={`${selectedCategory ?? "none"}-${language}`}
+                    required
+                    name="interest"
+                    defaultValue={selectedCategory ?? ""}
+                    className="w-full rounded-xl border border-white/20 bg-slate-900 px-5 py-4 text-white outline-none focus:border-emerald-400"
+                  >
+                    <option value="" disabled>{isSpanish ? "Selecciona el área de interés" : "Select an area of interest"}</option>
+                    <option value="immigration">{isSpanish ? "Inmigración" : "Immigration"}</option>
+                    <option value="tax">{isSpanish ? "Impuestos o ITIN" : "Taxes or ITIN"}</option>
+                    <option value="translation">{isSpanish ? "Traducción certificada" : "Certified translation"}</option>
+                    <option value="unsure">{isSpanish ? "No estoy seguro/a" : "Not sure"}</option>
+                  </select>
                   <input
                     required
                     name="name"
@@ -1787,6 +1811,17 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     placeholder={isSpanish ? "Nombre completo" : "Full name"}
                     className="w-full rounded-xl border border-white/20 bg-white/10 px-5 py-4 text-white outline-none placeholder:text-slate-400 focus:border-emerald-400"
                   />
+                  <select
+                    required
+                    name="contactPreference"
+                    defaultValue=""
+                    className="w-full rounded-xl border border-white/20 bg-slate-900 px-5 py-4 text-white outline-none focus:border-emerald-400"
+                  >
+                    <option value="" disabled>{isSpanish ? "¿Cómo prefieres que te contactemos?" : "How should we contact you?"}</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value={isSpanish ? "Llamada" : "Phone call"}>{isSpanish ? "Llamada" : "Phone call"}</option>
+                    <option value="Email">Email</option>
+                  </select>
                   <input
                     required
                     name="email"
@@ -1814,12 +1849,18 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   />
                   <button
                     type="submit"
-                    className="w-full rounded-xl bg-emerald-600 px-6 py-4 font-semibold transition hover:bg-emerald-500"
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl bg-emerald-600 px-6 py-4 font-semibold transition hover:bg-emerald-500 disabled:cursor-wait disabled:opacity-70"
                   >
-                    {isSpanish
+                    {isSubmitting
+                      ? isSpanish ? "Enviando..." : "Sending..."
+                      : isSpanish
                       ? "Enviar evaluación gratuita"
                       : "Submit free evaluation"}
                   </button>
+                  <p className="text-center text-xs leading-5 text-slate-400">
+                    {isSpanish ? "Sin compromiso. No necesitas pagar para enviar tu solicitud." : "No obligation. No payment is needed to submit your request."}
+                  </p>
                 </form>
               )}
             </div>
