@@ -171,7 +171,7 @@ export default async function I130PaymentPage({
             </div>
 
             <a
-              href="https://wa.me/17868300438"
+              href="https://wa.me/13054823406"
               target="_blank"
               rel="noreferrer"
               className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-emerald-700 hover:text-emerald-800"

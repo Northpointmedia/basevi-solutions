@@ -41,10 +41,10 @@ const CALENDLY_URL_ES = "https://calendly.com/mbasevim/30min";
 const CALENDLY_URL_EN = "https://calendly.com/mbasevim/30min";
 
 const WHATSAPP_URL_ES =
-  "https://wa.me/17868300438?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita.";
+  "https://wa.me/13054823406?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita.";
 
 const WHATSAPP_URL_EN =
-  "https://wa.me/17868300438?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation.";
+  "https://wa.me/13054823406?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation.";
 
 
 type ServiceCategory = "immigration" | "tax" | "translation";
@@ -813,11 +813,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <div className="flex items-center gap-5">
               <a
-                href="tel:+17868300438"
+                href="tel:+13054823406"
                 className="inline-flex items-center gap-2 font-semibold text-white transition hover:text-emerald-300"
               >
                 <Phone className="h-3.5 w-3.5" />
-                +1 (786) 830-0438
+                +1 (305) 482-3406
               </a>
 
               <a
@@ -937,11 +937,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               })}
 
               <a
-                href="tel:+17868300438"
+                href="tel:+13054823406"
                 className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-3 font-semibold text-slate-700"
               >
                 <Phone className="h-4 w-4 text-emerald-700" />
-                +1 (786) 830-0438
+                +1 (305) 482-3406
               </a>
 
               <button

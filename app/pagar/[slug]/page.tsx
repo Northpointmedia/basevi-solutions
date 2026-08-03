@@ -23,7 +23,7 @@ type PageProps = {
 };
 
 const calendlyUrl = "https://calendly.com/mbasevim/30min";
-const whatsappUrl = "https://wa.me/17868300438";
+const whatsappUrl = "https://wa.me/13054823406";
 
 export function generateStaticParams() {
   return paymentServices
