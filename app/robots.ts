@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://basevisolutions.com/sitemap.xml",
+    sitemap: "https://www.basevisolutions.com/sitemap.xml",
   };
 }

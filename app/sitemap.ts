@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { seoServices } from "@/lib/seo-services";
+import { seoServicesEn, seoServicesEs } from "@/lib/seo-services";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://basevisolutions.com";
+  const baseUrl = "https://www.basevisolutions.com";
 
   return [
     {
@@ -11,8 +11,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    ...seoServices.map((service) => ({
+    ...seoServicesEs.map((service) => ({
       url: `${baseUrl}/servicios/${service.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...seoServicesEn.map((service) => ({
+      url: `${baseUrl}/en/services/${service.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,

@@ -507,6 +507,14 @@ export default function Home() {
   const isSpanish = language === "es";
   const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
 
+  useEffect(() => {
+    const savedLanguage = window.localStorage.getItem("basevi-language");
+    const detectedLanguage: Language = navigator.language.toLowerCase().startsWith("es") ? "es" : "en";
+    const preferredLanguage = savedLanguage === "es" || savedLanguage === "en" ? savedLanguage : detectedLanguage;
+    const frame = window.requestAnimationFrame(() => setLanguage(preferredLanguage));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
   const handleLanguageSwitch = () => {
     const nextLanguage = isSpanish ? "en" : "es";
 
@@ -516,6 +524,7 @@ export default function Home() {
     });
 
     setLanguage(nextLanguage);
+    window.localStorage.setItem("basevi-language", nextLanguage);
   };
 
   const trackBookingClick = (placement: string) => {
