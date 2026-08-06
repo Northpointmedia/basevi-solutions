@@ -208,19 +208,25 @@ export async function POST(request: Request) {
       </div>
     `;
 
+    const businessEmail =
+      process.env.BUSINESS_NOTIFICATION_EMAIL || "info@basevisolutions.com";
+    const fromEmail =
+      process.env.RESEND_FROM_EMAIL ||
+      "Basevi Solutions <info@basevisolutions.com>";
+
     const [internalEmail, clientEmail] = await Promise.all([
       resend.emails.send({
-        from: "Basevi Solutions <contact@basevisolutions.com>",
-        to: ["mbasevim@gmail.com"],
+        from: fromEmail,
+        to: [businessEmail],
         replyTo: email,
         subject: `Nueva solicitud: ${services || "Evaluación gratuita"} — ${name}`,
         html: internalHtml,
       }),
 
       resend.emails.send({
-        from: "Basevi Solutions <contact@basevisolutions.com>",
+        from: fromEmail,
         to: [email],
-        replyTo: "mbasevim@gmail.com",
+        replyTo: businessEmail,
         subject: clientSubject,
         html: clientHtml,
       }),

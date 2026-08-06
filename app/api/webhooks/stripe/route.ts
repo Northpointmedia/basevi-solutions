@@ -29,7 +29,7 @@ async function sendPurchaseEmails(session: Stripe.Checkout.Session) {
   const customerName = session.customer_details?.name || "Client";
   const language = session.metadata?.language === "en" ? "en" : "es";
   const businessEmail =
-    process.env.BUSINESS_NOTIFICATION_EMAIL || "mbasevim@gmail.com";
+    process.env.BUSINESS_NOTIFICATION_EMAIL || "info@basevisolutions.com";
 
   if (!resend || !customerEmail) {
     console.info("Purchase completed; email skipped because Resend or email is unavailable.");
@@ -60,7 +60,7 @@ async function sendPurchaseEmails(session: Stripe.Checkout.Session) {
     resend.emails.send({
       from:
         process.env.RESEND_FROM_EMAIL ||
-        "Basevi Solutions <onboarding@resend.dev>",
+        "Basevi Solutions <info@basevisolutions.com>",
       to: customerEmail,
       subject:
         language === "es"
@@ -82,7 +82,7 @@ async function sendPurchaseEmails(session: Stripe.Checkout.Session) {
     resend.emails.send({
       from:
         process.env.RESEND_FROM_EMAIL ||
-        "Basevi Solutions <onboarding@resend.dev>",
+        "Basevi Solutions <info@basevisolutions.com>",
       to: businessEmail,
       subject: `New paid order: ${serviceName}`,
       html: `<h1>New Basevi Solutions payment</h1>

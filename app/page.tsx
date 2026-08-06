@@ -1879,7 +1879,15 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-10 text-sm text-slate-500 md:flex-row md:items-center md:justify-between lg:px-8">
-          <p>© 2026 Basevi Solutions. All rights reserved.</p>
+          <div className="space-y-1">
+            <p>© 2026 Basevi Solutions. All rights reserved.</p>
+            <a
+              href="mailto:info@basevisolutions.com"
+              className="inline-block font-medium text-blue-800 transition hover:text-emerald-700"
+            >
+              info@basevisolutions.com
+            </a>
+          </div>
           <p>
             {isSpanish
               ? "Servicio de preparación documental. No somos un bufete de abogados."
