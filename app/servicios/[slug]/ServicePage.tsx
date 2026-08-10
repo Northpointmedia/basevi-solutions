@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import type { Language, SeoService } from "@/lib/seo-services";
 
@@ -12,20 +11,16 @@ const copy = {
 };
 
 export default function ServicePage({ service, language = "es", campaign = "seo", alternateHref }: { service: SeoService; language?: Language; campaign?: string; alternateHref: string }) {
-  const router = useRouter();
   const t = copy[language];
   const text = encodeURIComponent(`${t.message} ${service.title} ${language === "es" ? "y quisiera más información." : "and would like more information."}`);
   const whatsapp = `https://wa.me/13054823406?text=${text}`;
   const track = (name: string) => { const w = window as typeof window & { dataLayer?: Record<string, unknown>[] }; w.dataLayer?.push({ event: name, service: service.slug, campaign, language }); };
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("basevi-language");
-    const detected: Language = navigator.language.toLowerCase().startsWith("es") ? "es" : "en";
-    const preferred = saved === "es" || saved === "en" ? saved : detected;
+    // Keep each language URL independently crawlable/indexable.
+    // Language changes happen only when the visitor uses the ES/EN switch.
     document.documentElement.lang = language;
-    if (!saved) window.localStorage.setItem("basevi-language", preferred);
-    if (preferred !== language) router.replace(alternateHref);
-  }, [alternateHref, language, router]);
+  }, [language]);
 
   const chooseLanguage = () => window.localStorage.setItem("basevi-language", language === "es" ? "en" : "es");
 
