@@ -47,20 +47,20 @@ function PaymentSuccessContent() {
 
           <p className="mt-2">
             {isSpanish
-              ? "Revisa tu email, reúne tus documentos y agenda tu reunión cuando estés listo/a."
-              : "Check your email, gather your documents, and schedule your meeting when ready."}
+              ? "Revisa tu email, reúne tus documentos y, si necesitas atención presencial, agenda tu cita exclusiva para clientes activos."
+              : "Check your email, gather your documents, and, if you need in-person assistance, book your appointment reserved for active clients."}
           </p>
         </div>
 
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <a
-            href="https://calendly.com/mbasevim/30min"
+            href="https://calendar.app.google/a5gp6utAdqZdi1va9"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-700 px-6 py-3 font-bold text-white transition hover:bg-emerald-600"
           >
             <CalendarDays className="h-5 w-5" />
-            {isSpanish ? "Agendar reunión" : "Schedule meeting"}
+            {isSpanish ? "Agendar cita presencial" : "Schedule in-person appointment"}
           </a>
 
           <Link
