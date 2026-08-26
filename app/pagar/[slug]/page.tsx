@@ -22,7 +22,7 @@ type PageProps = {
   searchParams: Promise<{ lang?: string | string[] }>;
 };
 
-const calendlyUrl = "https://calendly.com/mbasevim/30min";
+const evaluationUrl = "/evaluacion";
 const whatsappUrl = "https://wa.me/13054823406";
 
 export function generateStaticParams() {
@@ -206,19 +206,19 @@ export default async function ServicePaymentPage({
               <div className="pt-6">
                 <p className="mb-5 text-sm leading-6 text-slate-600">
                   {isSpanish
-                    ? "Agenda una evaluación gratuita para confirmar el alcance y el precio final antes de pagar."
-                    : "Schedule a free evaluation to confirm the scope and final price before paying."}
+                    ? "Reserva una evaluación inicial para confirmar el alcance y el precio final antes de pagar."
+                    : "Book an initial evaluation to confirm the scope and final price before paying."}
                 </p>
                 <a
-                  href={calendlyUrl}
+                  href={`${evaluationUrl}?lang=${language}`}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-emerald-700 px-6 py-4 text-base font-bold text-white shadow-lg shadow-emerald-900/15 transition hover:-translate-y-0.5 hover:bg-emerald-600"
                 >
                   <CalendarDays className="h-5 w-5" aria-hidden="true" />
                   {isSpanish
-                    ? "Solicitar evaluación gratuita"
-                    : "Request a free evaluation"}
+                    ? "Reservar evaluación — US$25"
+                    : "Book evaluation — US$25"}
                 </a>
               </div>
             ) : (

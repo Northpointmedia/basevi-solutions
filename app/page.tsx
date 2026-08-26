@@ -37,14 +37,11 @@ type TrackingEventName =
   | "stripe_checkout_error"
   | "language_switch";
 
-const CALENDLY_URL_ES = "https://calendly.com/mbasevim/30min";
-const CALENDLY_URL_EN = "https://calendly.com/mbasevim/30min";
-
 const WHATSAPP_URL_ES =
-  "https://wa.me/13054823406?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20solicitar%20una%20evaluaci%C3%B3n%20gratuita.";
+  "https://wa.me/13054823406?text=Hola%20Mar%C3%ADa%2C%20he%20visitado%20la%20web%20de%20Basevi%20Solutions%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n.";
 
 const WHATSAPP_URL_EN =
-  "https://wa.me/13054823406?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20to%20request%20a%20free%20evaluation.";
+  "https://wa.me/13054823406?text=Hello%20Maria%2C%20I%20visited%20the%20Basevi%20Solutions%20website%20and%20would%20like%20more%20information.";
 
 
 type ServiceCategory = "immigration" | "tax" | "translation";
@@ -505,7 +502,7 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isSpanish = language === "es";
-  const calendlyUrl = isSpanish ? CALENDLY_URL_ES : CALENDLY_URL_EN;
+  const evaluationUrl = `/evaluacion?lang=${language}`;
 
   useEffect(() => {
     const savedLanguage = window.localStorage.getItem("basevi-language");
@@ -531,10 +528,10 @@ export default function Home() {
     trackEvent("book_consultation_click", {
       placement,
       language,
-      destination_url: calendlyUrl,
+      destination_url: evaluationUrl,
     });
 
-    window.open(calendlyUrl, "_blank", "noopener,noreferrer");
+    window.open(evaluationUrl, "_blank", "noopener,noreferrer");
   };
 
   const trackWhatsAppClick = (placement: string) => {
@@ -702,7 +699,7 @@ export default function Home() {
 
   const goToEvaluation = () => {
     setDrawerOpen(false);
-    document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
+    window.location.assign(evaluationUrl);
   };
 
   const selectServiceCategory = (category: ServiceCategory) => {
@@ -783,7 +780,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     trackEvent("contact_form_submit", {
       language,
       selected_services_count: selectedServices.length,
-      form_name: "free_evaluation_form",
+      form_name: "general_contact_form",
     });
 
     setSubmitted(true);
@@ -891,7 +888,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </button>
 
             <a
-              href={calendlyUrl}
+              href={evaluationUrl}
               target="_blank"
               rel="noreferrer"
               onClick={(event) => {
@@ -902,8 +899,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             >
               <CalendarDays className="h-4.5 w-4.5" />
               {isSpanish
-                ? "Agendar evaluación gratuita"
-                : "Book a free evaluation"}
+                ? "Reservar evaluación — US$25"
+                : "Book evaluation — US$25"}
             </a>
 
             <button
@@ -962,7 +959,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               </button>
 
               <a
-                href={calendlyUrl}
+                href={evaluationUrl}
                 target="_blank"
                 rel="noreferrer"
                 onClick={(event) => {
@@ -973,8 +970,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               >
                 <CalendarDays className="h-5 w-5" />
                 {isSpanish
-                  ? "Agendar evaluación gratuita"
-                  : "Book a free evaluation"}
+                  ? "Reservar evaluación — US$25"
+                  : "Book evaluation — US$25"}
               </a>
             </div>
           </nav>
@@ -1075,8 +1072,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             },
             {
               icon: CalendarDays,
-              es: "Evaluación virtual gratuita",
-              en: "Free virtual evaluation",
+              es: "Evaluación virtual — US$25",
+              en: "Virtual evaluation — US$25",
             },
             {
               icon: MessageCircle,
@@ -1360,7 +1357,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                               )}
 
                               <a
-                                href={calendlyUrl}
+                                href={evaluationUrl}
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(event) => {
@@ -1369,7 +1366,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                                 }}
                                 className="rounded-full border border-slate-300 px-6 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-emerald-700 hover:text-emerald-800"
                               >
-                                {isSpanish ? "Agendar consulta gratuita" : "Book free consultation"}
+                                {isSpanish ? "Reservar evaluación — US$25" : "Book evaluation — US$25"}
                               </a>
                             </div>
 
@@ -1402,11 +1399,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 </h4>
                 <p className="mx-auto mt-3 max-w-2xl leading-7 text-emerald-50/80">
                   {isSpanish
-                    ? "No tienes que decidirlo solo. Agenda una evaluación virtual gratuita y revisaremos contigo el servicio adecuado."
-                    : "You do not have to decide alone. Book a free virtual evaluation and we will review the appropriate service with you."}
+                    ? "No tienes que decidirlo solo. Reserva una evaluación virtual de 30 minutos y revisaremos contigo el servicio adecuado."
+                    : "You do not have to decide alone. Book a 30-minute virtual evaluation and we will review the appropriate service with you."}
                 </p>
                 <a
-                  href={calendlyUrl}
+                  href={evaluationUrl}
                   target="_blank"
                   rel="noreferrer"
                   onClick={(event) => {
@@ -1416,7 +1413,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 font-bold transition hover:bg-emerald-500"
                 >
                   <CalendarDays className="h-5 w-5" />
-                  {isSpanish ? "Agendar evaluación gratuita" : "Book a free evaluation"}
+                  {isSpanish ? "Reservar evaluación — US$25" : "Book evaluation — US$25"}
                 </a>
               </div>
             </div>
@@ -1441,8 +1438,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             {[
               {
                 icon: "⌕",
-                esTitle: "Evaluación gratuita",
-                enTitle: "Free evaluation",
+                esTitle: "Evaluación inicial",
+                enTitle: "Initial evaluation",
                 esText: "Revisamos tu necesidad inicial sin compromiso.",
                 enText: "We review your initial needs with no obligation.",
               },
@@ -1509,8 +1506,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           <div>
             <p className="text-lg leading-8 text-emerald-50/80">
               {isSpanish
-                ? "La evaluación inicial es gratuita y no establece una relación profesional entre el cliente y Basevi Solutions. Después de revisar la información, confirmaremos si podemos ayudarte, el alcance del servicio y el presupuesto correspondiente."
-                : "The initial evaluation is free and does not establish a professional relationship between the client and Basevi Solutions. After reviewing the information, we will confirm whether we can assist, the scope of service, and the applicable quote."}
+                ? "La evaluación inicial virtual dura 30 minutos y cuesta US$25. El pago se acredita completamente al servicio que contrates dentro de los siguientes 7 días."
+                : "The initial virtual evaluation lasts 30 minutes and costs US$25. The payment is fully credited toward a service purchased within the following 7 days."}
             </p>
             <div className="mt-8 rounded-2xl border border-emerald-300/20 bg-white/5 p-6 text-sm leading-7 text-emerald-50/80">
               <strong className="text-white">
@@ -1613,9 +1610,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             {[
               {
                 esQ: "¿La evaluación inicial tiene costo?",
-                enQ: "Is the initial evaluation free?",
-                esA: "La evaluación virtual inicial de 30 minutos es completamente gratuita y sin compromiso. Durante la reunión conoceremos tu situación, responderemos tus preguntas y te explicaremos con claridad las opciones disponibles, el proceso recomendado y el costo del servicio si decides continuar.",
-                enA: "The initial 30-minute virtual evaluation is completely free and comes with no obligation. During the meeting, we will learn about your situation, answer your questions, explain the available options, and provide clear information about the recommended process and service fees if you decide to move forward.",
+                enQ: "How much is the initial evaluation?",
+                esA: "La evaluación virtual inicial de 30 minutos cuesta US$25 y se paga antes de reservar. Si contratas uno de nuestros servicios dentro de los siguientes 7 días, acreditaremos completamente ese monto al precio del servicio. Las inasistencias y cancelaciones con menos de 24 horas no son reembolsables.",
+                enA: "The initial 30-minute virtual evaluation costs US$25 and is paid before booking. If you purchase one of our services within the following 7 days, the full amount is credited toward the service price. No-shows and cancellations with less than 24 hours' notice are nonrefundable.",
               },
               {
                 esQ: "¿Pueden atenderme si vivo fuera de Florida?",
@@ -1668,8 +1665,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               {
                 esQ: "¿Cómo reservo una cita?",
                 enQ: "How do I book an appointment?",
-                esA: "Utiliza el botón de agenda para reservar la evaluación virtual gratuita. Los clientes activos reciben directamente el enlace privado para citas presenciales de revisión documental e inicio del proceso.",
-                enA: "Use the scheduling button to book the free virtual evaluation. Existing clients receive a private link for in-person document review and case-intake appointments.",
+                esA: "Utiliza el botón de reserva, acepta la política y completa el pago seguro de US$25. Después podrás elegir la fecha y hora disponibles. Los clientes activos reciben directamente el enlace privado para citas presenciales.",
+                enA: "Use the booking button, accept the policy, and complete the secure US$25 payment. You can then choose an available date and time. Existing clients receive the private link for in-person appointments.",
               },
             ].map((item, index) => {
               const isOpen = openFaq === index;
@@ -1716,11 +1713,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
             {isSpanish
-              ? "Agenda tu evaluación virtual inicial gratuita y recibe una orientación clara sobre tu caso, los próximos pasos y el servicio más adecuado para ti."
-              : "Book your free initial virtual evaluation and receive clear guidance about your situation, the next steps, and the service that best fits your needs."}
+              ? "Reserva tu evaluación virtual inicial por US$25. El monto se acredita completamente al servicio que contrates dentro de los siguientes 7 días."
+              : "Book your initial virtual evaluation for US$25. The amount is fully credited toward a service purchased within the following 7 days."}
           </p>
           <a
-            href={calendlyUrl}
+            href={evaluationUrl}
             target="_blank"
             rel="noreferrer"
             onClick={(event) => {
@@ -1741,7 +1738,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             <div className="grid gap-12 md:grid-cols-2">
               <div>
                 <p className="font-bold uppercase tracking-[0.2em] text-emerald-300">
-                  {isSpanish ? "Evaluación gratuita" : "Free evaluation"}
+                  {isSpanish ? "Contacto inicial" : "Initial contact"}
                 </p>
                 <h2 className="mt-5 text-4xl font-bold">
                   {isSpanish
@@ -1755,7 +1752,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 </p>
 
                 <a
-                  href={calendlyUrl}
+                  href={evaluationUrl}
                   target="_blank"
                   rel="noreferrer"
                   onClick={(event) => {
@@ -1766,8 +1763,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 >
                   <CalendarDays className="h-5 w-5" />
                   {isSpanish
-                    ? "Agendar evaluación virtual"
-                    : "Book virtual evaluation"}
+                    ? "Reservar evaluación — US$25"
+                    : "Book evaluation — US$25"}
                 </a>
 
                 {selectedServices.length > 0 && (
@@ -1864,11 +1861,11 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     {isSubmitting
                       ? isSpanish ? "Enviando..." : "Sending..."
                       : isSpanish
-                      ? "Enviar evaluación gratuita"
-                      : "Submit free evaluation"}
+                      ? "Enviar consulta"
+                      : "Submit inquiry"}
                   </button>
                   <p className="text-center text-xs leading-5 text-slate-400">
-                    {isSpanish ? "Sin compromiso. No necesitas pagar para enviar tu solicitud." : "No obligation. No payment is needed to submit your request."}
+                    {isSpanish ? "Enviar este formulario es gratuito. La evaluación virtual de 30 minutos se reserva por separado y cuesta US$25." : "Submitting this form is free. The 30-minute virtual evaluation is booked separately and costs US$25."}
                   </p>
                 </form>
               )}
@@ -1961,8 +1958,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             <div className="border-t border-slate-200 pt-6">
               <p className="text-xs leading-5 text-slate-500">
                 {isSpanish
-                  ? "No se solicitará ningún pago hasta finalizar la evaluación gratuita y confirmar por escrito el servicio, alcance y precio."
-                  : "No payment will be requested until the free evaluation is completed and the service, scope, and price are confirmed in writing."}
+                  ? "La evaluación inicial cuesta US$25 y se acredita completamente al servicio que contrates dentro de los siguientes 7 días."
+                  : "The initial evaluation costs US$25 and is fully credited toward a service purchased within the following 7 days."}
               </p>
               <button
                 type="button"
@@ -1970,8 +1967,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 className="mt-5 w-full rounded-xl bg-slate-950 px-6 py-4 font-semibold text-white transition hover:bg-emerald-800"
               >
                 {isSpanish
-                  ? "Continuar a evaluación gratuita"
-                  : "Continue to free evaluation"}
+                  ? "Continuar a evaluación — US$25"
+                  : "Continue to evaluation — US$25"}
               </button>
             </div>
           </aside>

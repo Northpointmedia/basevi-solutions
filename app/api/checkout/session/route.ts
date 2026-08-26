@@ -22,7 +22,13 @@ export async function GET(request: Request) {
       isWebsiteSession;
 
     return NextResponse.json(
-      { paid },
+      {
+        paid,
+        purchaseType:
+          paid && session.metadata?.purchase_type === "consultation"
+            ? "consultation"
+            : "service",
+      },
       {
         headers: {
           "Cache-Control": "no-store, max-age=0",

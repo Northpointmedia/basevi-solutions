@@ -8,6 +8,7 @@ import { Suspense } from "react";
 function PaymentCancelledContent() {
   const searchParams = useSearchParams();
   const isSpanish = searchParams.get("lang") !== "en";
+  const language = isSpanish ? "es" : "en";
 
   return (
     <main className="min-h-screen bg-slate-50 px-5 py-16">
@@ -24,8 +25,8 @@ function PaymentCancelledContent() {
 
         <p className="mx-auto mt-5 max-w-xl leading-7 text-slate-600">
           {isSpanish
-            ? "No se realizó ningún cargo. Puedes volver al servicio e intentarlo de nuevo o agendar una evaluación gratuita."
-            : "No charge was made. You can return to the service and try again or book a free evaluation."}
+            ? "No se realizó ningún cargo. Puedes regresar e intentarlo nuevamente cuando estés listo/a."
+            : "No charge was made. You can return and try again whenever you are ready."}
         </p>
 
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -38,13 +39,13 @@ function PaymentCancelledContent() {
           </Link>
 
           <a
-            href="https://calendly.com/mbasevim/30min"
+            href={`/evaluacion?lang=${language}`}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-6 py-3 font-bold text-slate-700 transition hover:border-emerald-700 hover:text-emerald-800"
           >
             <CalendarDays className="h-5 w-5" />
-            {isSpanish ? "Agendar evaluación" : "Book an evaluation"}
+            {isSpanish ? "Volver a la evaluación" : "Return to evaluation"}
           </a>
         </div>
       </section>

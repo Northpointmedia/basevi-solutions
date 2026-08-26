@@ -219,7 +219,7 @@ export async function POST(request: Request) {
         from: fromEmail,
         to: [businessEmail],
         replyTo: email,
-        subject: `Nueva solicitud: ${services || "Evaluación gratuita"} — ${name}`,
+        subject: `Nueva consulta: ${services || "Contacto general"} — ${name}`,
         html: internalHtml,
       }),
 
