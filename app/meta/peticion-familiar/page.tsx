@@ -7,11 +7,14 @@ import { CheckCircle2, Heart, MessageCircle, ShieldCheck, Star } from "lucide-re
 
 const WHATSAPP = "https://wa.me/13054823406?text=Hola%20Basevi%20Solutions%2C%20vi%20su%20anuncio%20sobre%20petici%C3%B3n%20familiar%20y%20quisiera%20informaci%C3%B3n.";
 
-type WindowWithDataLayer = Window & { dataLayer?: Record<string, unknown>[] };
+type WindowWithTracking = Window & {
+  dataLayer?: Record<string, unknown>[];
+  fbq?: (...args: unknown[]) => void;
+};
 
 function track(event: string, extra: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
-  const w = window as WindowWithDataLayer;
+  const w = window as WindowWithTracking;
   w.dataLayer = w.dataLayer || [];
   w.dataLayer.push({ event, campaign: "meta_peticion_familiar_es", ...extra });
 }
@@ -56,6 +59,11 @@ export default function MetaPeticionFamiliarPage() {
       });
       if (!response.ok) throw new Error("send_failed");
       track("lead_form_submit", { service: "i130", lead_source: "meta" });
+      const w = window as WindowWithTracking;
+      w.fbq?.("track", "Lead", {
+        content_name: "Petición familiar I-130",
+        content_category: "Document preparation",
+      });
       setSubmitted(true);
       form.reset();
     } catch {
