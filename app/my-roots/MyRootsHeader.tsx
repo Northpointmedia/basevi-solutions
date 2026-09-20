@@ -72,7 +72,7 @@ export default function MyRootsHeader({ language = "es" }: { language?: "es" | "
           href="/#contacto"
           className="rounded-full bg-[#173f33] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#225844] sm:px-5 sm:text-sm"
         >
-          {isSpanish ? "Hablar con Basevi" : "Talk to Basevi"}
+          {isSpanish ? "Contáctanos" : "Contact us"}
         </Link>
       </div>
     </header>
