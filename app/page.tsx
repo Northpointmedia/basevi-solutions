@@ -802,7 +802,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 };
 
   return (
-    <main className="min-h-screen bg-white text-slate-950">
+    <main className="basevi-site min-h-screen bg-white text-slate-950">
       <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-[0_8px_30px_rgba(15,23,42,0.05)] backdrop-blur-xl">
         <div className="hidden border-b border-slate-200/70 bg-slate-950 text-white lg:block">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2.5 text-xs">
@@ -985,8 +985,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         )}
       </header>
 
-      <section id="inicio" className="scroll-mt-[150px] relative overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.28),transparent_40%)]" />
+      <section id="inicio" className="basevi-hero scroll-mt-[150px] relative overflow-hidden bg-slate-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.28),transparent_40%)]" /><div className="basevi-orb basevi-orb-one" aria-hidden="true" /><div className="basevi-orb basevi-orb-two" aria-hidden="true" /><div className="basevi-grid" aria-hidden="true" />
         <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-5 py-20 lg:grid-cols-2 lg:px-8">
           <div>
             <span className="inline-flex rounded-full border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300">
@@ -1018,7 +1018,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     key={category.id}
                     type="button"
                     onClick={() => selectServiceCategory(category.id)}
-                    className="group flex items-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-left font-semibold transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-400/10"
+                    className="basevi-hero-choice group flex items-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-left font-semibold transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-400/10"
                   >
                     <Icon className="h-5 w-5 shrink-0 text-emerald-300" />
                     <span className="text-sm">{isSpanish ? category.titleEs : category.titleEn}</span>
@@ -1032,7 +1032,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-xl">
+          <div className="basevi-founder-card relative mx-auto w-full max-w-xl">
             <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white shadow-2xl">
               <Image
                 src="/maria-basevi.webp"
@@ -1093,7 +1093,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             return (
               <div
                 key={item.en}
-                className="flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-4"
+                className="basevi-trust-card flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-4"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800">
                   <Icon className="h-5 w-5" />
@@ -1174,7 +1174,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   key={category.id}
                   type="button"
                   onClick={() => selectServiceCategory(category.id)}
-                  className={`rounded-3xl border p-7 text-left transition ${
+                  className={`basevi-service-card rounded-3xl border p-7 text-left transition ${
                     isSelected
                       ? "border-emerald-700 bg-emerald-950 text-white shadow-xl"
                       : "border-slate-200 bg-white text-slate-950 shadow-sm hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl"
