@@ -369,3 +369,10 @@ html { scroll-behavior: smooth; }
     margin-top:14px !important;
   }
 }
+
+
+/* Remove decorative founder-card side label/artifact */
+.basevi-founder-premium::after{
+  content:none !important;
+  display:none !important;
+}
