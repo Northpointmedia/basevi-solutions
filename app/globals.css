@@ -356,3 +356,16 @@ html { scroll-behavior: smooth; }
     padding:18px !important;
   }
 }
+
+
+/* Founder card polish — intentional breathing room between portrait and bio */
+.basevi-founder-caption{
+  margin-top:16px !important;
+  border-top:1px solid rgba(110,231,183,.30) !important;
+  border-radius:2rem !important;
+}
+@media(max-width:768px){
+  .basevi-founder-caption{
+    margin-top:14px !important;
+  }
+}
