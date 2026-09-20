@@ -5,6 +5,7 @@ type NewsletterRequest = {
   email?: string;
   firstName?: string;
   website?: string;
+  language?: "es" | "en";
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,10 +20,14 @@ function escapeHtml(value: string) {
 }
 
 export async function POST(request: Request) {
+  let isSpanish = true;
+
   try {
     const body = (await request.json()) as NewsletterRequest;
     const email = body.email?.trim().toLowerCase() ?? "";
     const firstName = body.firstName?.trim().slice(0, 80) ?? "";
+    const language = body.language === "en" ? "en" : "es";
+    isSpanish = language === "es";
 
     // Honeypot: bots usually complete this hidden field.
     if (body.website) {
@@ -30,7 +35,7 @@ export async function POST(request: Request) {
     }
 
     if (!EMAIL_PATTERN.test(email) || email.length > 254) {
-      return NextResponse.json({ error: "Introduce un email válido." }, { status: 400 });
+      return NextResponse.json({ error: isSpanish ? "Introduce un email válido." : "Enter a valid email address." }, { status: 400 });
     }
 
     const apiKey = process.env.RESEND_API_KEY;
@@ -38,7 +43,7 @@ export async function POST(request: Request) {
     if (!apiKey) {
       console.error("RESEND_API_KEY is not configured for the newsletter endpoint.");
       return NextResponse.json(
-        { error: "El newsletter no está disponible temporalmente. Inténtalo más tarde." },
+        { error: isSpanish ? "El newsletter no está disponible temporalmente. Inténtalo más tarde." : "The newsletter is temporarily unavailable. Please try again later." },
         { status: 503 },
       );
     }
@@ -49,7 +54,7 @@ export async function POST(request: Request) {
     const businessEmail = process.env.BUSINESS_NOTIFICATION_EMAIL || "info@basevisolutions.com";
     const safeName = escapeHtml(firstName);
     const safeEmail = escapeHtml(email);
-    const greeting = safeName ? `Hola ${safeName},` : "Hola,";
+    const greeting = safeName ? `${isSpanish ? "Hola" : "Hello"} ${safeName},` : isSpanish ? "Hola," : "Hello,";
     let contactStored = false;
     let isExistingContact = false;
 
@@ -94,7 +99,7 @@ export async function POST(request: Request) {
       resend.emails.send({
         from: fromEmail,
         to: [email],
-        subject: "Ya formas parte de My Roots",
+        subject: isSpanish ? "Ya formas parte de My Roots" : "Welcome to My Roots",
         html: `
           <div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;color:#1f2a25">
             <div style="background:#173f33;padding:34px;border-radius:18px 18px 0 0;color:#fff">
@@ -103,9 +108,9 @@ export async function POST(request: Request) {
             </div>
             <div style="padding:34px;border:1px solid #dcd8cb;border-top:0;background:#fffdf8">
               <p style="font-size:17px">${greeting}</p>
-              <p style="font-size:16px;line-height:1.7">Tu suscripción está confirmada. Recibirás historias y explicaciones prácticas para entender mejor los trámites migratorios en Estados Unidos.</p>
-              <a href="https://www.basevisolutions.com/my-roots" style="display:inline-block;margin-top:16px;background:#b85f3d;color:#fff;text-decoration:none;padding:13px 20px;border-radius:999px;font-weight:bold">Leer My Roots</a>
-              <p style="margin-top:28px;font-size:12px;line-height:1.6;color:#66716b">Recibes este mensaje porque te suscribiste en My Roots. Los contenidos son informativos y no constituyen asesoría legal.</p>
+              <p style="font-size:16px;line-height:1.7">${isSpanish ? "Tu suscripción está confirmada. Recibirás historias y explicaciones prácticas para entender mejor los trámites migratorios en Estados Unidos." : "Your subscription is confirmed. You will receive stories and practical explanations to help you understand U.S. immigration processes."}</p>
+              <a href="https://www.basevisolutions.com/${isSpanish ? "my-roots" : "en/my-roots"}" style="display:inline-block;margin-top:16px;background:#b85f3d;color:#fff;text-decoration:none;padding:13px 20px;border-radius:999px;font-weight:bold">${isSpanish ? "Leer My Roots" : "Read My Roots"}</a>
+              <p style="margin-top:28px;font-size:12px;line-height:1.6;color:#66716b">${isSpanish ? "Recibes este mensaje porque te suscribiste en My Roots. Los contenidos son informativos y no constituyen asesoría legal." : "You are receiving this message because you subscribed to My Roots. Content is informational and does not constitute legal advice."}</p>
             </div>
           </div>
         `,
@@ -120,6 +125,7 @@ export async function POST(request: Request) {
             <p><strong>Nombre:</strong> ${safeName || "No indicado"}</p>
             <p><strong>Email:</strong> ${safeEmail}</p>
             <p><strong>Origen:</strong> Formulario de newsletter de My Roots</p>
+            <p><strong>Idioma:</strong> ${isSpanish ? "Español" : "English"}</p>
             <p><strong>Estado en Resend Contacts:</strong> ${contactStored ? "Guardado automáticamente" : "Requiere registro manual"}</p>
           </div>
         `,
@@ -140,20 +146,20 @@ export async function POST(request: Request) {
 
     if (!contactStored && !notificationSent) {
       return NextResponse.json(
-        { error: "No pudimos completar tu suscripción. Inténtalo de nuevo." },
+        { error: isSpanish ? "No pudimos completar tu suscripción. Inténtalo de nuevo." : "We couldn't complete your subscription. Please try again." },
         { status: 502 },
       );
     }
 
     return NextResponse.json({
       message: isExistingContact
-        ? "Tu email ya estaba registrado. Hemos confirmado tu suscripción."
-        : "¡Bienvenida a My Roots! Revisa tu email para confirmar que todo llegó correctamente.",
+        ? isSpanish ? "Tu email ya estaba registrado. Hemos confirmado tu suscripción." : "Your email was already registered. We confirmed your subscription."
+        : isSpanish ? "¡Bienvenida a My Roots! Revisa tu email para confirmar que todo llegó correctamente." : "Welcome to My Roots! Check your inbox to make sure everything arrived.",
     });
   } catch (error) {
     console.error("Newsletter endpoint failed", error);
     return NextResponse.json(
-      { error: "No pudimos completar tu suscripción. Inténtalo de nuevo." },
+      { error: isSpanish ? "No pudimos completar tu suscripción. Inténtalo de nuevo." : "We couldn't complete your subscription. Please try again." },
       { status: 500 },
     );
   }

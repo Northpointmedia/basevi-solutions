@@ -606,7 +606,7 @@ export default function Home() {
         ["Services", "#servicios"],
         ["Process", "#proceso"],
         ["About", "#nosotros"],
-        ["My Roots", "/my-roots"],
+        ["My Roots", "/en/my-roots"],
         ["Contact", "#contacto"],
       ];
 
@@ -1892,7 +1892,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               info@basevisolutions.com
             </a>
             <Link
-              href="/my-roots"
+              href={isSpanish ? "/my-roots" : "/en/my-roots"}
               className="ml-4 inline-block font-semibold text-emerald-800 transition hover:text-emerald-600"
             >
               My Roots

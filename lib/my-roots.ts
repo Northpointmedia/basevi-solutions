@@ -7,7 +7,7 @@ export type MyRootsSection = {
 
 export type MyRootsArticle = {
   slug: string;
-  category: "Familia" | "Ajuste" | "Documentos" | "Ciudadanía";
+  category: string;
   readingTime: string;
   publishedAt: string;
   title: string;
