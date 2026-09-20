@@ -1033,18 +1033,18 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           </div>
 
           <div className="basevi-founder-card basevi-founder-premium relative mx-auto w-full max-w-xl">
-            <div className="basevi-founder-frame overflow-hidden rounded-[2.4rem] border border-white/15 bg-white shadow-2xl">
+            <div className="basevi-founder-frame rounded-[2.4rem] border border-white/15 bg-white shadow-2xl">
               <Image
                 src="/maria-basevi.webp"
                 alt="María Basevi, fundadora de Basevi Solutions LLC"
                 width={1200}
                 height={1400}
                 priority
-                className="h-[620px] w-full object-cover object-top"
+                className="basevi-founder-image w-full object-contain object-top"
               />
             </div>
 
-            <div className="absolute -bottom-7 left-4 right-4 rounded-2xl border border-emerald-300/30 bg-slate-950/95 p-5 shadow-2xl backdrop-blur sm:left-8 sm:right-8">
+            <div className="basevi-founder-caption relative z-10 mx-4 -mt-1 rounded-b-[2rem] border border-emerald-300/30 border-t-0 bg-slate-950/95 p-5 shadow-2xl backdrop-blur sm:mx-8">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-300">
                 María Basevi
               </p>
