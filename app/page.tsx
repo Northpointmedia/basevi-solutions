@@ -802,7 +802,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 };
 
   return (
-    <main className="min-h-screen bg-white text-slate-950">
+    <main className="basevi-site min-h-screen bg-white text-slate-950">
       <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-[0_8px_30px_rgba(15,23,42,0.05)] backdrop-blur-xl">
         <div className="hidden border-b border-slate-200/70 bg-slate-950 text-white lg:block">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2.5 text-xs">
@@ -985,8 +985,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         )}
       </header>
 
-      <section id="inicio" className="scroll-mt-[150px] relative overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.28),transparent_40%)]" />
+      <section id="inicio" className="basevi-hero scroll-mt-[150px] relative overflow-hidden bg-slate-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.28),transparent_40%)]" /><div className="basevi-orb basevi-orb-one" aria-hidden="true" /><div className="basevi-orb basevi-orb-two" aria-hidden="true" /><div className="basevi-grid" aria-hidden="true" />
         <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-5 py-20 lg:grid-cols-2 lg:px-8">
           <div>
             <span className="inline-flex rounded-full border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300">
@@ -1018,7 +1018,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     key={category.id}
                     type="button"
                     onClick={() => selectServiceCategory(category.id)}
-                    className="group flex items-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-left font-semibold transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-400/10"
+                    className="basevi-hero-choice group flex items-center gap-3 rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-left font-semibold transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-emerald-400/10"
                   >
                     <Icon className="h-5 w-5 shrink-0 text-emerald-300" />
                     <span className="text-sm">{isSpanish ? category.titleEs : category.titleEn}</span>
@@ -1032,7 +1032,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-xl">
+          <div className="basevi-founder-card relative mx-auto w-full max-w-xl">
             <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white shadow-2xl">
               <Image
                 src="/maria-basevi.webp"
@@ -1093,7 +1093,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             return (
               <div
                 key={item.en}
-                className="flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-4"
+                className="basevi-trust-card flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-4"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800">
                   <Icon className="h-5 w-5" />
@@ -1174,7 +1174,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   key={category.id}
                   type="button"
                   onClick={() => selectServiceCategory(category.id)}
-                  className={`rounded-3xl border p-7 text-left transition ${
+                  className={`basevi-service-card rounded-3xl border p-7 text-left transition ${
                     isSelected
                       ? "border-emerald-700 bg-emerald-950 text-white shadow-xl"
                       : "border-slate-200 bg-white text-slate-950 shadow-sm hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl"
@@ -1428,7 +1428,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
-      <section id="proceso" className="scroll-mt-[150px] py-24">
+      <section id="proceso" className="basevi-process scroll-mt-[150px] py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="text-center">
             <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">
@@ -1441,7 +1441,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </h2>
           </div>
 
-          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="basevi-process-grid mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 icon: "⌕",
@@ -1474,7 +1474,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             ].map((step) => (
               <div
                 key={step.esTitle}
-                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="basevi-process-step rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="mb-6 flex justify-center">
   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-3xl font-bold text-emerald-700">
@@ -1528,6 +1528,48 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         </div>
       </section>
 
+
+      <section className="basevi-roots-band overflow-hidden border-y border-slate-200 bg-[#f8f6f1] py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 lg:grid-cols-[1.1fr_.9fr] lg:px-8">
+          <div>
+            <p className="font-bold uppercase tracking-[0.2em] text-emerald-800">My Roots</p>
+            <h2 className="mt-4 max-w-3xl text-4xl font-bold leading-tight md:text-5xl">
+              {isSpanish
+                ? "Información útil para entender el proceso, no solo completarlo."
+                : "Useful information to understand the process, not just complete it."}
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+              {isSpanish
+                ? "Historias, recordatorios documentales y explicaciones prácticas creadas para ayudarte a llegar mejor preparado a tu próximo paso."
+                : "Stories, document reminders, and practical explanations designed to help you arrive better prepared for your next step."}
+            </p>
+            <Link
+              href={isSpanish ? "/my-roots" : "/en/my-roots"}
+              className="mt-8 inline-flex items-center rounded-full bg-slate-950 px-6 py-3.5 font-bold text-white transition hover:-translate-y-0.5 hover:bg-emerald-800"
+            >
+              {isSpanish ? "Explorar My Roots →" : "Explore My Roots →"}
+            </Link>
+          </div>
+          <div className="basevi-roots-stack relative min-h-[330px]">
+            <div className="basevi-root-card basevi-root-card-one absolute left-0 top-4 w-[82%] rounded-3xl border border-emerald-900/10 bg-white p-7 shadow-xl">
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#b79243]">
+                {isSpanish ? "Guías prácticas" : "Practical guides"}
+              </span>
+              <p className="mt-3 text-xl font-bold text-slate-950">
+                {isSpanish ? "Qué preparar antes de comenzar un trámite" : "What to prepare before starting a process"}
+              </p>
+            </div>
+            <div className="basevi-root-card basevi-root-card-two absolute bottom-5 right-0 w-[82%] rounded-3xl bg-emerald-950 p-7 text-white shadow-2xl">
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-300">
+                {isSpanish ? "My Roots · Basevi Solutions" : "My Roots · Basevi Solutions"}
+              </span>
+              <p className="mt-3 text-xl font-bold">
+                {isSpanish ? "Explicaciones claras, en español y en inglés." : "Clear explanations in English and Spanish."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="testimonios" className="scroll-mt-[150px] bg-slate-50 py-24">
         <div className="mx-auto max-w-6xl px-5 lg:px-8">
