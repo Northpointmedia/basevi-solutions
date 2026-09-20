@@ -985,9 +985,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         )}
       </header>
 
-      <section id="inicio" className="basevi-hero scroll-mt-[150px] relative overflow-hidden bg-slate-950 text-white">
+      <section id="inicio" className="basevi-hero basevi-hero-premium scroll-mt-[150px] relative overflow-hidden text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.28),transparent_40%)]" /><div className="basevi-orb basevi-orb-one" aria-hidden="true" /><div className="basevi-orb basevi-orb-two" aria-hidden="true" /><div className="basevi-grid" aria-hidden="true" />
-        <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-5 py-20 lg:grid-cols-2 lg:px-8">
+        <div className="basevi-hero-layout relative mx-auto grid min-h-[760px] max-w-7xl items-center gap-14 px-5 py-20 lg:grid-cols-[1.08fr_.92fr] lg:px-8">
           <div>
             <span className="inline-flex rounded-full border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300">
               {isSpanish
@@ -995,7 +995,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                 : "Immigration · Taxes · ITIN · Translations"}
             </span>
 
-            <h1 className="mt-7 max-w-3xl text-5xl font-bold leading-tight tracking-tight md:text-6xl">
+            <h1 className="basevi-display mt-7 max-w-3xl text-5xl font-bold leading-[1.02] tracking-[-0.045em] md:text-7xl">
               {isSpanish
                 ? "Tus trámites, más claros. Tu próximo paso, más fácil."
                 : "Clearer paperwork. An easier next step."}
@@ -1010,7 +1010,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             <p className="mt-8 text-sm font-bold uppercase tracking-[0.16em] text-emerald-300">
               {isSpanish ? "¿Qué necesitas resolver?" : "What do you need help with?"}
             </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="basevi-choice-grid mt-4 grid gap-3 sm:grid-cols-3">
               {serviceCategories.map((category) => {
                 const Icon = category.id === "immigration" ? Landmark : category.id === "tax" ? ChartNoAxesCombined : Languages;
                 return (
@@ -1032,8 +1032,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </div>
           </div>
 
-          <div className="basevi-founder-card relative mx-auto w-full max-w-xl">
-            <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white shadow-2xl">
+          <div className="basevi-founder-card basevi-founder-premium relative mx-auto w-full max-w-xl">
+            <div className="basevi-founder-frame overflow-hidden rounded-[2.4rem] border border-white/15 bg-white shadow-2xl">
               <Image
                 src="/maria-basevi.webp"
                 alt="María Basevi, fundadora de Basevi Solutions LLC"
@@ -1123,8 +1123,8 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               {isSpanish
-                ? "Nosotros nos encargamos de identificar el proceso adecuado para ti."
-                : "We will help identify the right process for your situation."}
+                ? "Te ayudamos a encontrar el servicio de preparación documental que corresponde a lo que necesitas."
+                : "We help you find the document-preparation service that matches what you need."}
             </p>
           </div>
 
@@ -1452,9 +1452,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
               },
               {
                 icon: "▣",
-                esTitle: "Asesoría personalizada",
+                esTitle: "Recolección de información",
                 enTitle: "Personalized consultation",
-                esText: "Coordinamos una reunión y definimos el camino adecuado.",
+                esText: "Reunimos contigo la información y documentación necesaria para preparar el servicio contratado.",
                 enText: "We schedule a meeting and define the appropriate path.",
               },
               {
