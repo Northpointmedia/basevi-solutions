@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   BadgeDollarSign,
   BriefcaseBusiness,
@@ -597,6 +598,7 @@ export default function Home() {
         ["Servicios", "#servicios"],
         ["Proceso", "#proceso"],
         ["Nosotros", "#nosotros"],
+        ["My Roots", "/my-roots"],
         ["Contacto", "#contacto"],
       ]
     : [
@@ -604,6 +606,7 @@ export default function Home() {
         ["Services", "#servicios"],
         ["Process", "#proceso"],
         ["About", "#nosotros"],
+        ["My Roots", "/my-roots"],
         ["Contact", "#contacto"],
       ];
 
@@ -855,13 +858,16 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
           <nav className="hidden items-center gap-9 xl:flex">
             {navigation.map(([label, href]) => {
               const sectionId = href.replace("#", "");
-              const isActive = activeSection === sectionId;
+              const isSectionLink = href.startsWith("#");
+              const isActive = isSectionLink && activeSection === sectionId;
 
               return (
-                <a
+                <Link
                   key={href}
                   href={href}
-                  onClick={() => setActiveSection(sectionId)}
+                  onClick={() => {
+                    if (isSectionLink) setActiveSection(sectionId);
+                  }}
                   aria-current={isActive ? "page" : undefined}
                   className={`relative py-3 text-sm font-semibold transition ${
                     isActive
@@ -870,7 +876,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                   }`}
                 >
                   {label}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -920,14 +926,15 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             <div className="mx-auto flex max-w-7xl flex-col gap-4">
               {navigation.map(([label, href]) => {
                 const sectionId = href.replace("#", "");
-                const isActive = activeSection === sectionId;
+                const isSectionLink = href.startsWith("#");
+                const isActive = isSectionLink && activeSection === sectionId;
 
                 return (
-                  <a
+                  <Link
                     key={href}
                     href={href}
                     onClick={() => {
-                      setActiveSection(sectionId);
+                      if (isSectionLink) setActiveSection(sectionId);
                       setMobileMenuOpen(false);
                     }}
                     aria-current={isActive ? "page" : undefined}
@@ -938,7 +945,7 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
                     }`}
                   >
                     {label}
-                  </a>
+                  </Link>
                 );
               })}
 
@@ -1884,6 +1891,12 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
             >
               info@basevisolutions.com
             </a>
+            <Link
+              href="/my-roots"
+              className="ml-4 inline-block font-semibold text-emerald-800 transition hover:text-emerald-600"
+            >
+              My Roots
+            </Link>
           </div>
           <p>
             {isSpanish
