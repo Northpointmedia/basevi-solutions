@@ -295,3 +295,28 @@ html { scroll-behavior: smooth; }
   .basevi-hero-premium::before{font-size:9rem;bottom:.02em}
   .basevi-display{font-size:3.25rem!important}
 }
+
+
+/* Founder card clipping fix — keep portrait and caption fully visible */
+.basevi-founder-premium{
+  padding-bottom:72px;
+}
+.basevi-founder-frame{
+  overflow:visible !important;
+}
+.basevi-founder-frame img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  border-radius:2.25rem 2.25rem 0 0;
+}
+@media(max-width:768px){
+  .basevi-founder-premium{
+    padding:8px 8px 52px 20px;
+  }
+  .basevi-founder-frame img{
+    object-fit:contain;
+    object-position:center top;
+  }
+}
