@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getMyRootsArticle, myRootsArticles } from "@/lib/my-roots";
+import { myRootsArticlesEn } from "@/lib/my-roots-en";
 
 type ArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -18,13 +19,22 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
   if (!article) return {};
 
+  const englishArticle = myRootsArticlesEn[myRootsArticles.findIndex((item) => item.slug === article.slug)];
+
   return {
     title: article.title,
     description: article.excerpt,
-    alternates: { canonical: `/my-roots/${article.slug}` },
+    alternates: {
+      canonical: `/my-roots/${article.slug}`,
+      languages: {
+        "es-US": `/my-roots/${article.slug}`,
+        "en-US": `/en/my-roots/${englishArticle.slug}`,
+      },
+    },
     openGraph: {
       type: "article",
       locale: "es_US",
+      alternateLocale: "en_US",
       title: article.title,
       description: article.excerpt,
       url: `/my-roots/${article.slug}`,
@@ -164,4 +174,3 @@ export default async function MyRootsArticlePage({ params }: ArticlePageProps) {
     </main>
   );
 }
-

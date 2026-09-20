@@ -10,10 +10,14 @@ export const metadata: Metadata = {
   title: "My Roots | Blog de trámites migratorios",
   description:
     "Historias, guías y experiencias sobre trámites migratorios en Estados Unidos, creadas por BaseviSolutions.",
-  alternates: { canonical: "/my-roots" },
+  alternates: {
+    canonical: "/my-roots",
+    languages: { "es-US": "/my-roots", "en-US": "/en/my-roots" },
+  },
   openGraph: {
     type: "website",
     locale: "es_US",
+    alternateLocale: "en_US",
     title: "My Roots — Historias que orientan",
     description:
       "Un blog de BaseviSolutions para entender los trámites migratorios con claridad, calma y humanidad.",
@@ -160,4 +164,3 @@ export default function MyRootsPage() {
     </main>
   );
 }
-

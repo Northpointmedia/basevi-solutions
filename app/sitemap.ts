@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { seoServicesEn, seoServicesEs } from "@/lib/seo-services";
 import { myRootsArticles } from "@/lib/my-roots";
+import { myRootsArticlesEn } from "@/lib/my-roots-en";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.basevisolutions.com";
@@ -20,6 +21,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...myRootsArticles.map((article) => ({
       url: `${baseUrl}/my-roots/${article.slug}`,
+      lastModified: new Date(article.publishedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
+    {
+      url: `${baseUrl}/en/my-roots`,
+      lastModified: new Date("2026-09-19"),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    ...myRootsArticlesEn.map((article) => ({
+      url: `${baseUrl}/en/my-roots/${article.slug}`,
       lastModified: new Date(article.publishedAt),
       changeFrequency: "monthly" as const,
       priority: 0.75,

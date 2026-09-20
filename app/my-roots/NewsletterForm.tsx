@@ -2,7 +2,8 @@
 
 import { FormEvent, useState } from "react";
 
-export default function NewsletterForm() {
+export default function NewsletterForm({ language = "es" }: { language?: "es" | "en" }) {
+  const isSpanish = language === "es";
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -22,24 +23,27 @@ export default function NewsletterForm() {
           email: formData.get("email"),
           firstName: formData.get("firstName"),
           website: formData.get("website"),
+          language,
         }),
       });
 
       const payload = (await response.json()) as { message?: string; error?: string };
 
       if (!response.ok) {
-        throw new Error(payload.error || "No pudimos completar la suscripción.");
+        throw new Error(payload.error || (isSpanish ? "No pudimos completar la suscripción." : "We couldn't complete your subscription."));
       }
 
       setStatus("success");
-      setMessage(payload.message || "¡Ya formas parte de My Roots!");
+      setMessage(payload.message || (isSpanish ? "¡Ya formas parte de My Roots!" : "You're now part of My Roots!"));
       form.reset();
     } catch (error) {
       setStatus("error");
       setMessage(
         error instanceof Error
           ? error.message
-          : "No pudimos completar la suscripción. Inténtalo de nuevo.",
+          : isSpanish
+            ? "No pudimos completar la suscripción. Inténtalo de nuevo."
+            : "We couldn't complete your subscription. Please try again.",
       );
     }
   }
@@ -47,14 +51,14 @@ export default function NewsletterForm() {
   return (
     <form onSubmit={handleSubmit} className="mt-7 grid gap-3 sm:grid-cols-[0.75fr_1.25fr_auto]">
       <label className="sr-only" htmlFor="newsletter-first-name">
-        Nombre
+        {isSpanish ? "Nombre" : "Name"}
       </label>
       <input
         id="newsletter-first-name"
         name="firstName"
         type="text"
         autoComplete="given-name"
-        placeholder="Tu nombre"
+        placeholder={isSpanish ? "Tu nombre" : "Your name"}
         className="rounded-xl border border-white/25 bg-white/10 px-4 py-3.5 text-white outline-none placeholder:text-white/60 focus:border-[#e3b399]"
       />
       <label className="sr-only" htmlFor="newsletter-email">
@@ -78,7 +82,9 @@ export default function NewsletterForm() {
         disabled={status === "loading"}
         className="rounded-xl bg-[#f6f1e7] px-5 py-3.5 font-bold text-[#173f33] transition hover:bg-white disabled:cursor-wait disabled:opacity-60"
       >
-        {status === "loading" ? "Suscribiendo…" : "Quiero recibirlo"}
+        {status === "loading"
+          ? isSpanish ? "Suscribiendo…" : "Subscribing…"
+          : isSpanish ? "Quiero recibirlo" : "Subscribe"}
       </button>
       {message && (
         <p
@@ -91,4 +97,3 @@ export default function NewsletterForm() {
     </form>
   );
 }
-
