@@ -320,3 +320,39 @@ html { scroll-behavior: smooth; }
     object-position:center top;
   }
 }
+
+
+/* Founder card layout v2 — image and caption are separate flow blocks */
+.basevi-founder-premium{
+  padding:18px 18px 28px 46px !important;
+}
+.basevi-founder-frame{
+  overflow:hidden !important;
+  position:relative;
+  z-index:2;
+  border-radius:2.4rem 2.4rem 0 0 !important;
+}
+.basevi-founder-image{
+  display:block;
+  height:auto !important;
+  max-height:none !important;
+  aspect-ratio:auto !important;
+  object-fit:contain !important;
+  object-position:center top !important;
+}
+.basevi-founder-caption{
+  position:relative !important;
+  bottom:auto !important;
+  left:auto !important;
+  right:auto !important;
+}
+@media(max-width:768px){
+  .basevi-founder-premium{
+    padding:8px 8px 24px 20px !important;
+  }
+  .basevi-founder-caption{
+    margin-left:8px !important;
+    margin-right:8px !important;
+    padding:18px !important;
+  }
+}
