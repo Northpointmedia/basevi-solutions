@@ -9,6 +9,15 @@ type ArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
 
+function formatArticleDate(date: string) {
+  return new Intl.DateTimeFormat("es-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${date}T12:00:00Z`));
+}
+
 export function generateStaticParams() {
   return myRootsArticles.map((article) => ({ slug: article.slug }));
 }
@@ -96,14 +105,14 @@ export default async function MyRootsArticlePage({ params }: ArticlePageProps) {
             </h1>
             <p className="mt-7 max-w-3xl text-xl leading-8 text-[#66716b]">{article.dek}</p>
             <p className="mt-7 text-sm text-[#7b857f]">
-              Publicado por BaseviSolutions · Datos personales modificados por confidencialidad
+              Publicado por BaseviSolutions · <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time>
             </p>
           </div>
         </header>
 
         <div className="mx-auto max-w-3xl px-5 py-16 lg:px-8">
           <div className="mb-12 rounded-2xl border border-[#d8c9b8] bg-[#fbf3ea] p-5 text-sm leading-6 text-[#66584e]">
-            <strong>Nota editorial:</strong> esta historia se basa en experiencias de preparación documental. Los nombres y detalles identificativos se han modificado. No constituye asesoría legal ni garantiza decisiones o plazos de USCIS.
+            <strong>Nota editorial:</strong> contenido educativo y de preparación documental. No constituye asesoría legal ni garantiza decisiones o plazos de USCIS. Las historias identificadas como experiencias usan nombres y detalles modificados para proteger la privacidad.
           </div>
 
           <div className="space-y-14">
@@ -135,7 +144,10 @@ export default async function MyRootsArticlePage({ params }: ArticlePageProps) {
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#b85f3d]">Fuente oficial</p>
             <h2 className="mt-3 font-serif text-2xl font-bold text-[#173f33]">Verifica siempre la información vigente</h2>
             <p className="mt-3 text-sm leading-6 text-[#66716b]">
-              Las tarifas, ediciones de formularios e instrucciones pueden cambiar. Consulta directamente la página oficial antes de presentar.
+              {article.verifiedAt
+                ? `Información contrastada con la fuente oficial enlazada y verificada el ${formatArticleDate(article.verifiedAt)}. `
+                : ""}
+              Las tarifas, ediciones de formularios e instrucciones pueden cambiar; compruébalas de nuevo antes de presentar.
             </p>
             <a
               href={article.officialUrl}

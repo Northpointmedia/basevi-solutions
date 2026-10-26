@@ -7,6 +7,15 @@ import { myRootsArticles } from "@/lib/my-roots";
 
 type ArticlePageProps = { params: Promise<{ slug: string }> };
 
+function formatArticleDate(date: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${date}T12:00:00Z`));
+}
+
 export function generateStaticParams() {
   return myRootsArticlesEn.map((article) => ({ slug: article.slug }));
 }
@@ -78,12 +87,12 @@ export default async function MyRootsEnglishArticlePage({ params }: ArticlePageP
             <div className="mt-12 flex flex-wrap items-center gap-4 text-xs font-bold uppercase tracking-[0.14em]"><span className="rounded-full bg-[#b85f3d]/10 px-3 py-1.5 text-[#a84f30]">{article.category}</span><span className="text-[#77827b]">{article.readingTime} read</span></div>
             <h1 className="mt-6 font-serif text-5xl font-bold leading-[1.04] tracking-tight text-[#173f33] md:text-6xl">{article.title}</h1>
             <p className="mt-7 max-w-3xl text-xl leading-8 text-[#66716b]">{article.dek}</p>
-            <p className="mt-7 text-sm text-[#7b857f]">Published by BaseviSolutions · Personal details changed for confidentiality</p>
+            <p className="mt-7 text-sm text-[#7b857f]">Published by BaseviSolutions · <time dateTime={article.publishedAt}>{formatArticleDate(article.publishedAt)}</time></p>
           </div>
         </header>
 
         <div className="mx-auto max-w-3xl px-5 py-16 lg:px-8">
-          <div className="mb-12 rounded-2xl border border-[#d8c9b8] bg-[#fbf3ea] p-5 text-sm leading-6 text-[#66584e]"><strong>Editorial note:</strong> this story is based on document-preparation experiences. Names and identifying details have been changed. It is not legal advice and does not guarantee USCIS decisions or processing times.</div>
+          <div className="mb-12 rounded-2xl border border-[#d8c9b8] bg-[#fbf3ea] p-5 text-sm leading-6 text-[#66584e]"><strong>Editorial note:</strong> educational and document-preparation content. It is not legal advice and does not guarantee USCIS decisions or processing times. Articles identified as experiences use changed names and details to protect privacy.</div>
 
           <div className="space-y-14">
             {article.sections.map((section) => (
@@ -99,7 +108,7 @@ export default async function MyRootsEnglishArticlePage({ params }: ArticlePageP
           <div className="mt-14 rounded-[26px] border border-[#dcd8cb] bg-[#f6f1e7] p-7">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#b85f3d]">Official source</p>
             <h2 className="mt-3 font-serif text-2xl font-bold text-[#173f33]">Always verify current information</h2>
-            <p className="mt-3 text-sm leading-6 text-[#66716b]">Fees, form editions, and instructions may change. Check the official page directly before filing.</p>
+            <p className="mt-3 text-sm leading-6 text-[#66716b]">{article.verifiedAt ? `Information checked against the linked official source and verified on ${formatArticleDate(article.verifiedAt)}. ` : ""}Fees, form editions, and instructions may change; check them again before filing.</p>
             <a href={article.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 font-bold text-[#173f33] transition hover:text-[#b85f3d]">{article.formLabel} on the official website <ExternalLink className="h-4 w-4" /></a>
           </div>
 

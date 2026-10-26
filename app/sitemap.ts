@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/my-roots`,
-      lastModified: new Date("2026-09-19"),
+      lastModified: new Date("2026-10-26"),
       changeFrequency: "weekly",
       priority: 0.9,
     },
@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${baseUrl}/en/my-roots`,
-      lastModified: new Date("2026-09-19"),
+      lastModified: new Date("2026-10-26"),
       changeFrequency: "weekly",
       priority: 0.9,
     },
