@@ -10,6 +10,7 @@ export type MyRootsArticle = {
   category: string;
   readingTime: string;
   publishedAt: string;
+  verifiedAt?: string;
   title: string;
   excerpt: string;
   dek: string;
@@ -21,6 +22,268 @@ export type MyRootsArticle = {
 
 export const myRootsArticles: MyRootsArticle[] = [
   {
+    slug: "carta-uscis-pasos",
+    category: "Documentos",
+    readingTime: "7 min",
+    publishedAt: "2026-10-26",
+    verifiedAt: "2026-10-26",
+    title: "Llegó una carta de USCIS: 7 pasos antes de archivarla",
+    excerpt:
+      "Cómo identificar el aviso, proteger los plazos y mantener cada número de recibo bajo control.",
+    dek: "Una carta de USCIS puede ser un recibo, una cita, una solicitud de evidencia o una decisión. Este checklist te ayuda a revisar lo importante antes de guardarla.",
+    formLabel: "Consultas por avisos no recibidos",
+    officialUrl: "https://egov.uscis.gov/e-request/ndn",
+    featured: true,
+    sections: [
+      {
+        heading: "Primero: identifica qué recibiste",
+        paragraphs: [
+          "Lee el encabezado y todas las páginas. USCIS puede enviar avisos de recibo, citas biométricas o entrevistas, solicitudes de evidencia —como un RFE— y decisiones. Cada aviso exige una respuesta distinta, y algunos incluyen una fecha límite o una dirección específica.",
+          "Comprueba el nombre, la dirección, el A-Number cuando aparezca, el formulario relacionado y la fecha del aviso. Si hay un error o una consecuencia legal importante, no adivines la respuesta: sigue las instrucciones del documento y busca asesoría jurídica autorizada cuando corresponda.",
+        ],
+      },
+      {
+        heading: "El checklist de siete pasos",
+        paragraphs: [
+          "USCIS identifica cada solicitud o petición mediante un número de recibo único de 13 caracteres: tres letras seguidas de diez números. Formularios relacionados —por ejemplo, I-130, I-485 e I-765— pueden tener números distintos y deben controlarse por separado.",
+        ],
+        bullets: [
+          "Identifica el tipo de aviso y el formulario al que corresponde.",
+          "Revisa nombre, dirección, A-Number y demás datos personales.",
+          "Registra el número de recibo sin publicarlo en redes sociales.",
+          "Anota la fecha del aviso, cualquier cita y el plazo exacto de respuesta.",
+          "Escanea todas las páginas y conserva el original y el sobre.",
+          "Consulta cada número por separado en Case Status Online o en tu cuenta de USCIS.",
+          "Responde siguiendo la dirección, el formato y las instrucciones del propio aviso.",
+        ],
+        quote:
+          "Una carta de USCIS no es solo correspondencia: puede contener el número, la fecha o la instrucción que protege tu trámite.",
+      },
+      {
+        heading: "Si el portal muestra un aviso que nunca llegó",
+        paragraphs: [
+          "USCIS ofrece una consulta electrónica por falta de entrega. Antes de enviarla, comprueba Case Status Online y tu cuenta digital. La herramienta oficial indica que un aviso de recibo normalmente debe llegar dentro de 30 días después de presentar ante un Service Center o Lockbox, pero también pide no consultar una presentación reciente hasta que hayan transcurrido al menos 60 días.",
+          "Un RFE, NOID, aviso de comparecencia o decisión con posibles consecuencias migratorias merece revisión cuidadosa. BaseviSolutions puede apoyar con organización documental, pero no sustituye a un abogado de inmigración.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "examen-medico-i-693",
+    category: "Ajuste",
+    readingTime: "8 min",
+    publishedAt: "2026-10-26",
+    verifiedAt: "2026-10-26",
+    title: "Examen médico I-693: 7 cosas que debes saber antes de reservar",
+    excerpt:
+      "Qué verificar sobre el médico, el precio, los documentos y el sobre sellado antes de tu cita.",
+    dek: "Una guía práctica para comparar clínicas y preparar correctamente el examen médico migratorio requerido en muchos ajustes de estatus.",
+    formLabel: "Formulario I-693 y médicos autorizados",
+    officialUrl: "https://www.uscis.gov/i-693",
+    sections: [
+      {
+        heading: "No cualquier médico puede completarlo",
+        paragraphs: [
+          "Para la mayoría de los ajustes de estatus realizados dentro de Estados Unidos, el examen debe hacerlo un civil surgeon designado por USCIS. Verifica al profesional en el buscador oficial cerca de la fecha de la cita; la lista se actualiza y un médico de cabecera no queda autorizado por el simple hecho de tener licencia.",
+          "Llama a varias clínicas. USCIS advierte que los precios pueden variar por cientos de dólares. Pregunta si la tarifa incluye examen, análisis de laboratorio, vacunas necesarias, visitas de seguimiento, copia para tu archivo y cualquier cargo adicional.",
+        ],
+      },
+      {
+        heading: "Qué llevar y qué debes recibir",
+        paragraphs: [
+          "Lleva la edición vigente del Formulario I-693, una identificación oficial con fotografía, tu historial de vacunación, información médica relevante y la forma de pago aceptada. Confirma con la clínica si acepta seguro, porque muchos planes no cubren todas las partes del examen migratorio.",
+        ],
+        bullets: [
+          "Comprueba que el médico figure como civil surgeon autorizado.",
+          "Pregunta exactamente qué está incluido en el precio anunciado.",
+          "Lleva registros de vacunas legibles y completos.",
+          "Solicita una copia del I-693 terminado para tu archivo personal.",
+          "No abras ni alteres el sobre sellado que entregarás a USCIS.",
+        ],
+        quote:
+          "El precio más bajo no siempre incluye vacunas, análisis y visitas adicionales: pregunta antes de pagar.",
+      },
+      {
+        heading: "Presentación y vigencia actual",
+        paragraphs: [
+          "USCIS exige que ciertos solicitantes presenten el I-693 junto con el I-485 o la solicitud puede ser rechazada. Sigue siempre las instrucciones vigentes para tu categoría concreta. El civil surgeon entrega el original dentro de un sobre sellado; USCIS no acepta el formulario si el sobre fue abierto o alterado.",
+          "Desde el 11 de junio de 2025, un I-693 correctamente completado y firmado por un civil surgeon el 1 de noviembre de 2023 o después generalmente solo es válido mientras permanece pendiente la solicitud migratoria con la que fue presentado. Si esa solicitud se retira o es denegada, se necesita un nuevo I-693 para una solicitud futura que lo requiera.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "nombres-diferentes-documentos",
+    category: "Familia",
+    readingTime: "7 min",
+    publishedAt: "2026-10-26",
+    verifiedAt: "2026-10-26",
+    title: "El segundo nombre que no aparecía: ordenar la identidad antes de presentar",
+    excerpt:
+      "Cómo comparar actas, pasaportes y documentos migratorios cuando los nombres no coinciden exactamente.",
+    dek: "Una diferencia de nombre no debe ocultarse ni explicarse con suposiciones. La clave es identificar qué documento muestra cada versión y si existe evidencia legal del cambio.",
+    formLabel: "Instrucciones oficiales del Formulario I-130",
+    officialUrl: "https://www.uscis.gov/sites/default/files/document/forms/i-130instr.pdf",
+    sections: [
+      {
+        heading: "Una diferencia pequeña puede necesitar contexto",
+        paragraphs: [
+          "En esta historia anonimizada, “Teresa” quería presentar una petición para su hijo adulto. Su acta de nacimiento mostraba dos nombres, mientras que la Green Card y el pasaporte utilizaban una versión más corta. El objetivo no fue hacer que todos los documentos parecieran iguales, sino comprender y documentar la diferencia.",
+          "Se creó una tabla con el nombre exacto en cada documento, la fecha y el país de expedición, los nombres utilizados en trámites anteriores y la existencia —o no— de un cambio legal.",
+        ],
+      },
+      {
+        heading: "Qué indican las instrucciones del I-130",
+        paragraphs: [
+          "Las instrucciones oficiales señalan que, si el peticionario o el beneficiario usa un nombre distinto al mostrado en los documentos relevantes, deben presentarse copias de la evidencia legal del cambio, como un certificado de matrimonio, decreto de adopción u orden judicial.",
+          "Eso no significa que toda diferencia sea necesariamente un cambio legal. Un nombre omitido, una transliteración o un error puede tener otra explicación. No inventes una causa: reúne los documentos y determina cuál es la explicación verdadera antes de presentar.",
+        ],
+        quote:
+          "La consistencia no consiste en hacer que todos los documentos parezcan iguales, sino en explicar correctamente por qué son diferentes.",
+      },
+      {
+        heading: "Una revisión útil antes del envío",
+        paragraphs: [
+          "Compara actas civiles, pasaportes, Green Cards, visas, avisos anteriores y traducciones. Registra también otros nombres utilizados cuando el formulario los solicite. Las traducciones deben ser completas y certificadas conforme a las instrucciones aplicables.",
+          "Si existe una identidad dudosa, un antecedente de fraude, documentos contradictorios o una corrección civil compleja, consulta a un abogado de inmigración autorizado. BaseviSolutions puede ayudar a organizar la documentación, no a emitir una conclusión jurídica.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "tarifa-anual-asilo",
+    category: "Actualidad",
+    readingTime: "7 min",
+    publishedAt: "2026-10-26",
+    verifiedAt: "2026-10-26",
+    title: "Tarifa anual de asilo: qué deben revisar los solicitantes",
+    excerpt:
+      "Quién puede recibir el aviso, cómo funciona el portal reabierto y qué comprobantes conviene conservar.",
+    dek: "USCIS mantiene disponible el pago para ciertos casos con una tarifa anual pendiente mientras continúa el litigio federal. Antes de pagar, revisa tu aviso y utiliza únicamente el portal oficial.",
+    formLabel: "Portal oficial de la tarifa anual de asilo",
+    officialUrl: "https://my.uscis.gov/accounts/annual-asylum-fee/start/overview",
+    sections: [
+      {
+        heading: "La situación vigente",
+        paragraphs: [
+          "El portal oficial de USCIS informa que, el 5 de agosto de 2026, un tribunal federal de Massachusetts suspendió la aplicación de consecuencias por no pagar la Annual Asylum Fee bajo la regla provisional del 29 de abril de 2026. Mientras el tribunal emite una decisión final, USCIS permite que ciertos solicitantes que no pagaron dentro del plazo indicado completen el pago pendiente.",
+          "Esta situación puede cambiar con el litigio. Revisa la alerta oficial y la fecha de tu propio aviso inmediatamente antes de tomar una decisión.",
+        ],
+      },
+      {
+        heading: "Quién debe revisar sus avisos",
+        paragraphs: [
+          "Según USCIS, debe pagar la tarifa quien mantuvo una solicitud de asilo pendiente durante todo el periodo del 1 de octubre de 2024 al 30 de septiembre de 2025. También puede corresponder a quien presentó un I-589 después del 1 de octubre de 2024 y lo mantuvo pendiente durante 365 días, en el aniversario de presentación y en años posteriores mientras siga pendiente.",
+          "USCIS indica que enviará avisos individuales la primera vez que corresponda el pago, con el importe, la fecha límite, la forma de pago y las consecuencias aplicables. No pagues basándote únicamente en un mensaje, una publicación o un enlace reenviado.",
+        ],
+        bullets: [
+          "Confirma que el aviso pertenezca a tu caso y revisa la fecha límite.",
+          "Utiliza únicamente el portal oficial de USCIS y Pay.gov.",
+          "Ten disponibles el A-Number y el número de recibo indicados.",
+          "Guarda el aviso, la confirmación y el recibo del pago.",
+          "Vuelve a comprobar la alerta oficial porque el litigio continúa.",
+        ],
+        quote:
+          "Una tarifa pendiente no debe resolverse desde un enlace recibido por mensaje: confirma primero el aviso y paga únicamente en un sitio oficial.",
+      },
+      {
+        heading: "Lo que el pago no significa",
+        paragraphs: [
+          "Pagar la tarifa no aprueba ni acelera la solicitud de asilo. El portal advierte además que las tarifas no son reembolsables, con independencia de la decisión o del tiempo de procesamiento.",
+          "Si dudas de que la tarifa corresponda a tu caso, recibiste comunicaciones contradictorias o tu expediente tiene consecuencias legales sensibles, busca asesoría de un abogado de inmigración autorizado antes de actuar.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cambio-direccion-uscis",
+    category: "Documentos",
+    readingTime: "7 min",
+    publishedAt: "2026-10-26",
+    verifiedAt: "2026-10-26",
+    title: "¿Te mudaste? Cambiar tu dirección con USPS no actualiza USCIS",
+    excerpt:
+      "Los pasos para actualizar tus casos, proteger tus avisos y conservar la confirmación del cambio.",
+    dek: "El reenvío postal no modifica la dirección registrada en USCIS y USPS no reenvía el correo de USCIS. Ambos sistemas deben actualizarse por separado.",
+    formLabel: "Cambio de dirección en USCIS",
+    officialUrl: "https://www.uscis.gov/addresschange",
+    sections: [
+      {
+        heading: "Dos actualizaciones distintas",
+        paragraphs: [
+          "USCIS indica que cambiar la dirección con USPS no cambia la dirección registrada en USCIS y que USPS no reenvía el correo de USCIS. Actualiza ambos sistemas por separado para reducir el riesgo de perder avisos o documentos.",
+          "En general, las personas extranjeras que se encuentran en Estados Unidos deben comunicar el cambio a USCIS dentro de los 10 días siguientes a la mudanza. La página oficial identifica excepciones para titulares de visas A y G y visitantes bajo el Visa Waiver Program.",
+        ],
+      },
+      {
+        heading: "Cómo proteger todos los casos pendientes",
+        paragraphs: [
+          "USCIS recomienda utilizar la herramienta Enterprise Change of Address dentro de la cuenta online. Si tienes solicitudes pendientes, introduce el número de recibo de cada una para aplicar correctamente el cambio. Un I-130, I-485 e I-765 relacionados pueden tener números distintos.",
+        ],
+        bullets: [
+          "Actualiza USCIS y USPS por separado.",
+          "Incluye cada número de recibo pendiente.",
+          "Guarda la confirmación y una captura o copia de la gestión.",
+          "Revisa después tu perfil y cada caso vinculado.",
+          "Si el beneficiario está en proceso consular, revisa también las instrucciones del Departamento de Estado o NVC.",
+        ],
+        quote:
+          "Cambiar tu dirección no termina en USPS: USCIS necesita recibir la actualización directamente.",
+      },
+      {
+        heading: "Situaciones con instrucciones especiales",
+        paragraphs: [
+          "Quienes presentaron o tienen casos VAWA, T, U, determinadas solicitudes relacionadas o una exención por abuso en el I-751 deben seguir procedimientos especiales de protección de dirección. No utilices el proceso general sin revisar esa sección oficial.",
+          "Además, un patrocinador que presentó el Formulario I-864 y cuya obligación continúa debe presentar el Formulario I-865 dentro de los 30 días posteriores a su mudanza. Si un aviso o documento ya fue enviado a la dirección anterior, utiliza las herramientas oficiales de no entrega o contacta a USCIS según las instrucciones aplicables.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "despues-huellas-uscis",
+    category: "Proceso",
+    readingTime: "7 min",
+    publishedAt: "2026-10-26",
+    verifiedAt: "2026-10-26",
+    title: "Ya hice mis huellas con USCIS: ¿qué sucede ahora?",
+    excerpt:
+      "Para qué utiliza USCIS los biométricos, qué puede ocurrir después y qué documentos debes conservar.",
+    dek: "Completar las huellas es un paso importante, pero no equivale a una aprobación ni permite predecir la fecha de la decisión.",
+    formLabel: "Preparación para una cita biométrica",
+    officialUrl: "https://www.uscis.gov/forms/filing-guidance/preparing-for-your-biometric-services-appointment",
+    sections: [
+      {
+        heading: "Qué hace USCIS con los biométricos",
+        paragraphs: [
+          "Según el tipo de solicitud, USCIS puede tomar huellas, fotografía y firma para verificar identidad y realizar controles de antecedentes y seguridad. USCIS también puede usar los biométricos para determinar elegibilidad o producir documentos migratorios.",
+          "En algunos procesos, las huellas se envían al FBI para una comprobación de antecedentes. Si la calidad no es suficiente, USCIS puede emitir otra cita. Sigue siempre el aviso que recibas; los requisitos varían según el formulario y el caso.",
+        ],
+        quote:
+          "Las huellas ayudan a confirmar tu identidad; no deciden por sí solas el resultado de tu caso.",
+      },
+      {
+        heading: "Qué puede venir después",
+        paragraphs: [
+          "Después de la cita, el caso puede continuar en revisión, recibir una solicitud de evidencia, pasar a entrevista, generar otra comunicación o llegar a una decisión. Dos personas con trámites parecidos pueden recibir actualizaciones distintas porque la secuencia depende del formulario, la oficina y las circunstancias del expediente.",
+          "Un mensaje como “Case Is Being Actively Reviewed” es una actualización de estado, no una aprobación ni una promesa de plazo. Consulta cada número de recibo individualmente en Case Status Online o en tu cuenta de USCIS.",
+        ],
+      },
+      {
+        heading: "Lo que sí puedes controlar",
+        paragraphs: [
+          "Conserva el aviso de cita y cualquier sello o constancia recibida, revisa que USCIS tenga tu dirección actual y guarda cada aviso posterior. No publiques números de recibo completos ni A-Numbers en redes sociales.",
+        ],
+        bullets: [
+          "Archiva el aviso biométrico con el expediente correspondiente.",
+          "Revisa el estado de cada solicitud por separado.",
+          "Mantén actualizada tu dirección con USCIS.",
+          "Responde dentro del plazo si llega un RFE u otro aviso.",
+          "Consulta a un abogado si aparece una cuestión legal o de elegibilidad.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "peticion-familiar",
     category: "Familia",
     readingTime: "7 min",
@@ -31,7 +294,6 @@ export const myRootsArticles: MyRootsArticle[] = [
     dek: "Una historia sobre vínculos, nombres y fechas: el orden que permitió presentar una petición familiar con más confianza.",
     formLabel: "Formulario I-130",
     officialUrl: "https://www.uscis.gov/i-130",
-    featured: true,
     sections: [
       {
         heading: "Primero, la relación; después, el formulario",
@@ -265,6 +527,8 @@ export const myRootsCategories = [
   "Ajuste",
   "Documentos",
   "Ciudadanía",
+  "Proceso",
+  "Actualidad",
 ] as const;
 
 export function getMyRootsArticle(slug: string) {
