@@ -22,6 +22,53 @@ export type MyRootsArticle = {
 
 export const myRootsArticles: MyRootsArticle[] = [
   {
+    slug: "i-130-aprobado-no-es-green-card",
+    category: "Familia",
+    readingTime: "7 min",
+    publishedAt: "2026-11-09",
+    verifiedAt: "2026-11-09",
+    title: "La aprobación que parecía una Green Card: lo que realmente significa aprobar el I-130",
+    excerpt:
+      "Una familia celebró un paso importante, pero primero necesitaba entender qué había aprobado USCIS y qué trámite seguía pendiente.",
+    dek: "La aprobación del I-130 reconoce la relación familiar que sirve de base para la petición. Por sí sola, no concede residencia permanente, estatus migratorio ni autorización de empleo.",
+    formLabel: "Instrucciones oficiales del Formulario I-130",
+    officialUrl: "https://www.uscis.gov/sites/default/files/document/forms/i-130instr.pdf",
+    featured: true,
+    sections: [
+      {
+        heading: "La aprobación llegó, pero el proceso no había terminado",
+        paragraphs: [
+          "En esta historia anonimizada, “Elena” y “Daniel” recibieron el aviso de aprobación del Formulario I-130 y pensaron que la Green Card ya estaba concedida. La noticia sí era importante: USCIS había reconocido la relación familiar utilizada como base de la petición. Sin embargo, el aviso no convertía automáticamente a Daniel en residente permanente.",
+          "Las instrucciones oficiales del I-130 aclaran que una petición aprobada no otorga por sí sola la residencia permanente ni permiso para inmigrar inmediatamente. USCIS también indica que la aprobación no concede estatus legal ni autorización de empleo.",
+        ],
+        quote: "El I-130 aprobado reconoce el vínculo familiar; la residencia permanente requiere completar el procedimiento migratorio correspondiente.",
+      },
+      {
+        heading: "El siguiente paso depende de la situación de la persona",
+        paragraphs: [
+          "Si el beneficiario está fuera de Estados Unidos, una petición aprobada puede continuar mediante procesamiento consular y ser enviada al National Visa Center, según indique el aviso. Si se encuentra dentro de Estados Unidos, podría existir la opción de solicitar ajuste de estatus con el Formulario I-485, pero solamente si cumple los requisitos aplicables.",
+          "La categoría familiar también importa. Los familiares inmediatos de ciudadanos estadounidenses —cónyuge, hijo soltero menor de 21 años y padre o madre de un ciudadano de al menos 21 años— no están sujetos a los mismos límites numéricos que las categorías de preferencia. En otras categorías, la disponibilidad de una visa y la fecha de prioridad pueden determinar cuándo es posible continuar.",
+          "Recibir la aprobación del I-130 no significa que toda persona pueda presentar inmediatamente el I-485. La entrada a Estados Unidos, la disponibilidad de visa, posibles causales de inadmisibilidad y otros antecedentes pueden cambiar el análisis y deben revisarse de manera individual.",
+        ],
+      },
+      {
+        heading: "Lo que Elena y Daniel revisaron antes de actuar",
+        paragraphs: [
+          "En lugar de presentar otro formulario por impulso, organizaron cada aviso por separado y confirmaron qué solicitud había sido aprobada. También comprobaron dónde residía el beneficiario, qué procedimiento indicaba el expediente y qué documentos seguían pendientes.",
+        ],
+        bullets: [
+          "Identificar el formulario y el número de recibo del aviso aprobado.",
+          "Leer si USCIS retuvo la petición o la envió al National Visa Center.",
+          "Confirmar si el beneficiario está dentro o fuera de Estados Unidos.",
+          "Determinar la categoría familiar y si existe una visa disponible.",
+          "No confundir un I-130 aprobado con una Green Card o un permiso de trabajo.",
+          "Buscar asesoría jurídica autorizada si existen entradas migratorias, antecedentes, inadmisibilidad o dudas de elegibilidad.",
+        ],
+        quote: "Antes de celebrar el final, identifica exactamente qué parte del proceso acaba de terminar.",
+      },
+    ],
+  },
+  {
     slug: "carta-uscis-pasos",
     category: "Documentos",
     readingTime: "7 min",
@@ -33,7 +80,7 @@ export const myRootsArticles: MyRootsArticle[] = [
     dek: "Una carta de USCIS puede ser un recibo, una cita, una solicitud de evidencia o una decisión. Este checklist te ayuda a revisar lo importante antes de guardarla.",
     formLabel: "Consultas por avisos no recibidos",
     officialUrl: "https://egov.uscis.gov/e-request/ndn",
-    featured: true,
+    featured: false,
     sections: [
       {
         heading: "Primero: identifica qué recibiste",

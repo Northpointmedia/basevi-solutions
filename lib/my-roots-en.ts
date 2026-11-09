@@ -2,6 +2,53 @@ import type { MyRootsArticle } from "./my-roots";
 
 export const myRootsArticlesEn: MyRootsArticle[] = [
   {
+    slug: "approved-i-130-is-not-a-green-card",
+    category: "Family",
+    readingTime: "7 min",
+    publishedAt: "2026-11-09",
+    verifiedAt: "2026-11-09",
+    title: "The approval that looked like a Green Card: what an approved I-130 really means",
+    excerpt:
+      "A family celebrated an important step, but first needed to understand what USCIS had approved and which process remained pending.",
+    dek: "Approval of Form I-130 recognizes the qualifying family relationship behind the petition. By itself, it does not grant permanent residence, immigration status, or work authorization.",
+    formLabel: "Official Form I-130 instructions",
+    officialUrl: "https://www.uscis.gov/sites/default/files/document/forms/i-130instr.pdf",
+    featured: true,
+    sections: [
+      {
+        heading: "The approval arrived, but the process was not over",
+        paragraphs: [
+          "In this anonymized story, “Elena” and “Daniel” received the approval notice for Form I-130 and believed the Green Card had already been granted. The news was important: USCIS had recognized the family relationship supporting the petition. The notice, however, did not automatically make Daniel a lawful permanent resident.",
+          "The official Form I-130 instructions explain that an approved petition does not automatically grant lawful permanent resident status or permission to immigrate immediately. USCIS also states that approval does not provide legal status or work authorization.",
+        ],
+        quote: "An approved I-130 recognizes the family relationship; permanent residence requires completing the appropriate immigration process.",
+      },
+      {
+        heading: "The next step depends on the person's situation",
+        paragraphs: [
+          "If the beneficiary is outside the United States, an approved petition may continue through consular processing and be forwarded to the National Visa Center, as stated in the notice. If the beneficiary is in the United States, adjustment of status through Form I-485 may be an option, but only if the person meets the applicable requirements.",
+          "The family category matters as well. Immediate relatives of U.S. citizens—a spouse, an unmarried child under 21, or the parent of a U.S. citizen who is at least 21—are not subject to the same numerical limits as family-preference categories. In other categories, visa availability and the priority date may determine when the process can continue.",
+          "An approved I-130 does not mean every beneficiary can immediately file Form I-485. Entry history, visa availability, possible inadmissibility grounds, and other facts may change the analysis and require individual review.",
+        ],
+      },
+      {
+        heading: "What Elena and Daniel checked before acting",
+        paragraphs: [
+          "Instead of filing another form impulsively, they organized every notice separately and confirmed which petition had been approved. They also checked where the beneficiary lived, which procedure the record indicated, and which documents were still pending.",
+        ],
+        bullets: [
+          "Identify the form and receipt number on the approval notice.",
+          "Read whether USCIS retained the petition or sent it to the National Visa Center.",
+          "Confirm whether the beneficiary is inside or outside the United States.",
+          "Determine the family category and whether a visa is available.",
+          "Do not confuse an approved I-130 with a Green Card or work permit.",
+          "Seek authorized legal advice when entry history, criminal records, inadmissibility, or eligibility questions are involved.",
+        ],
+        quote: "Before celebrating the finish line, identify exactly which part of the process has ended.",
+      },
+    ],
+  },
+  {
     slug: "uscis-notice-seven-steps",
     category: "Documents",
     readingTime: "7 min",
@@ -12,7 +59,7 @@ export const myRootsArticlesEn: MyRootsArticle[] = [
     dek: "A USCIS letter may be a receipt, an appointment, a request for evidence, or a decision. This checklist helps you review what matters before storing it.",
     formLabel: "Non-delivery of notice inquiries",
     officialUrl: "https://egov.uscis.gov/e-request/ndn",
-    featured: true,
+    featured: false,
     sections: [
       {
         heading: "First, identify what you received",
